@@ -425,7 +425,6 @@
                     <div class="header-content">
                         <div class="header-info">
                             <h1>Document Verification</h1>
-                            <p>Manage and track your company verification documents</p>
                         </div>
                         <div class="header-actions">
                             <a href="{{ route('employer.documents.create') }}" class="btn btn-primary">
