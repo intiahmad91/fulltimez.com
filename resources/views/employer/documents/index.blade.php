@@ -207,31 +207,51 @@
 }
 
 .document-details {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
-.detail-item {
+.details-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.detail-group {
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 12px;
-    padding: 8px 0;
+    gap: 6px;
+    background: #f8f9fa;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 13px;
 }
 
-.detail-item i {
+.detail-group i {
     color: #3498db;
-    width: 16px;
-    text-align: center;
+    font-size: 12px;
 }
 
-.detail-item span {
-    color: #7f8c8d;
-    font-size: 14px;
-}
-
-.detail-item strong {
+.detail-group span {
     color: #2c3e50;
-    font-weight: 600;
+    font-weight: 500;
+}
+
+.rejection-reason {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #f8d7da;
+    color: #721c24;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    margin-top: 8px;
+}
+
+.rejection-reason i {
+    color: #e74c3c;
 }
 
 .document-actions {
@@ -507,39 +527,41 @@
                                 </div>
 
                                 <div class="document-details">
-                                    <div class="detail-item">
-                                        <i class="fas fa-calendar-alt"></i>
-                                        <span><strong>Submitted:</strong> {{ $document->created_at->format('M j, Y \a\t g:i A') }}</span>
+                                    <div class="details-row">
+                                        <div class="detail-group">
+                                            <i class="fas fa-calendar-alt"></i>
+                                            <span>{{ $document->created_at->format('M j, Y') }}</span>
+                                        </div>
+                                        
+                                        @if($document->reviewed_at)
+                                            <div class="detail-group">
+                                                <i class="fas fa-check-circle"></i>
+                                                <span>{{ $document->reviewed_at->format('M j, Y') }}</span>
+                                            </div>
+                                        @endif
+                                        
+                                        @if($document->document_type === 'trade_license' && $document->document_number)
+                                            <div class="detail-group">
+                                                <i class="fas fa-hashtag"></i>
+                                                <span>{{ $document->document_number }}</span>
+                                            </div>
+                                        @elseif($document->document_type === 'office_landline' && $document->landline_number)
+                                            <div class="detail-group">
+                                                <i class="fas fa-phone-alt"></i>
+                                                <span>{{ $document->landline_number }}</span>
+                                            </div>
+                                        @elseif($document->document_type === 'company_email' && $document->company_email)
+                                            <div class="detail-group">
+                                                <i class="fas fa-at"></i>
+                                                <span>{{ $document->company_email }}</span>
+                                            </div>
+                                        @endif
                                     </div>
                                     
-                                    @if($document->reviewed_at)
-                                        <div class="detail-item">
-                                            <i class="fas fa-check-circle"></i>
-                                            <span><strong>Reviewed:</strong> {{ $document->reviewed_at->format('M j, Y \a\t g:i A') }}</span>
-                                        </div>
-                                    @endif
-                                    
-                                    @if($document->document_type === 'trade_license' && $document->document_number)
-                                        <div class="detail-item">
-                                            <i class="fas fa-hashtag"></i>
-                                            <span><strong>License Number:</strong> {{ $document->document_number }}</span>
-                                        </div>
-                                    @elseif($document->document_type === 'office_landline' && $document->landline_number)
-                                        <div class="detail-item">
-                                            <i class="fas fa-phone-alt"></i>
-                                            <span><strong>Landline:</strong> {{ $document->landline_number }}</span>
-                                        </div>
-                                    @elseif($document->document_type === 'company_email' && $document->company_email)
-                                        <div class="detail-item">
-                                            <i class="fas fa-at"></i>
-                                            <span><strong>Email:</strong> {{ $document->company_email }}</span>
-                                        </div>
-                                    @endif
-                                    
                                     @if($document->status === 'rejected' && $document->rejection_reason)
-                                        <div class="detail-item">
+                                        <div class="rejection-reason">
                                             <i class="fas fa-exclamation-triangle"></i>
-                                            <span><strong>Reason:</strong> {{ $document->rejection_reason }}</span>
+                                            <span>{{ $document->rejection_reason }}</span>
                                         </div>
                                     @endif
                                 </div>
