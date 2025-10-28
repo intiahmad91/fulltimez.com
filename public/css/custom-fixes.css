@@ -1,0 +1,265 @@
+.jobs-wrap .jobs {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    min-height: 350px;
+}
+
+.jobs-wrap .job-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.jobs-wrap .job-content .tags {
+    min-height: 80px;
+    flex: 1;
+}
+
+.jobs-wrap .col-lg-4,
+.jobs-wrap .col-md-6 {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+/* CV Form Styles */
+#msform {
+    text-align: center;
+    position: relative;
+    margin-top: 20px;
+}
+
+#msform fieldset {
+    background: white;
+    border: 0 none;
+    border-radius: 0.5rem;
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0;
+    padding-bottom: 20px;
+    position: relative;
+}
+
+#msform fieldset:not(:first-of-type) {
+    display: none;
+}
+
+#msform .form-card {
+    text-align: left;
+}
+
+#msform input.form-control, #msform textarea.form-control, #msform select.form-control {
+    padding: 8px 15px;
+    border: 1px solid #ccc;
+    border-radius: 0px;
+    margin-bottom: 15px;
+    margin-top: 5px;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: inherit;
+    color: #2C3E50;
+    font-size: 16px;
+    letter-spacing: 1px;
+}
+
+#msform input:focus, #msform textarea:focus, #msform select:focus {
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    border: 1px solid #673AB7;
+    outline-width: 0;
+}
+
+#msform .action-button {
+    width: 100px;
+    background: #673AB7;
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 0px;
+    cursor: pointer;
+    padding: 10px 5px;
+    margin: 10px 5px;
+}
+
+#msform .action-button:hover, #msform .action-button:focus {
+    background-color: #311B92;
+}
+
+#msform .action-button-previous {
+    width: 100px;
+    background: #616161;
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 0px;
+    cursor: pointer;
+    padding: 10px 5px;
+    margin: 10px 5px;
+}
+
+#msform .action-button-previous:hover, #msform .action-button-previous:focus {
+    background-color: #000000;
+}
+
+.fieldlabels {
+    color: #2C3E50;
+    text-align: left;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+#progressbar {
+    margin-bottom: 30px;
+    overflow: hidden;
+    color: lightgrey;
+    padding: 0;
+}
+
+#progressbar .active {
+    color: #673AB7;
+}
+
+#progressbar li {
+    list-style-type: none;
+    font-size: 12px;
+    width: 12.5%;
+    float: left;
+    position: relative;
+    font-weight: 400;
+}
+
+#progressbar li.clickable-step {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#progressbar li.clickable-step:hover {
+    color: #311B92;
+    transform: translateY(-2px);
+}
+
+#progressbar li.clickable-step:hover:before {
+    background: #5E35B1;
+    transform: scale(1.1);
+}
+
+#progressbar #info:before {
+    content: "1";
+}
+
+#progressbar #bio:before {
+    content: "2";
+}
+
+#progressbar #projects:before {
+    content: "3";
+}
+
+#progressbar #experience:before {
+    content: "4";
+}
+
+#progressbar #education:before {
+    content: "5";
+}
+
+#progressbar #certificates:before {
+    content: "6";
+}
+
+#progressbar #skills:before {
+    content: "7";
+}
+
+#progressbar #submit:before {
+    content: "8";
+}
+
+#progressbar li:before {
+    width: 50px;
+    height: 50px;
+    line-height: 45px;
+    display: block;
+    font-size: 18px;
+    color: #ffffff;
+    background: lightgray;
+    border-radius: 50%;
+    margin: 0 auto 10px auto;
+    padding: 2px;
+}
+
+#progressbar li:after {
+    content: '';
+    width: 100%;
+    height: 2px;
+    background: lightgray;
+    position: absolute;
+    left: 0;
+    top: 25px;
+    z-index: -1;
+}
+
+#progressbar li.active:before, #progressbar li.active:after {
+    background: #673AB7;
+}
+
+.progress {
+    height: 20px;
+    margin-bottom: 30px;
+}
+
+.progress-bar {
+    background-color: #673AB7;
+}
+
+.fit-image {
+    width: 100%;
+    object-fit: cover;
+}
+
+.fs-title {
+    font-size: 25px;
+    color: #673AB7;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.purple-text {
+    color: #673AB7;
+}
+
+.steps {
+    font-size: 20px;
+    color: gray;
+    margin-bottom: 10px;
+    font-weight: normal;
+    text-align: right;
+}
+
+.radio-group {
+    display: flex;
+    gap: 20px;
+    margin-top: 10px;
+}
+
+.radio-button {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.radio-button input[type="radio"] {
+    margin-right: 5px;
+    width: auto;
+}
+
+.is-invalid {
+    border-color: #dc3545 !important;
+}
+
+.invalid-feedback {
+    color: #dc3545;
+    font-size: 0.875em;
+    margin-top: 0.25rem;
+}

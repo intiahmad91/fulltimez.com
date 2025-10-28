@@ -1,0 +1,122 @@
+# Laravel .gitignore
+
+# Dependencies
+/node_modules
+/public/build
+/public/hot
+/public/storage
+/storage/*.key
+/vendor
+
+# Environment files
+.env
+.env.backup
+.env.production
+.env.local
+.env.testing
+
+# Logs
+/storage/logs/*.log
+/storage/logs/laravel.log
+*.log
+
+# Cache
+/bootstrap/cache/*.php
+/storage/framework/cache/*
+/storage/framework/sessions/*
+/storage/framework/testing/*
+/storage/framework/views/*
+
+# Compiled assets
+/public/css/app.css
+/public/js/app.js
+/public/mix-manifest.json
+
+# IDE files
+/.vscode
+/.idea
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Database
+/database/database.sqlite
+/database/database.sqlite-journal
+
+# Testing
+/coverage
+/.phpunit.result.cache
+/phpunit.xml
+
+# Temporary files
+*.tmp
+*.temp
+
+# Backup files
+*.bak
+*.backup
+
+# Package files
+*.tar.gz
+*.zip
+
+# Composer
+composer.phar
+composer.lock
+
+# NPM
+package-lock.json
+yarn.lock
+
+# Build files
+/public/build/
+/public/hot
+
+# Storage
+/storage/app/public/*
+!/storage/app/public/.gitkeep
+
+# User uploads (keep structure but ignore files)
+/storage/app/public/profiles/*
+!/storage/app/public/profiles/.gitkeep
+/storage/app/public/cvs/*
+!/storage/app/public/cvs/.gitkeep
+/storage/app/public/documents/*
+!/storage/app/public/documents/.gitkeep
+
+# Sensitive files
+/config/database.php
+/config/mail.php
+/config/services.php
+
+# Laravel specific
+/artisan
+/bootstrap/cache/*
+!/bootstrap/cache/.gitkeep
+
+# Vite
+/public/build
+/public/hot
+
+# Tailwind
+/public/css/app.css
+/public/js/app.js
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
