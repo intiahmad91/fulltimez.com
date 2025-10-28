@@ -2,82 +2,378 @@
     use Illuminate\Support\Facades\Storage;
 @endphp
 
+<style>
+/* Modern Professional Sidebar Styles */
+.modern-sidebar {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    overflow: hidden;
+    position: sticky;
+    top: 20px;
+}
+
+.sidebar-header {
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    padding: 25px 20px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.sidebar-title {
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.profile-section {
+    padding: 25px 20px;
+    text-align: center;
+    background: rgba(255,255,255,0.05);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.profile-image-container {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
+.profile-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid rgba(255,255,255,0.3);
+    transition: all 0.3s ease;
+}
+
+.profile-image:hover {
+    transform: scale(1.05);
+    border-color: rgba(255,255,255,0.6);
+}
+
+.online-indicator {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    width: 16px;
+    height: 16px;
+    background: #28a745;
+    border: 3px solid #ffffff;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(40, 167, 69, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0); }
+}
+
+.profile-name {
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.profile-role {
+    color: rgba(255,255,255,0.8);
+    font-size: 14px;
+    margin-top: 5px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.navigation-menu {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.nav-item {
+    margin: 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.nav-item:last-child {
+    border-bottom: none;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    color: rgba(255,255,255,0.9);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+    font-weight: 500;
+}
+
+.nav-link:hover {
+    background: rgba(255,255,255,0.1);
+    color: #ffffff;
+    transform: translateX(5px);
+}
+
+.nav-link.active {
+    background: rgba(255,255,255,0.15);
+    color: #ffffff;
+    border-left: 4px solid #ffffff;
+}
+
+.nav-link.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: linear-gradient(135deg, #ff6b6b, #ffa500);
+}
+
+.nav-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 12px;
+    font-size: 16px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.nav-text {
+    flex: 1;
+    font-size: 15px;
+}
+
+.notification-badge {
+    background: #ff4757;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 6px;
+    border-radius: 10px;
+    margin-left: auto;
+    min-width: 18px;
+    text-align: center;
+    animation: bounce 1s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-3px); }
+    60% { transform: translateY(-2px); }
+}
+
+.disabled-link {
+    opacity: 0.6;
+    cursor: not-allowed;
+    position: relative;
+}
+
+.disabled-link:hover {
+    transform: none;
+    background: rgba(255,255,255,0.05);
+}
+
+.disabled-link::after {
+    content: '⚠️';
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 12px;
+}
+
+.logout-section {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.logout-link {
+    color: #ff6b6b !important;
+    font-weight: 600;
+}
+
+.logout-link:hover {
+    background: rgba(255, 107, 107, 0.1) !important;
+    color: #ff4757 !important;
+}
+
+/* Responsive Design */
+@media (max-width: 991px) {
+    .modern-sidebar {
+        margin-bottom: 30px;
+        position: relative;
+        top: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .profile-image {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .nav-link {
+        padding: 12px 15px;
+    }
+    
+    .nav-text {
+        font-size: 14px;
+    }
+}
+</style>
+
 <div class="col-lg-3">
-    <div class="card">
-        <div class="card-header">
-            <h3 class="card-title">My Dashboard</h3>
+    <div class="modern-sidebar">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header">
+            <h3 class="sidebar-title">My Dashboard</h3>
         </div>
-        <div class="card-body text-center item-user border-bottom">
-            <div class="profile-pic">
-                <div class="profile-pic-img">
-                    <span class="bg-success dots" data-toggle="tooltip" data-placement="top" title="" data-original-title="online"></span>
-                    @if(auth()->user()->isSeeker() && auth()->user()->seekerProfile && auth()->user()->seekerProfile->profile_picture)
-                        <img src="{{ Storage::url(auth()->user()->seekerProfile->profile_picture) }}" class="brround" alt="user" style="width: 100px; height: 100px; object-fit: cover;">
-                    @elseif(auth()->user()->isEmployer() && auth()->user()->employerProfile && auth()->user()->employerProfile->profile_picture)
-                        <img src="{{ Storage::url(auth()->user()->employerProfile->profile_picture) }}" class="brround" alt="profile" style="width: 100px; height: 100px; object-fit: cover;">
-                    @elseif(auth()->user()->isEmployer() && auth()->user()->employerProfile && auth()->user()->employerProfile->company_logo)
-                        <img src="{{ Storage::url(auth()->user()->employerProfile->company_logo) }}" class="brround" alt="company" style="width: 100px; height: 100px; object-fit: cover;">
-                    @else
-                        <img src="{{ asset('images/profile_img.jpg') }}" class="brround" alt="user">
-                    @endif
-                </div>
-                <h4 class="mt-3 mb-0 font-weight-semibold">{{ auth()->user()->name }}</h4>
+        
+        <!-- Profile Section -->
+        <div class="profile-section">
+            <div class="profile-image-container">
+                @if(auth()->user()->isSeeker() && auth()->user()->seekerProfile && auth()->user()->seekerProfile->profile_picture)
+                    <img src="{{ Storage::url(auth()->user()->seekerProfile->profile_picture) }}" class="profile-image" alt="Profile Picture">
+                @elseif(auth()->user()->isEmployer() && auth()->user()->employerProfile && auth()->user()->employerProfile->profile_picture)
+                    <img src="{{ Storage::url(auth()->user()->employerProfile->profile_picture) }}" class="profile-image" alt="Profile Picture">
+                @elseif(auth()->user()->isEmployer() && auth()->user()->employerProfile && auth()->user()->employerProfile->company_logo)
+                    <img src="{{ Storage::url(auth()->user()->employerProfile->company_logo) }}" class="profile-image" alt="Company Logo">
+                @else
+                    <img src="{{ asset('images/profile_img.jpg') }}" class="profile-image" alt="Default Profile">
+                @endif
+                <span class="online-indicator" data-toggle="tooltip" data-placement="top" title="Online"></span>
             </div>
+            <h4 class="profile-name">{{ auth()->user()->name }}</h4>
+            <p class="profile-role">{{ ucfirst(auth()->user()->role->slug) }}</p>
         </div>
-        <div class="dash_widget-sec">
-            <ul>
-                <li><a href="{{ route('dashboard') }}" title="" class="{{ request()->routeIs('dashboard') ? 'active' : '' }}"><i class="fas fa-th-large"></i> Dashboard</a></li>
-                <li><a href="{{ route('profile') }}" title="" class="{{ request()->routeIs('profile') ? 'active' : '' }}"><i class="fas fa-user"></i>My Profile</a></li>
-                @if(auth()->user()->isSeeker())
-                    <li><a href="{{ route('seeker.cv.create') }}" title="" class="{{ request()->routeIs('seeker.cv.create') ? 'active' : '' }}"><i class="fas fa-file-alt"></i>Create CV</a></li>
-                    <li><a href="{{ route('applications.index') }}" title="" class="{{ request()->routeIs('applications.index') ? 'active' : '' }}"><i class="fas fa-paper-plane"></i>My Applications</a></li>
-                    <li><a href="{{ route('notifications.index') }}" title="" class="{{ request()->routeIs('notifications.*') ? 'active' : '' }}">
-                        <i class="fas fa-bell"></i>Notifications
-                        @if(auth()->user()->unreadNotifications->count() > 0)
-                            <span class="badge bg-danger ms-1">{{ auth()->user()->unreadNotifications->count() }}</span>
-                        @endif
-                    </a></li>
-                @endif
-                @if(auth()->user()->isEmployer())
-                    @php
-                        $user = auth()->user();
-                        $requiredTypes = ['trade_license', 'office_landline', 'company_email'];
-                        $approvedDocuments = $user->employerDocuments()
-                            ->whereIn('document_type', $requiredTypes)
-                            ->where('status', 'approved')
-                            ->get();
-                        $approvedTypes = $approvedDocuments->pluck('document_type')->toArray();
-                        $allDocumentsApproved = count(array_intersect($requiredTypes, $approvedTypes)) === count($requiredTypes);
-                    @endphp
-                    <li>
-                        @if($allDocumentsApproved)
-                            <a href="{{ route('employer.jobs.create') }}" title="Post Job" class="{{ request()->routeIs('employer.jobs.create') ? 'active' : '' }}">
-                                <i class="fas fa-plus-circle"></i>Post Job
-                            </a>
-                        @else
-                            <a href="{{ route('employer.documents.index') }}" title="Complete document verification to post jobs" class="text-muted" style="opacity: 0.6;">
-                                <i class="fas fa-plus-circle"></i>Post Job <small class="text-warning">(Documents Required)</small>
-                            </a>
-                        @endif
-                    </li>
-                    <li><a href="{{ route('employer.jobs.index') }}" title="" class="{{ request()->routeIs('employer.jobs.index') || request()->routeIs('employer.jobs.edit') || request()->routeIs('employer.jobs.show') ? 'active' : '' }}"><i class="fas fa-briefcase"></i>My Jobs</a></li>
-                    <li><a href="{{ route('employer.applications') }}" title="" class="{{ request()->routeIs('employer.applications') ? 'active' : '' }}"><i class="fas fa-file-alt"></i>Applications</a></li>
-                    <li><a href="{{ route('employer.documents.index') }}" title="" class="{{ request()->routeIs('employer.documents.*') ? 'active' : '' }}"><i class="fas fa-file-alt"></i>Document Verification</a></li>
-                    <li><a href="{{ route('employer.notifications.index') }}" title="" class="{{ request()->routeIs('employer.notifications.*') ? 'active' : '' }}"><i class="fas fa-bell"></i>Notifications
-                        @if(auth()->user()->unreadNotifications->count() > 0)
-                            <span class="badge bg-danger ms-1">{{ auth()->user()->unreadNotifications->count() }}</span>
-                        @endif
-                    </a></li>
-                @endif
-                <li><a href="{{ route('change.password') }}" title="" class="{{ request()->routeIs('change.password') ? 'active' : '' }}"><i class="fas fa-lock"></i>Change Password</a></li>
-                <li>
-                    <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" title=""><i class="fas fa-sign-out-alt"></i>Logout</a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        @csrf
-                    </form>
+        
+        <!-- Navigation Menu -->
+        <ul class="navigation-menu">
+            <li class="nav-item">
+                <a href="{{ route('dashboard') }}" class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+                    <i class="fas fa-th-large nav-icon"></i>
+                    <span class="nav-text">Dashboard</span>
+                </a>
+            </li>
+            
+            <li class="nav-item">
+                <a href="{{ route('profile') }}" class="nav-link {{ request()->routeIs('profile') ? 'active' : '' }}">
+                    <i class="fas fa-user nav-icon"></i>
+                    <span class="nav-text">My Profile</span>
+                </a>
+            </li>
+            
+            @if(auth()->user()->isSeeker())
+                <li class="nav-item">
+                    <a href="{{ route('seeker.cv.create') }}" class="nav-link {{ request()->routeIs('seeker.cv.create') ? 'active' : '' }}">
+                        <i class="fas fa-file-alt nav-icon"></i>
+                        <span class="nav-text">Create CV</span>
+                    </a>
                 </li>
-            </ul>
-        </div>
+                
+                <li class="nav-item">
+                    <a href="{{ route('applications.index') }}" class="nav-link {{ request()->routeIs('applications.index') ? 'active' : '' }}">
+                        <i class="fas fa-paper-plane nav-icon"></i>
+                        <span class="nav-text">My Applications</span>
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="{{ route('notifications.index') }}" class="nav-link {{ request()->routeIs('notifications.*') ? 'active' : '' }}">
+                        <i class="fas fa-bell nav-icon"></i>
+                        <span class="nav-text">Notifications</span>
+                        @if(auth()->user()->unreadNotifications->count() > 0)
+                            <span class="notification-badge">{{ auth()->user()->unreadNotifications->count() }}</span>
+                        @endif
+                    </a>
+                </li>
+            @endif
+            
+            @if(auth()->user()->isEmployer())
+                @php
+                    $user = auth()->user();
+                    $requiredTypes = ['trade_license', 'office_landline', 'company_email'];
+                    $approvedDocuments = $user->employerDocuments()
+                        ->whereIn('document_type', $requiredTypes)
+                        ->where('status', 'approved')
+                        ->get();
+                    $approvedTypes = $approvedDocuments->pluck('document_type')->toArray();
+                    $allDocumentsApproved = count(array_intersect($requiredTypes, $approvedTypes)) === count($requiredTypes);
+                @endphp
+                
+                <li class="nav-item">
+                    @if($allDocumentsApproved)
+                        <a href="{{ route('employer.jobs.create') }}" class="nav-link {{ request()->routeIs('employer.jobs.create') ? 'active' : '' }}">
+                            <i class="fas fa-plus-circle nav-icon"></i>
+                            <span class="nav-text">Post Job</span>
+                        </a>
+                    @else
+                        <a href="{{ route('employer.documents.index') }}" class="nav-link disabled-link" title="Complete document verification to post jobs">
+                            <i class="fas fa-plus-circle nav-icon"></i>
+                            <span class="nav-text">Post Job</span>
+                        </a>
+                    @endif
+                </li>
+                
+                <li class="nav-item">
+                    <a href="{{ route('employer.jobs.index') }}" class="nav-link {{ request()->routeIs('employer.jobs.index') || request()->routeIs('employer.jobs.edit') || request()->routeIs('employer.jobs.show') ? 'active' : '' }}">
+                        <i class="fas fa-briefcase nav-icon"></i>
+                        <span class="nav-text">My Jobs</span>
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="{{ route('employer.applications') }}" class="nav-link {{ request()->routeIs('employer.applications') ? 'active' : '' }}">
+                        <i class="fas fa-file-alt nav-icon"></i>
+                        <span class="nav-text">Applications</span>
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="{{ route('employer.documents.index') }}" class="nav-link {{ request()->routeIs('employer.documents.*') ? 'active' : '' }}">
+                        <i class="fas fa-file-alt nav-icon"></i>
+                        <span class="nav-text">Document Verification</span>
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="{{ route('employer.notifications.index') }}" class="nav-link {{ request()->routeIs('employer.notifications.*') ? 'active' : '' }}">
+                        <i class="fas fa-bell nav-icon"></i>
+                        <span class="nav-text">Notifications</span>
+                        @if(auth()->user()->unreadNotifications->count() > 0)
+                            <span class="notification-badge">{{ auth()->user()->unreadNotifications->count() }}</span>
+                        @endif
+                    </a>
+                </li>
+            @endif
+            
+            <li class="nav-item">
+                <a href="{{ route('change.password') }}" class="nav-link {{ request()->routeIs('change.password') ? 'active' : '' }}">
+                    <i class="fas fa-lock nav-icon"></i>
+                    <span class="nav-text">Change Password</span>
+                </a>
+            </li>
+            
+            <li class="nav-item logout-section">
+                <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="nav-link logout-link">
+                    <i class="fas fa-sign-out-alt nav-icon"></i>
+                    <span class="nav-text">Logout</span>
+                </a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
+            </li>
+        </ul>
     </div>
 </div>
 
