@@ -125,6 +125,11 @@ class DocumentController extends Controller
         $allApproved = count(array_intersect($requiredTypes, $approvedTypes)) === count($requiredTypes);
 
         if ($allApproved) {
+            // Auto-approve employer profile
+            if ($employer->employerProfile && $employer->employerProfile->verification_status !== 'verified') {
+                $employer->employerProfile->update(['verification_status' => 'verified']);
+            }
+            
             // Send congratulations notification
             $employer->notify(new AllDocumentsApproved($approvedDocuments->toArray()));
         }
@@ -163,7 +168,10 @@ class DocumentController extends Controller
 
         // Check for employers who now have all documents approved
         foreach ($employersNotified as $employerId) {
-            $this->checkAllDocumentsApproved($employerId);
+            $employer = User::find($employerId);
+            if ($employer) {
+                $this->checkAllDocumentsApproved($employer);
+            }
         }
 
         return redirect()->back()->with('success', "Successfully approved {$approvedCount} documents and notified all employers.");
@@ -201,7 +209,10 @@ class DocumentController extends Controller
         }
 
         // Check if all documents are now approved for this employer
-        $this->checkAllDocumentsApproved($employerId);
+        $employer = User::find($employerId);
+        if ($employer) {
+            $this->checkAllDocumentsApproved($employer);
+        }
 
         $employerName = $pendingDocuments->first()->employer->name;
         return redirect()->back()->with('success', "Successfully approved {$approvedCount} documents for {$employerName} and sent notifications.");

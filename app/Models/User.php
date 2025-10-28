@@ -102,6 +102,13 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->role->slug === 'seeker';
     }
 
+    public function isVerifiedEmployer(): bool
+    {
+        return $this->isEmployer() && 
+               $this->employerProfile && 
+               $this->employerProfile->verification_status === 'verified';
+    }
+
     public function sendEmailVerificationNotification()
     {
         $this->notify(new VerifyEmailNotification());
