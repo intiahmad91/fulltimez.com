@@ -398,6 +398,9 @@
                                             @enderror
                                         </div>
                                     </div>
+
+                                    <!-- Hidden Priority Field -->
+                                    <input type="hidden" name="priority" value="{{ old('priority', $job->priority ?? 'normal') }}">
                                 </div>
                             </div>
 

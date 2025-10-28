@@ -288,7 +288,6 @@ class JobPostingController extends Controller
             'location_city' => 'required|string',
             'location_country' => 'required|string',
             'application_deadline' => 'nullable|date',
-            'priority' => 'required|in:normal',
         ]);
 
         $job->update($validated);
