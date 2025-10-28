@@ -530,30 +530,30 @@
                                     <div class="details-row">
                                         <div class="detail-group">
                                             <i class="fas fa-calendar-alt"></i>
-                                            <span>{{ $document->created_at->format('M j, Y') }}</span>
+                                            <span><strong>Submitted:</strong> {{ $document->created_at->format('M j, Y') }}</span>
                                         </div>
                                         
                                         @if($document->reviewed_at)
                                             <div class="detail-group">
                                                 <i class="fas fa-check-circle"></i>
-                                                <span>{{ $document->reviewed_at->format('M j, Y') }}</span>
+                                                <span><strong>Reviewed:</strong> {{ $document->reviewed_at->format('M j, Y') }}</span>
                                             </div>
                                         @endif
                                         
                                         @if($document->document_type === 'trade_license' && $document->document_number)
                                             <div class="detail-group">
                                                 <i class="fas fa-hashtag"></i>
-                                                <span>{{ $document->document_number }}</span>
+                                                <span><strong>License:</strong> {{ $document->document_number }}</span>
                                             </div>
                                         @elseif($document->document_type === 'office_landline' && $document->landline_number)
                                             <div class="detail-group">
                                                 <i class="fas fa-phone-alt"></i>
-                                                <span>{{ $document->landline_number }}</span>
+                                                <span><strong>Landline:</strong> {{ $document->landline_number }}</span>
                                             </div>
                                         @elseif($document->document_type === 'company_email' && $document->company_email)
                                             <div class="detail-group">
                                                 <i class="fas fa-at"></i>
-                                                <span>{{ $document->company_email }}</span>
+                                                <span><strong>Email:</strong> {{ $document->company_email }}</span>
                                             </div>
                                         @endif
                                     </div>
@@ -561,7 +561,7 @@
                                     @if($document->status === 'rejected' && $document->rejection_reason)
                                         <div class="rejection-reason">
                                             <i class="fas fa-exclamation-triangle"></i>
-                                            <span>{{ $document->rejection_reason }}</span>
+                                            <span><strong>Reason:</strong> {{ $document->rejection_reason }}</span>
                                         </div>
                                     @endif
                                 </div>
