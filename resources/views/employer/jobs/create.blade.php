@@ -9,93 +9,279 @@
     display: none !important;
 }
 
-/* Professional Job Creation Form Styles */
+/* Modern Job Creation Form Styles */
 .professional-form-container {
     background: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     border: 1px solid #e8e8e8;
     overflow: hidden;
+    position: relative;
+}
+
+.professional-form-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #007bff, #28a745, #ffc107, #dc3545);
 }
 
 .form-header {
-    background: #f8f9fa;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
     border-bottom: 1px solid #e8e8e8;
-    padding: 2rem;
+    padding: 2.5rem;
+    position: relative;
+}
+
+.form-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%23e9ecef" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+    opacity: 0.3;
+}
+
+.form-header-content {
+    position: relative;
+    z-index: 1;
 }
 
 .form-header h2 {
     color: #2c3e50;
-    font-weight: 600;
+    font-weight: 700;
     margin: 0;
-    font-size: 1.75rem;
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.form-header h2::before {
+    content: '🚀';
+    font-size: 1.5rem;
 }
 
 .form-header p {
     color: #6c757d;
-    margin: 0.5rem 0 0 0;
-    font-size: 0.95rem;
+    margin: 0.75rem 0 0 0;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+/* Progress Indicator */
+.form-progress {
+    background: #f8f9fa;
+    padding: 1rem 2.5rem;
+    border-bottom: 1px solid #e8e8e8;
+}
+
+.progress-steps {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.progress-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    flex: 1;
+}
+
+.progress-step::after {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    width: 100%;
+    height: 2px;
+    background: #e9ecef;
+    z-index: 1;
+}
+
+.progress-step:last-child::after {
+    display: none;
+}
+
+.progress-step.active::after {
+    background: #007bff;
+}
+
+.progress-step.completed::after {
+    background: #28a745;
+}
+
+.step-circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #e9ecef;
+    color: #6c757d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.8rem;
+    position: relative;
+    z-index: 2;
+    transition: all 0.3s ease;
+}
+
+.progress-step.active .step-circle {
+    background: #007bff;
+    color: white;
+    transform: scale(1.1);
+}
+
+.progress-step.completed .step-circle {
+    background: #28a745;
+    color: white;
+}
+
+.step-label {
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    color: #6c757d;
+    font-weight: 500;
+    text-align: center;
+}
+
+.progress-step.active .step-label {
+    color: #007bff;
+    font-weight: 600;
+}
+
+.progress-step.completed .step-label {
+    color: #28a745;
+    font-weight: 600;
 }
 
 .form-body {
-    padding: 2rem;
+    padding: 2.5rem;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
 }
 
 .form-section {
-    margin-bottom: 2.5rem;
-    padding-bottom: 2rem;
-    border-bottom: 1px solid #f0f0f0;
+    margin-bottom: 3rem;
+    padding: 2rem;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+    border: 1px solid #f0f0f0;
+    position: relative;
+    transition: all 0.3s ease;
 }
 
-.form-section:last-child {
-    border-bottom: none;
-    margin-bottom: 0;
+.form-section:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+}
+
+.form-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, #007bff, #28a745);
+    border-radius: 0 2px 2px 0;
 }
 
 .section-title {
     color: #2c3e50;
-    font-weight: 600;
-    font-size: 1.1rem;
-    margin-bottom: 1.5rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 2px solid #007bff;
-    display: inline-block;
+    font-weight: 700;
+    font-size: 1.3rem;
+    margin-bottom: 2rem;
+    padding-left: 1rem;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.section-title::before {
+    content: '';
+    width: 4px;
+    height: 30px;
+    background: linear-gradient(180deg, #007bff, #28a745);
+    border-radius: 2px;
+    position: absolute;
+    left: -1rem;
 }
 
 .form-group {
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
+    position: relative;
 }
 
 .form-label {
-    color: #495057;
-    font-weight: 500;
-    margin-bottom: 0.5rem;
-    font-size: 0.9rem;
+    color: #2c3e50;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.form-label::before {
+    content: '';
+    width: 3px;
+    height: 16px;
+    background: linear-gradient(180deg, #007bff, #28a745);
+    border-radius: 2px;
 }
 
 .form-control {
-    border: 1px solid #d1d5db;
-    border-radius: 8px;
-    padding: 0.75rem 1rem;
-    font-size: 0.9rem;
-    transition: all 0.2s ease;
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
     background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
 }
 
 .form-control:focus {
     border-color: #007bff;
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.1);
+    box-shadow: 0 0 0 0.3rem rgba(0, 123, 255, 0.1), 0 4px 12px rgba(0, 123, 255, 0.15);
     outline: none;
+    transform: translateY(-1px);
+}
+
+.form-control:hover {
+    border-color: #007bff;
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.1);
 }
 
 .form-control.is-invalid {
     border-color: #dc3545;
+    box-shadow: 0 0 0 0.3rem rgba(220, 53, 69, 0.1);
 }
 
 .invalid-feedback {
     color: #dc3545;
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.invalid-feedback::before {
+    content: '⚠️';
     font-size: 0.8rem;
-    margin-top: 0.25rem;
 }
 
 /* Ad Type Selection */
@@ -207,45 +393,90 @@
 
 /* Action Buttons */
 .form-actions {
-    background: #f8f9fa;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
     border-top: 1px solid #e8e8e8;
-    padding: 1.5rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    padding: 2rem 2.5rem;
+    position: relative;
+}
+
+.form-actions::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #007bff, transparent);
 }
 
 .btn {
-    padding: 0.75rem 1.5rem;
-    border-radius: 8px;
-    font-weight: 500;
-    font-size: 0.9rem;
-    transition: all 0.2s ease;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
     border: none;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.75rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.btn:hover::before {
+    left: 100%;
 }
 
 .btn-secondary {
-    background-color: #6c757d;
+    background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
     color: #ffffff;
+    box-shadow: 0 4px 15px rgba(108, 117, 125, 0.3);
 }
 
 .btn-secondary:hover {
-    background-color: #5a6268;
+    background: linear-gradient(135deg, #5a6268 0%, #495057 100%);
     color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(108, 117, 125, 0.4);
 }
 
 .btn-primary {
-    background-color: #007bff;
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
     color: #ffffff;
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
 }
 
 .btn-primary:hover {
-    background-color: #0056b3;
+    background: linear-gradient(135deg, #0056b3 0%, #004085 100%);
     color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
+}
+
+.btn-outline-primary {
+    background: transparent;
+    color: #007bff;
+    border: 2px solid #007bff;
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.1);
+}
+
+.btn-outline-primary:hover {
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 123, 255, 0.3);
 }
 
 .btn-success {
@@ -572,8 +803,36 @@
             <div class="col-lg-9">
                 <div class="professional-form-container">
                     <div class="form-header">
-                        <h2>Post a New Job</h2>
-                        <p>Fill out the form below to create your job posting. All fields marked with * are required.</p>
+                        <div class="form-header-content">
+                            <h2>Post a New Job</h2>
+                            <p>Fill out the form below to create your job posting. All fields marked with * are required.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Progress Indicator -->
+                    <div class="form-progress">
+                        <div class="progress-steps">
+                            <div class="progress-step active" data-step="1">
+                                <div class="step-circle">1</div>
+                                <div class="step-label">Basic Info</div>
+                            </div>
+                            <div class="progress-step" data-step="2">
+                                <div class="step-circle">2</div>
+                                <div class="step-label">Job Details</div>
+                            </div>
+                            <div class="progress-step" data-step="3">
+                                <div class="step-circle">3</div>
+                                <div class="step-label">Location & Requirements</div>
+                            </div>
+                            <div class="progress-step" data-step="4">
+                                <div class="step-circle">4</div>
+                                <div class="step-label">Salary & Deadline</div>
+                            </div>
+                            <div class="progress-step" data-step="5">
+                                <div class="step-circle">5</div>
+                                <div class="step-label">Terms & Conditions</div>
+                            </div>
+                        </div>
                     </div>
                     <div class="form-body">
                         @if ($errors->any())
@@ -591,8 +850,11 @@
                                     @csrf
                             
                             <!-- Basic Information Section -->
-                            <div class="form-section">
-                                <h3 class="section-title">Basic Information</h3>
+                            <div class="form-section" data-section="1">
+                                <h3 class="section-title">
+                                    <i class="fas fa-info-circle text-primary"></i>
+                                    Basic Information
+                                </h3>
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="form-group">
@@ -650,8 +912,11 @@
                             <button type="submit" id="hidden_submit" style="display: none;"></button>
 
                             <!-- Job Details Section -->
-                            <div class="form-section">
-                                <h3 class="section-title">Job Details</h3>
+                            <div class="form-section" data-section="2">
+                                <h3 class="section-title">
+                                    <i class="fas fa-briefcase text-success"></i>
+                                    Job Details
+                                </h3>
                                 <div class="row">
                                         <div class="col-lg-12">
                                             <div class="form-group">
@@ -686,8 +951,11 @@
                                         </div>
 
                             <!-- Location & Requirements Section -->
-                            <div class="form-section">
-                                <h3 class="section-title">Location & Requirements</h3>
+                            <div class="form-section" data-section="3">
+                                <h3 class="section-title">
+                                    <i class="fas fa-map-marker-alt text-warning"></i>
+                                    Location & Requirements
+                                </h3>
                                 <div class="row">
                                         <div class="col-lg-6">
                                             <div class="form-group">
@@ -741,8 +1009,11 @@
                                         </div>
 
                             <!-- Salary & Deadline Section -->
-                            <div class="form-section">
-                                <h3 class="section-title">Salary & Deadline</h3>
+                            <div class="form-section" data-section="4">
+                                <h3 class="section-title">
+                                    <i class="fas fa-dollar-sign text-info"></i>
+                                    Salary & Deadline
+                                </h3>
                                 <div class="row">
                                         <div class="col-lg-4">
                                             <div class="form-group">
@@ -792,8 +1063,11 @@
                                         </div>
 
                             <!-- Consent Section -->
-                            <div class="form-section">
-                                <h3 class="section-title">Terms & Conditions</h3>
+                            <div class="form-section" data-section="5">
+                                <h3 class="section-title">
+                                    <i class="fas fa-shield-alt text-danger"></i>
+                                    Terms & Conditions
+                                </h3>
                                 <div class="consent-container">
                                     <div class="consent-header">
                                         <i class="fas fa-exclamation-triangle"></i> Employer Consent & Responsibility Statement
@@ -823,12 +1097,19 @@
 
                     <!-- Form Actions -->
                     <div class="form-actions">
-                                                <a href="{{ route('employer.jobs.index') }}" class="btn btn-secondary">
-                                                    <i class="fas fa-times"></i> Cancel
-                                                </a>
-                        <button type="button" class="btn btn-primary" id="submitBtn" onclick="showAdTypeModal()">
-                            <i class="fas fa-check"></i> Continue to Ad Selection
-                                                </button>
+                        <div class="d-flex justify-content-between align-items-center w-100">
+                            <a href="{{ route('employer.jobs.index') }}" class="btn btn-secondary btn-lg">
+                                <i class="fas fa-arrow-left"></i> Back to Jobs
+                            </a>
+                            <div class="d-flex gap-3">
+                                <button type="button" class="btn btn-outline-primary btn-lg" id="saveDraftBtn">
+                                    <i class="fas fa-save"></i> Save Draft
+                                </button>
+                                <button type="button" class="btn btn-primary btn-lg" id="submitBtn" onclick="showAdTypeModal()">
+                                    <i class="fas fa-rocket"></i> Continue to Ad Selection
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -992,6 +1273,94 @@
 <script>
 // Professional Job Creation Form JavaScript
 document.addEventListener('DOMContentLoaded', function() {
+    // Progress tracking
+    let currentStep = 1;
+    const totalSteps = 5;
+    
+    // Update progress indicator
+    function updateProgress() {
+        document.querySelectorAll('.progress-step').forEach((step, index) => {
+            const stepNumber = index + 1;
+            step.classList.remove('active', 'completed');
+            
+            if (stepNumber < currentStep) {
+                step.classList.add('completed');
+                step.querySelector('.step-circle').innerHTML = '<i class="fas fa-check"></i>';
+            } else if (stepNumber === currentStep) {
+                step.classList.add('active');
+                step.querySelector('.step-circle').innerHTML = stepNumber;
+            } else {
+                step.querySelector('.step-circle').innerHTML = stepNumber;
+            }
+        });
+    }
+    
+    // Scroll to section
+    function scrollToSection(sectionNumber) {
+        const section = document.querySelector(`[data-section="${sectionNumber}"]`);
+        if (section) {
+            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }
+    
+    // Add click handlers to progress steps
+    document.querySelectorAll('.progress-step').forEach((step, index) => {
+        step.addEventListener('click', function() {
+            const stepNumber = index + 1;
+            if (stepNumber <= currentStep) {
+                currentStep = stepNumber;
+                updateProgress();
+                scrollToSection(stepNumber);
+            }
+        });
+    });
+    
+    // Form validation and progress tracking
+    function validateSection(sectionNumber) {
+        const section = document.querySelector(`[data-section="${sectionNumber}"]`);
+        if (!section) return true;
+        
+        const requiredFields = section.querySelectorAll('[required]');
+        let isValid = true;
+        
+        requiredFields.forEach(field => {
+            if (!field.value.trim()) {
+                field.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                field.classList.remove('is-invalid');
+            }
+        });
+        
+        return isValid;
+    }
+    
+    // Auto-advance progress based on form completion
+    function checkFormProgress() {
+        let completedSections = 0;
+        
+        for (let i = 1; i <= totalSteps; i++) {
+            if (validateSection(i)) {
+                completedSections = i;
+            } else {
+                break;
+            }
+        }
+        
+        if (completedSections > currentStep) {
+            currentStep = completedSections;
+            updateProgress();
+        }
+    }
+    
+    // Add event listeners to form fields
+    document.querySelectorAll('input, select, textarea').forEach(field => {
+        field.addEventListener('blur', checkFormProgress);
+        field.addEventListener('change', checkFormProgress);
+    });
+    
+    // Initialize progress
+    updateProgress();
     // Country -> City mapping (5 countries)
     const countryToCities = {
         'United Arab Emirates': ['Dubai', 'Abu Dhabi', 'Sharjah', 'Ajman', 'Ras Al Khaimah'],

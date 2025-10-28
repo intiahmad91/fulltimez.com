@@ -90,12 +90,39 @@
                                                             <i class="fas fa-eye"></i> Review
                                                         </a>
                                                     </li>
+                                                    
+                                                    @if($user->isEmployer() && $user->employerProfile && $user->employerProfile->verification_status !== 'verified')
+                                                    <li>
+                                                        <form action="{{ route('admin.users.approve-employer', $user) }}" method="POST" onsubmit="return confirm('Approve this employer profile?');">
+                                                            @csrf
+                                                            <button type="submit" class="dropdown-item text-success">
+                                                                <i class="fas fa-check-circle"></i> Approve Employer
+                                                            </button>
+                                                        </form>
+                                                    </li>
+                                                    @endif
+                                                    
+                                                    @if($user->isSeeker() && $user->seekerProfile && $user->seekerProfile->verification_status !== 'verified')
+                                                    <li>
+                                                        <form action="{{ route('admin.users.approve-seeker', $user) }}" method="POST" onsubmit="return confirm('Approve this jobseeker profile?');">
+                                                            @csrf
+                                                            <button type="submit" class="dropdown-item text-success">
+                                                                <i class="fas fa-check-circle"></i> Approve Jobseeker
+                                                            </button>
+                                                        </form>
+                                                    </li>
+                                                    @endif
+                                                    
+                                                    <li><hr class="dropdown-divider"></li>
+                                                    
                                                     <li>
                                                         <form action="{{ route('admin.users.update-status', $user) }}" method="POST">
                                                             @csrf
                                                             @method('PUT')
                                                             <input type="hidden" name="status" value="active">
-                                                            <button type="submit" class="dropdown-item text-success">Activate</button>
+                                                            <button type="submit" class="dropdown-item text-success">
+                                                                <i class="fas fa-toggle-on"></i> Activate
+                                                            </button>
                                                         </form>
                                                     </li>
                                                     <li>
@@ -103,7 +130,9 @@
                                                             @csrf
                                                             @method('PUT')
                                                             <input type="hidden" name="status" value="inactive">
-                                                            <button type="submit" class="dropdown-item text-warning">Deactivate</button>
+                                                            <button type="submit" class="dropdown-item text-warning">
+                                                                <i class="fas fa-toggle-off"></i> Deactivate
+                                                            </button>
                                                         </form>
                                                     </li>
                                                     <li>
@@ -111,7 +140,9 @@
                                                             @csrf
                                                             @method('PUT')
                                                             <input type="hidden" name="status" value="banned">
-                                                            <button type="submit" class="dropdown-item text-danger">Ban</button>
+                                                            <button type="submit" class="dropdown-item text-danger">
+                                                                <i class="fas fa-ban"></i> Ban
+                                                            </button>
                                                         </form>
                                                     </li>
                                                     <li><hr class="dropdown-divider"></li>
@@ -119,7 +150,9 @@
                                                         <form action="{{ route('admin.users.destroy', $user) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this user?');">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <button type="submit" class="dropdown-item text-danger">Delete</button>
+                                                            <button type="submit" class="dropdown-item text-danger">
+                                                                <i class="fas fa-trash"></i> Delete
+                                                            </button>
                                                         </form>
                                                     </li>
                                                 </ul>
