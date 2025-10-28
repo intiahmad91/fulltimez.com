@@ -724,81 +724,6 @@
     color: #2c3e50;
 }
 
-/* Select2 Custom Styling */
-.select2-container {
-    width: 100% !important;
-}
-
-.select2-container--default .select2-selection--single {
-    height: 48px !important;
-    border: 2px solid #e9ecef !important;
-    border-radius: 10px !important;
-    padding: 0.5rem 1rem !important;
-    background-color: #ffffff !important;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02) !important;
-    transition: all 0.3s ease !important;
-}
-
-.select2-container--default .select2-selection--single:hover {
-    border-color: #007bff !important;
-    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.1) !important;
-}
-
-.select2-container--default.select2-container--focus .select2-selection--single {
-    border-color: #007bff !important;
-    box-shadow: 0 0 0 0.3rem rgba(0, 123, 255, 0.1), 0 4px 12px rgba(0, 123, 255, 0.15) !important;
-    outline: none !important;
-}
-
-.select2-container--default .select2-selection--single .select2-selection__rendered {
-    line-height: 36px !important;
-    padding-left: 0 !important;
-    color: #495057 !important;
-    font-size: 0.95rem !important;
-}
-
-.select2-container--default .select2-selection--single .select2-selection__placeholder {
-    color: #6c757d !important;
-    font-weight: 500 !important;
-}
-
-.select2-container--default .select2-selection--single .select2-selection__arrow {
-    height: 46px !important;
-    right: 10px !important;
-}
-
-.select2-dropdown {
-    border: 2px solid #e9ecef !important;
-    border-radius: 10px !important;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
-    margin-top: 4px !important;
-}
-
-.select2-container--default .select2-results__option {
-    padding: 0.75rem 1rem !important;
-    font-size: 0.95rem !important;
-    transition: all 0.2s ease !important;
-}
-
-.select2-container--default .select2-results__option--highlighted[aria-selected] {
-    background-color: #007bff !important;
-    color: white !important;
-}
-
-.select2-container--default .select2-search--dropdown .select2-search__field {
-    border: 1px solid #e9ecef !important;
-    border-radius: 6px !important;
-    padding: 0.5rem !important;
-    margin: 0.5rem !important;
-    font-size: 0.9rem !important;
-}
-
-.select2-container--default .select2-search--dropdown .select2-search__field:focus {
-    border-color: #007bff !important;
-    outline: none !important;
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.1) !important;
-}
-
 /* Responsive Design */
 @media (max-width: 768px) {
     .form-header {
@@ -818,18 +743,6 @@
     .btn {
         width: 100%;
         justify-content: center;
-    }
-    
-    .select2-container--default .select2-selection--single {
-        height: 44px !important;
-    }
-    
-    .select2-container--default .select2-selection--single .select2-selection__rendered {
-        line-height: 32px !important;
-    }
-    
-    .select2-container--default .select2-selection--single .select2-selection__arrow {
-        height: 42px !important;
     }
 }
 
@@ -1357,9 +1270,7 @@
 
 @push('scripts')
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
 // Professional Job Creation Form JavaScript
 document.addEventListener('DOMContentLoaded', function() {
@@ -1451,53 +1362,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize progress
     updateProgress();
-    
-    // Initialize Select2 on all dropdowns
-    function initializeSelect2() {
-        // Category dropdown
-        $('select[name="category_id"]').select2({
-            placeholder: 'Select Category',
-            allowClear: true,
-            width: '100%',
-            dropdownParent: $('select[name="category_id"]').parent()
-        });
-        
-        // Employment type dropdown
-        $('select[name="employment_type"]').select2({
-            placeholder: 'Select Employment Type',
-            allowClear: true,
-            width: '100%',
-            dropdownParent: $('select[name="employment_type"]').parent()
-        });
-        
-        // Location country dropdown
-        $('select[name="location_country"]').select2({
-            placeholder: 'Select Country',
-            allowClear: true,
-            width: '100%',
-            dropdownParent: $('select[name="location_country"]').parent()
-        });
-        
-        // Location city dropdown
-        $('select[name="location_city"]').select2({
-            placeholder: 'Select City',
-            allowClear: true,
-            width: '100%',
-            dropdownParent: $('select[name="location_city"]').parent()
-        });
-        
-        // Salary currency dropdown
-        $('select[name="salary_currency"]').select2({
-            placeholder: 'Select Currency',
-            allowClear: true,
-            width: '100%',
-            dropdownParent: $('select[name="salary_currency"]').parent()
-        });
-    }
-    
-    // Initialize Select2
-    initializeSelect2();
-    
     // Country -> City mapping (5 countries)
     const countryToCities = {
         'United Arab Emirates': ['Dubai', 'Abu Dhabi', 'Sharjah', 'Ajman', 'Ras Al Khaimah'],
@@ -1521,14 +1385,6 @@ document.addEventListener('DOMContentLoaded', function() {
             if (selectedCity && selectedCity === city) opt.selected = true;
             citySelect.appendChild(opt);
         });
-        
-        // Re-initialize Select2 for city dropdown after updating options
-        $('select[name="location_city"]').select2({
-            placeholder: 'Select City',
-            allowClear: true,
-            width: '100%',
-            dropdownParent: $('select[name="location_city"]').parent()
-        });
     }
 
     // Initialize on load with old values
@@ -1537,11 +1393,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const initialCity = '{{ old('location_city') }}';
         populateCities(initialCountry, initialCity);
         countrySelect.addEventListener('change', function(){
-            populateCities(this.value, null);
-        });
-        
-        // Add Select2 change event for country dropdown
-        $('select[name="location_country"]').on('change', function(){
             populateCities(this.value, null);
         });
     }

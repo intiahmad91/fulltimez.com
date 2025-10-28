@@ -445,33 +445,33 @@
                     <div class="header-content">
                         <div class="header-info">
                             <h1>Document Verification</h1>
-                        </div>
+                                </div>
                         <div class="header-actions">
-                            <a href="{{ route('employer.documents.create') }}" class="btn btn-primary">
+                                    <a href="{{ route('employer.documents.create') }}" class="btn btn-primary">
                                 <i class="fas fa-plus me-2"></i>Submit New Document
                             </a>
                             <a href="{{ route('profile') }}" class="btn btn-outline-primary">
                                 <i class="fas fa-user me-2"></i>View Profile
-                            </a>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
 
-                @if(session('success'))
+                            @if(session('success'))
                     <div class="alert alert-success alert-dismissible fade show">
                         <i class="fas fa-check-circle me-2"></i>
-                        {{ session('success') }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                    </div>
-                @endif
+                                    {{ session('success') }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                </div>
+                            @endif
 
-                @if(session('error'))
+                            @if(session('error'))
                     <div class="alert alert-danger alert-dismissible fade show">
                         <i class="fas fa-exclamation-triangle me-2"></i>
-                        {{ session('error') }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                    </div>
-                @endif
+                                    {{ session('error') }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                </div>
+                            @endif
 
                 <!-- Progress Section -->
                 @php
@@ -498,11 +498,11 @@
 
                 <!-- Documents Content -->
                 <div class="documents-content">
-                    @forelse($documents as $document)
+                            @forelse($documents as $document)
                         <div class="documents-grid">
-                            <div class="document-card">
+                                    <div class="document-card">
                                 <div class="document-header">
-                                    <div class="document-title">
+                                                <div class="document-title">
                                         <div class="document-icon {{ str_replace('_', '-', $document->document_type) }}">
                                             @if($document->document_type === 'trade_license')
                                                 <i class="fas fa-certificate"></i>
@@ -518,13 +518,13 @@
                                             <h3>{{ $document->document_type_name }}</h3>
                                             <p>{{ ucfirst(str_replace('_', ' ', $document->document_type)) }}</p>
                                         </div>
-                                    </div>
-                                    <div class="document-status">
+                                                </div>
+                                                <div class="document-status">
                                         <span class="status-badge {{ $document->status }}">
                                             {{ ucfirst($document->status) }}
                                         </span>
-                                    </div>
-                                </div>
+                                                </div>
+                                            </div>
 
                                 <div class="document-details">
                                     <div class="details-row">
@@ -533,56 +533,56 @@
                                             <span><strong>Submitted:</strong> {{ $document->created_at->format('M j, Y') }}</span>
                                         </div>
                                         
-                                        @if($document->reviewed_at)
+                                                                    @if($document->reviewed_at)
                                             <div class="detail-group">
                                                 <i class="fas fa-check-circle"></i>
                                                 <span><strong>Reviewed:</strong> {{ $document->reviewed_at->format('M j, Y') }}</span>
                                             </div>
-                                        @endif
-                                        
-                                        @if($document->document_type === 'trade_license' && $document->document_number)
+                                                                    @endif
+                                                            
+                                                            @if($document->document_type === 'trade_license' && $document->document_number)
                                             <div class="detail-group">
                                                 <i class="fas fa-hashtag"></i>
                                                 <span><strong>License:</strong> {{ $document->document_number }}</span>
                                             </div>
-                                        @elseif($document->document_type === 'office_landline' && $document->landline_number)
+                                                            @elseif($document->document_type === 'office_landline' && $document->landline_number)
                                             <div class="detail-group">
                                                 <i class="fas fa-phone-alt"></i>
                                                 <span><strong>Landline:</strong> {{ $document->landline_number }}</span>
                                             </div>
-                                        @elseif($document->document_type === 'company_email' && $document->company_email)
+                                                            @elseif($document->document_type === 'company_email' && $document->company_email)
                                             <div class="detail-group">
                                                 <i class="fas fa-at"></i>
                                                 <span><strong>Email:</strong> {{ $document->company_email }}</span>
                                             </div>
-                                        @endif
+                                                            @endif
                                     </div>
-                                    
+                                                            
                                     @if($document->status === 'rejected' && $document->rejection_reason)
                                         <div class="rejection-reason">
                                             <i class="fas fa-exclamation-triangle"></i>
                                             <span><strong>Reason:</strong> {{ $document->rejection_reason }}</span>
-                                        </div>
+                                                        </div>
                                     @endif
-                                </div>
+                                                    </div>
 
-                                <div class="document-actions">
+                                                        <div class="document-actions">
                                     <a href="{{ route('employer.documents.show', $document) }}" class="action-btn view">
                                         <i class="fas fa-eye me-1"></i>View Details
-                                    </a>
-                                    @if($document->status === 'pending')
-                                        <form action="{{ route('employer.documents.destroy', $document) }}" method="POST" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this document?');">
-                                            @csrf
-                                            @method('DELETE')
+                                                            </a>
+                                                            @if($document->status === 'pending')
+                                                                <form action="{{ route('employer.documents.destroy', $document) }}" method="POST" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this document?');">
+                                                                    @csrf
+                                                                    @method('DELETE')
                                             <button type="submit" class="action-btn delete">
                                                 <i class="fas fa-trash me-1"></i>Delete
-                                            </button>
-                                        </form>
-                                    @endif
+                                                                    </button>
+                                                                </form>
+                                                            @endif
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    @empty
+                        @empty
                         <div class="empty-state">
                             <div class="empty-icon">
                                 <i class="fas fa-file-alt"></i>
