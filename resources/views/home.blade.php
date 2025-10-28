@@ -177,7 +177,7 @@ use Illuminate\Support\Facades\Storage;
 
    <section class="category-wrap jobwrp popular-items mt-5">
       <div class="container">
-         <div class="main_title">Featured Jobs {{ count($featuredJobs) }}</div>
+         <div class="main_title">Featured Jobs {{ count($featuredJobs) }} Test</div>
          <div class="cate_list">
          <ul class="owl-carousel jobs_list">
             @foreach($featuredJobs as $job)
