@@ -8,20 +8,31 @@ use Illuminate\Support\Facades\Storage;
 
 @push('styles')
 <style>
-/* Desktop Overflow Fix */
-.category-wrap {
+/* Global Container Fix */
+body {
     overflow-x: hidden !important;
-    width: 100% !important;
 }
 
-.cate_list {
+.container {
+    max-width: 100% !important;
     overflow-x: hidden !important;
-    width: 100% !important;
 }
 
-.jobs_list {
-    overflow-x: hidden !important;
-    width: 100% !important;
+/* Desktop Container Fix */
+@media (min-width: 769px) {
+    .category-wrap {
+        overflow-x: hidden !important;
+    }
+    
+    .jobs_list {
+        overflow-x: hidden !important;
+    }
+    
+    .container {
+        max-width: 1200px !important;
+        margin: 0 auto !important;
+        overflow-x: hidden !important;
+    }
 }
 
 /* Home Page Responsive Improvements */
@@ -41,12 +52,13 @@ use Illuminate\Support\Facades\Storage;
     
     .category-wrap {
         overflow-x: hidden !important;
-        width: 100% !important;
+        padding: 0 15px !important;
     }
     
-    .cate_list {
+    .container {
+        padding: 0 15px !important;
+        max-width: 100% !important;
         overflow-x: hidden !important;
-        width: 100% !important;
     }
     
     .jobs_list .item {
@@ -55,6 +67,8 @@ use Illuminate\Support\Facades\Storage;
         float: none !important;
         clear: both !important;
         margin-bottom: 20px !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
     }
     
     .jobs-ad-card {
@@ -64,9 +78,12 @@ use Illuminate\Support\Facades\Storage;
         box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
         background: #fff !important;
         width: 100% !important;
+        max-width: 100% !important;
         display: block !important;
         float: none !important;
         clear: both !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
     }
     
     .category-job {
@@ -203,10 +220,10 @@ use Illuminate\Support\Facades\Storage;
 
 
    <section class="category-wrap jobwrp popular-items mt-5">
-      <div class="container" style="overflow-x: hidden; width: 100%;">
+      <div class="container">
          <div class="main_title">Featured Jobs</div>
-         <div class="cate_list" style="overflow-x: hidden; width: 100%;">
-         <ul class="owl-carousel jobs_list" style="overflow-x: hidden; width: 100%;">
+         <div class="cate_list">
+         <ul class="owl-carousel jobs_list">
             @foreach($featuredJobs as $job)
             <li class="item wow fadeInUp">
               <div class="add-exp">
@@ -351,10 +368,10 @@ JOBSEEKER</a></div>
 
 
    <section class="category-wrap seekerwrp popular-items mt-5">
-      <div class="container" style="overflow-x: hidden; width: 100%;">
+      <div class="container">
          <div class="main_title">Job Seekers</div>
-         <div class="cate_list" style="overflow-x: hidden; width: 100%;">
-         <ul class="owl-carousel jobs_list" style="overflow-x: hidden; width: 100%;">
+         <div class="cate_list">
+         <ul class="owl-carousel jobs_list">
             @foreach($jobSeekers as $seeker)
             <li class="item wow fadeInUp">
               <div class="add-exp">
