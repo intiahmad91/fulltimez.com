@@ -431,7 +431,7 @@
                             <a href="{{ route('employer.documents.create') }}" class="btn btn-primary">
                                 <i class="fas fa-plus me-2"></i>Submit New Document
                             </a>
-                            <a href="{{ route('employer.profile') }}" class="btn btn-outline-primary">
+                            <a href="{{ route('profile') }}" class="btn btn-outline-primary">
                                 <i class="fas fa-user me-2"></i>View Profile
                             </a>
                         </div>
