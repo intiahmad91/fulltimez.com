@@ -210,103 +210,6 @@ body {
         padding: 4px 8px;
     }
 }
-
-/* Featured Jobs Box Styling */
-.featured-jobs-section {
-    padding: 40px 0;
-}
-
-.featured-jobs-box {
-    background: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-    border: 1px solid #e9ecef;
-    overflow: hidden;
-    transition: all 0.3s ease;
-}
-
-.featured-jobs-box:hover {
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-    transform: translateY(-2px);
-}
-
-.box-header {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    padding: 30px;
-    text-align: center;
-    color: white;
-}
-
-.box-title {
-    font-size: 32px;
-    font-weight: 700;
-    margin: 0 0 10px 0;
-    color: white;
-}
-
-.box-subtitle {
-    font-size: 16px;
-    opacity: 0.9;
-    margin: 0;
-}
-
-.box-content {
-    padding: 30px;
-}
-
-.box-content .cate_list {
-    margin: 0;
-}
-
-.box-content .jobs_list {
-    margin: 0;
-}
-
-/* Responsive adjustments for the box */
-@media (max-width: 768px) {
-    .featured-jobs-section {
-        padding: 20px 0;
-    }
-    
-    .featured-jobs-box {
-        margin: 0 15px;
-        border-radius: 8px;
-    }
-    
-    .box-header {
-        padding: 20px;
-    }
-    
-    .box-title {
-        font-size: 24px;
-    }
-    
-    .box-subtitle {
-        font-size: 14px;
-    }
-    
-    .box-content {
-        padding: 20px;
-    }
-}
-
-@media (max-width: 480px) {
-    .featured-jobs-box {
-        margin: 0 10px;
-    }
-    
-    .box-header {
-        padding: 15px;
-    }
-    
-    .box-title {
-        font-size: 20px;
-    }
-    
-    .box-content {
-        padding: 15px;
-    }
-}
 </style>
 @endpush
 
@@ -316,65 +219,59 @@ body {
 
 
 
-   <section class="featured-jobs-section mt-5">
+   <section class="category-wrap jobwrp popular-items mt-5">
       <div class="container">
-         <div class="featured-jobs-box">
-            <div class="box-header">
-               <h2 class="box-title">Featured Jobs</h2>
-               <div class="box-subtitle">Discover the best opportunities</div>
-            </div>
-            <div class="box-content">
-               <div class="cate_list">
-                  <ul class="owl-carousel jobs_list">
-                     @foreach($featuredJobs as $job)
-                     <li class="item wow fadeInUp">
-                       <div class="add-exp">
-                           <div class="jobs-ad-card ">
-                              <div class="category-job d-flex align-items-center">
-                                 <div class="job-icons">
-                                    <img src="{{ asset('images/job.svg') }}" alt="job-ico" class="img-fluid">
-                                 </div>
-                                 <div class="categery-name">
-                                    <span>Category</span>
-                                    <h3>{{ optional($job->category)->name ?? 'N/A' }}
-                                    </h3>
-                                 </div>
-                              </div>
-                              <span class="boosted-popular-premium">Featured</span>
-                           </div>
-                           <div class="catebox">
-                              <h3 class="mt-0 add-title"><a href="{{ route('jobs.show', $job->slug) }}">{{ $job->title }}</a></h3>
-                              <div class="meta-ad">
-                                 <div class="owner-ad-list d-flex align-items-center">
-                                    <img src="{{ asset('images/avatar.jpg') }}" alt="logo">
-                                    <span class="full-name-list">{{ optional($job->employer->employerProfile)->company_name ?? 'Company' }}</span>
-                                 </div>
-                              </div>
-                              <ul class="carinfo ad-features-parent">
-                                 <li>Type <span>{{ ucfirst(str_replace('_', ' ', $job->employment_type)) }}</span></li>
-                                 <li>Experience <span>{{ $job->experience_years ?? 'N/A' }}</span></li>
-                                 <li>EDucation <span>{{ $job->education_level ?? 'N/A' }}</span>
-                                 </li>
-                              </ul>
-                              <div class="cartbx d-flex"><a href="#"><img src="{{ asset('images/location.svg') }}" alt="logo"> {{ $job->location_city }}</a>
-                              </div>
-                              <div class="price-ad">
-                                 <p>
-                                     @if(!empty($job->salary_min) && !empty($job->salary_max))
-                                         {{ $job->salary_currency ?? 'AED' }} {{ number_format((float)$job->salary_min) }} - {{ number_format((float)$job->salary_max) }} <span>{{ ucfirst($job->salary_period ?? 'monthly') }}</span>
-                                     @else
-                                         Negotiable
-                                     @endif
-                                 </p>
-                              </div>
-                           </div>
+         <div class="main_title">Featured Jobs</div>
+         <div class="cate_list">
+         <ul class="owl-carousel jobs_list">
+            @foreach($featuredJobs as $job)
+            <li class="item wow fadeInUp">
+              <div class="add-exp">
+                  <div class="jobs-ad-card ">
+                     <div class="category-job d-flex align-items-center">
+                        <div class="job-icons">
+                           <img src="{{ asset('images/job.svg') }}" alt="job-ico" class="img-fluid">
                         </div>
-                     </li>
-                     @endforeach
-                  </ul>
+                        <div class="categery-name">
+                           <span>Category</span>
+                           <h3>{{ optional($job->category)->name ?? 'N/A' }}
+                           </h3>
+                        </div>
+                     </div>
+                     <span class="boosted-popular-premium">Featured</span>
+                  </div>
+                  <div class="catebox">
+                     <h3 class="mt-0 add-title"><a href="{{ route('jobs.show', $job->slug) }}">{{ $job->title }}</a></h3>
+                     <div class="meta-ad">
+                        <div class="owner-ad-list d-flex align-items-center">
+                           <img src="{{ asset('images/avatar.jpg') }}" alt="logo">
+                           <span class="full-name-list">{{ optional($job->employer->employerProfile)->company_name ?? 'Company' }}</span>
+                        </div>
+                     </div>
+                     <ul class="carinfo ad-features-parent">
+                        <li>Type <span>{{ ucfirst(str_replace('_', ' ', $job->employment_type)) }}</span></li>
+                        <li>Experience <span>{{ $job->experience_years ?? 'N/A' }}</span></li>
+                        <li>EDucation <span>{{ $job->education_level ?? 'N/A' }}</span>
+                        </li>
+                     </ul>
+                     <div class="cartbx d-flex"><a href="#"><img src="{{ asset('images/location.svg') }}" alt="logo"> {{ $job->location_city }}</a>
+                     </div>
+                     <div class="price-ad">
+                        <p>
+                            @if(!empty($job->salary_min) && !empty($job->salary_max))
+                                {{ $job->salary_currency ?? 'AED' }} {{ number_format((float)$job->salary_min) }} - {{ number_format((float)$job->salary_max) }} <span>{{ ucfirst($job->salary_period ?? 'monthly') }}</span>
+                            @else
+                                Negotiable
+                            @endif
+                        </p>
+                     </div>
+                  </div>
                </div>
-            </div>
-         </div>
+            </li>
+            @endforeach
+
+         </ul>
+      </div> 
       </div> 
    </section>
  
