@@ -5,7 +5,7 @@
 <style>
 /* Modern Professional Sidebar Styles */
 .modern-sidebar {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #2c3e50;
     border-radius: 15px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.1);
     overflow: hidden;
@@ -135,7 +135,7 @@
     top: 0;
     bottom: 0;
     width: 4px;
-    background: linear-gradient(135deg, #ff6b6b, #ffa500);
+    background: #3498db;
 }
 
 .nav-icon {
@@ -198,13 +198,13 @@
 }
 
 .logout-link {
-    color: #ff6b6b !important;
+    color: #e74c3c !important;
     font-weight: 600;
 }
 
 .logout-link:hover {
-    background: rgba(255, 107, 107, 0.1) !important;
-    color: #ff4757 !important;
+    background: rgba(231, 76, 60, 0.1) !important;
+    color: #c0392b !important;
 }
 
 /* Responsive Design */
