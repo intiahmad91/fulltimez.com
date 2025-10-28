@@ -3,229 +3,612 @@
 @section('title', 'Document Verification')
 
 @section('content')
-<section class="breadcrumb-section">
-    <div class="container-auto">
-        <div class="row">
-            <div class="col-md-6 col-sm-6 col-12">
-                <div class="page-title">
-                    <h1>Document Verification</h1>
-                </div>
-            </div>
-            <div class="col-md-6 col-sm-6 col-12">
-                <nav aria-label="breadcrumb" class="theme-breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Document Verification</li>
-                    </ol>
-                </nav>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="dashboard-section">
-    <div class="container">
-        <div class="row">
-            @include('dashboard.sidebar')
-
-            <div class="col-lg-9">
-                <div class="dashboard-content">
-                    <div class="dashboard-panel">
-                        <div class="panel-header">
-                            <div class="row align-items-center">
-                                <div class="col-md-6">
-                                    <h4><i class="fas fa-file-alt"></i> Document Verification</h4>
-                                </div>
-                                <div class="col-md-6 text-end">
-                                    <a href="{{ route('employer.documents.create') }}" class="btn btn-primary">
-                                        <i class="fas fa-plus"></i> Submit Document
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="panel-body">
-                            @if(session('success'))
-                                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                    {{ session('success') }}
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                                </div>
-                            @endif
-
-                            @if(session('error'))
-                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    {{ session('error') }}
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                                </div>
-                            @endif
-
-                            @forelse($documents as $document)
-                                <div class="document-item mb-4">
-                                    <div class="document-card">
-                                        <div class="card-header">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <div class="document-title">
-                                                    <i class="fas fa-file-alt text-primary me-2"></i>
-                                                    <strong>{{ $document->document_type_name }}</strong>
-                                                </div>
-                                                <div class="document-status">
-                                                    @if($document->status === 'approved')
-                                                        <span class="badge bg-success">Approved</span>
-                                                    @elseif($document->status === 'pending')
-                                                        <span class="badge bg-warning">Pending</span>
-                                                    @elseif($document->status === 'rejected')
-                                                        <span class="badge bg-danger">Rejected</span>
-                                                    @endif
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="document-details">
-                                                <div class="row">
-                                                    <div class="col-md-8">
-                                                        <div class="document-info">
-                                                            <p class="text-muted mb-2">
-                                                                <small>
-                                                                    <i class="fas fa-calendar-alt me-1"></i>
-                                                                    Submitted: {{ $document->created_at->format('M j, Y \a\t g:i A') }}
-                                                                    @if($document->reviewed_at)
-                                                                        | <i class="fas fa-check-circle me-1"></i>
-                                                                        Reviewed: {{ $document->reviewed_at->format('M j, Y \a\t g:i A') }}
-                                                                    @endif
-                                                                </small>
-                                                            </p>
-                                                            
-                                                            @if($document->document_type === 'trade_license' && $document->document_number)
-                                                                <p class="mb-2"><strong>License Number:</strong> {{ $document->document_number }}</p>
-                                                            @elseif($document->document_type === 'office_landline' && $document->landline_number)
-                                                                <p class="mb-2"><strong>Landline:</strong> {{ $document->landline_number }}</p>
-                                                            @elseif($document->document_type === 'company_email' && $document->company_email)
-                                                                <p class="mb-2"><strong>Email:</strong> {{ $document->company_email }}</p>
-                                                            @endif
-                                                            
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4 text-end">
-                                                        <div class="document-actions">
-                                                            <a href="{{ route('employer.documents.show', $document) }}" class="btn btn-outline-primary btn-sm">
-                                                                <i class="fas fa-eye"></i> View
-                                                            </a>
-                                                            @if($document->status === 'pending')
-                                                                <form action="{{ route('employer.documents.destroy', $document) }}" method="POST" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this document?');">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    <button type="submit" class="btn btn-outline-danger btn-sm mt-1">
-                                                                        <i class="fas fa-trash"></i> Delete
-                                                                    </button>
-                                                                </form>
-                                                            @endif
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                        @empty
-                            <div class="text-center py-5">
-                                <i class="fas fa-file-alt fa-3x text-muted mb-3"></i>
-                                <h5 class="text-muted">No documents submitted yet</h5>
-                                <p class="text-muted">Submit your required documents for verification to get started.</p>
-                                <a href="{{ route('employer.documents.create') }}" class="btn btn-primary">
-                                    <i class="fas fa-plus"></i> Submit First Document
-                                </a>
-                            </div>
-                        @endforelse
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
 <style>
-.document-card {
-    border: 1px solid #e9ecef;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    transition: all 0.3s ease;
-    background: white;
-}
-
-.document-card:hover {
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    transform: translateY(-2px);
-}
-
-.document-card .card-header {
+/* Professional Document Verification Styles */
+.documents-container {
     background: #f8f9fa;
-    border-bottom: 1px solid #e9ecef;
-    padding: 1rem 1.25rem;
-    border-radius: 8px 8px 0 0;
+    min-height: 100vh;
+    padding: 20px 0;
 }
 
-.document-title {
-    font-size: 1.1rem;
-    color: #495057;
+.documents-header {
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    margin-bottom: 30px;
+    padding: 30px;
+}
+
+.header-content {
+    display: flex;
+    justify-content: between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.header-info h1 {
+    color: #2c3e50;
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0 0 5px 0;
+}
+
+.header-info p {
+    color: #7f8c8d;
+    font-size: 16px;
     margin: 0;
 }
 
-.document-status .badge {
-    font-size: 0.8rem;
-    padding: 0.4rem 0.8rem;
+.header-actions {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.btn-primary {
+    background: #3498db;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 25px;
+    font-weight: 600;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background: #2980b9;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+}
+
+.btn-outline-primary {
+    border: 2px solid #3498db;
+    color: #3498db;
+    background: transparent;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-primary:hover {
+    background: #3498db;
+    color: white;
+    transform: translateY(-1px);
+}
+
+.documents-content {
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    padding: 30px;
+}
+
+.documents-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+.document-card {
+    background: #ffffff;
+    border: 2px solid #ecf0f1;
+    border-radius: 12px;
+    padding: 25px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.document-card:hover {
+    border-color: #3498db;
+    box-shadow: 0 8px 25px rgba(52, 152, 219, 0.15);
+    transform: translateY(-3px);
+}
+
+.document-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: #3498db;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.document-card:hover::before {
+    opacity: 1;
+}
+
+.document-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.document-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.document-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: white;
+}
+
+.document-icon.trade-license {
+    background: #e74c3c;
+}
+
+.document-icon.office-landline {
+    background: #f39c12;
+}
+
+.document-icon.company-email {
+    background: #27ae60;
+}
+
+.document-title-text h3 {
+    color: #2c3e50;
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 0 5px 0;
+}
+
+.document-title-text p {
+    color: #7f8c8d;
+    font-size: 14px;
+    margin: 0;
+}
+
+.document-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.status-badge {
+    padding: 6px 12px;
     border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
-.document-card .card-body {
-    padding: 1.25rem;
+.status-badge.approved {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
 }
 
-.document-info p {
-    margin-bottom: 0.5rem;
-    color: #6c757d;
+.status-badge.pending {
+    background: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeaa7;
 }
 
-.document-info strong {
-    color: #495057;
+.status-badge.rejected {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
 }
 
+.document-details {
+    margin-bottom: 20px;
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    padding: 8px 0;
+}
+
+.detail-item i {
+    color: #3498db;
+    width: 16px;
+    text-align: center;
+}
+
+.detail-item span {
+    color: #7f8c8d;
+    font-size: 14px;
+}
+
+.detail-item strong {
+    color: #2c3e50;
+    font-weight: 600;
+}
 
 .document-actions {
     display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+    gap: 10px;
+    flex-wrap: wrap;
 }
 
-.document-actions .btn {
-    width: 100%;
-    border-radius: 4px;
-    font-size: 0.875rem;
+.action-btn {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
 }
 
+.action-btn.view {
+    background: #3498db;
+    color: white;
+}
+
+.action-btn.view:hover {
+    background: #2980b9;
+    color: white;
+    transform: translateY(-1px);
+}
+
+.action-btn.delete {
+    background: #e74c3c;
+    color: white;
+}
+
+.action-btn.delete:hover {
+    background: #c0392b;
+    color: white;
+    transform: translateY(-1px);
+}
+
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+.empty-icon {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: #ecf0f1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 25px;
+    font-size: 40px;
+    color: #bdc3c7;
+}
+
+.empty-state h3 {
+    color: #2c3e50;
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0 0 15px 0;
+}
+
+.empty-state p {
+    color: #7f8c8d;
+    font-size: 16px;
+    margin: 0 0 25px 0;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.alert {
+    border-radius: 8px;
+    border: none;
+    padding: 15px 20px;
+    margin-bottom: 25px;
+}
+
+.alert-success {
+    background: #d4edda;
+    color: #155724;
+}
+
+.alert-danger {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.progress-section {
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    padding: 30px;
+    margin-bottom: 30px;
+}
+
+.progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.progress-header h3 {
+    color: #2c3e50;
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.progress-bar-container {
+    background: #ecf0f1;
+    border-radius: 10px;
+    height: 12px;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
+.progress-bar {
+    height: 100%;
+    background: #3498db;
+    border-radius: 10px;
+    transition: width 0.3s ease;
+}
+
+.progress-text {
+    text-align: center;
+    color: #7f8c8d;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
-    .document-actions {
-        margin-top: 1rem;
+    .documents-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
     }
     
-    .document-actions .btn {
-        width: auto;
-        display: inline-block;
-        margin-right: 0.5rem;
+    .header-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .header-actions {
+        justify-content: center;
+    }
+    
+    .document-header {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .document-actions {
+        justify-content: center;
+    }
+    
+    .documents-header,
+    .documents-content,
+    .progress-section {
+        padding: 20px;
     }
 }
 
 @media (max-width: 576px) {
-    .document-card .card-header {
-        padding: 0.75rem 1rem;
+    .document-card {
+        padding: 20px;
     }
     
-    .document-card .card-body {
-        padding: 1rem;
-    }
-    
-    .document-title {
-        font-size: 1rem;
+    .action-btn {
+        flex: 1;
+        text-align: center;
     }
 }
 </style>
+
+<section class="documents-container">
+    <div class="container">
+        <div class="row">
+            @include('dashboard.sidebar')
+            <div class="col-lg-9">
+                <!-- Documents Header -->
+                <div class="documents-header">
+                    <div class="header-content">
+                        <div class="header-info">
+                            <h1>Document Verification</h1>
+                            <p>Manage and track your company verification documents</p>
+                        </div>
+                        <div class="header-actions">
+                            <a href="{{ route('employer.documents.create') }}" class="btn btn-primary">
+                                <i class="fas fa-plus me-2"></i>Submit New Document
+                            </a>
+                            <a href="{{ route('employer.profile') }}" class="btn btn-outline-primary">
+                                <i class="fas fa-user me-2"></i>View Profile
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                @if(session('success'))
+                    <div class="alert alert-success alert-dismissible fade show">
+                        <i class="fas fa-check-circle me-2"></i>
+                        {{ session('success') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                @endif
+
+                @if(session('error'))
+                    <div class="alert alert-danger alert-dismissible fade show">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        {{ session('error') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                @endif
+
+                <!-- Progress Section -->
+                @php
+                    $totalRequired = 3;
+                    $submittedCount = $documents->count();
+                    $approvedCount = $documents->where('status', 'approved')->count();
+                    $progressPercentage = ($submittedCount / $totalRequired) * 100;
+                @endphp
+                
+                <div class="progress-section">
+                    <div class="progress-header">
+                        <h3>Verification Progress</h3>
+                        <span class="status-badge {{ $approvedCount == $totalRequired ? 'approved' : 'pending' }}">
+                            {{ $approvedCount }}/{{ $totalRequired }} Complete
+                        </span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" style="width: {{ $progressPercentage }}%"></div>
+                    </div>
+                    <div class="progress-text">
+                        {{ $submittedCount }} of {{ $totalRequired }} required documents submitted
+                    </div>
+                </div>
+
+                <!-- Documents Content -->
+                <div class="documents-content">
+                    @forelse($documents as $document)
+                        <div class="documents-grid">
+                            <div class="document-card">
+                                <div class="document-header">
+                                    <div class="document-title">
+                                        <div class="document-icon {{ str_replace('_', '-', $document->document_type) }}">
+                                            @if($document->document_type === 'trade_license')
+                                                <i class="fas fa-certificate"></i>
+                                            @elseif($document->document_type === 'office_landline')
+                                                <i class="fas fa-phone"></i>
+                                            @elseif($document->document_type === 'company_email')
+                                                <i class="fas fa-envelope"></i>
+                                            @else
+                                                <i class="fas fa-file-alt"></i>
+                                            @endif
+                                        </div>
+                                        <div class="document-title-text">
+                                            <h3>{{ $document->document_type_name }}</h3>
+                                            <p>{{ ucfirst(str_replace('_', ' ', $document->document_type)) }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="document-status">
+                                        <span class="status-badge {{ $document->status }}">
+                                            {{ ucfirst($document->status) }}
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="document-details">
+                                    <div class="detail-item">
+                                        <i class="fas fa-calendar-alt"></i>
+                                        <span><strong>Submitted:</strong> {{ $document->created_at->format('M j, Y \a\t g:i A') }}</span>
+                                    </div>
+                                    
+                                    @if($document->reviewed_at)
+                                        <div class="detail-item">
+                                            <i class="fas fa-check-circle"></i>
+                                            <span><strong>Reviewed:</strong> {{ $document->reviewed_at->format('M j, Y \a\t g:i A') }}</span>
+                                        </div>
+                                    @endif
+                                    
+                                    @if($document->document_type === 'trade_license' && $document->document_number)
+                                        <div class="detail-item">
+                                            <i class="fas fa-hashtag"></i>
+                                            <span><strong>License Number:</strong> {{ $document->document_number }}</span>
+                                        </div>
+                                    @elseif($document->document_type === 'office_landline' && $document->landline_number)
+                                        <div class="detail-item">
+                                            <i class="fas fa-phone-alt"></i>
+                                            <span><strong>Landline:</strong> {{ $document->landline_number }}</span>
+                                        </div>
+                                    @elseif($document->document_type === 'company_email' && $document->company_email)
+                                        <div class="detail-item">
+                                            <i class="fas fa-at"></i>
+                                            <span><strong>Email:</strong> {{ $document->company_email }}</span>
+                                        </div>
+                                    @endif
+                                    
+                                    @if($document->status === 'rejected' && $document->rejection_reason)
+                                        <div class="detail-item">
+                                            <i class="fas fa-exclamation-triangle"></i>
+                                            <span><strong>Reason:</strong> {{ $document->rejection_reason }}</span>
+                                        </div>
+                                    @endif
+                                </div>
+
+                                <div class="document-actions">
+                                    <a href="{{ route('employer.documents.show', $document) }}" class="action-btn view">
+                                        <i class="fas fa-eye me-1"></i>View Details
+                                    </a>
+                                    @if($document->status === 'pending')
+                                        <form action="{{ route('employer.documents.destroy', $document) }}" method="POST" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this document?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="action-btn delete">
+                                                <i class="fas fa-trash me-1"></i>Delete
+                                            </button>
+                                        </form>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    @empty
+                        <div class="empty-state">
+                            <div class="empty-icon">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                            <h3>No Documents Submitted</h3>
+                            <p>Submit your required documents for verification to complete your employer profile and start posting jobs.</p>
+                            <a href="{{ route('employer.documents.create') }}" class="btn btn-primary">
+                                <i class="fas fa-plus me-2"></i>Submit First Document
+                            </a>
+                        </div>
+                    @endforelse
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Add smooth animations to document cards
+    const cards = document.querySelectorAll('.document-card');
+    
+    cards.forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        
+        setTimeout(() => {
+            card.style.transition = 'all 0.5s ease';
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+        }, index * 100);
+    });
+    
+    // Add hover effects to action buttons
+    const actionBtns = document.querySelectorAll('.action-btn');
+    
+    actionBtns.forEach(btn => {
+        btn.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-2px)';
+        });
+        
+        btn.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+        });
+    });
+});
+</script>
+@endpush
 @endsection
