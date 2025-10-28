@@ -79,6 +79,7 @@
     background: #f8f9fa;
     padding: 1rem 2.5rem;
     border-bottom: 1px solid #e8e8e8;
+    display: none; /* Hide progress tabs */
 }
 
 .progress-steps {
