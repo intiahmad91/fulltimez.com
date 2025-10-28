@@ -3,136 +3,534 @@
 @section('title', 'Dashboard')
 
 @section('content')
-<section class="breadcrumb-section">
-    <div class="container-auto">
-        <div class="row">
-            <div class="col-md-6 col-sm-6 col-12">
-                <div class="page-title">
-                    <h1>Dashboard</h1>
-                </div>
-            </div>
-            <div class="col-md-6 col-sm-6 col-12">
-                <nav aria-label="breadcrumb" class="theme-breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
-                    </ol>
-                </nav>
-            </div>
-        </div>
-    </div>
-</section>
+<style>
+/* Professional Dashboard Styles */
+.dashboard-container {
+    background: #f8f9fa;
+    min-height: 100vh;
+    padding: 20px 0;
+}
 
-<section class="pagecontent dashboard_wrap">
+.dashboard-header {
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    margin-bottom: 30px;
+    padding: 30px;
+}
+
+.welcome-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.welcome-content h1 {
+    color: #2c3e50;
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.welcome-content p {
+    color: #7f8c8d;
+    font-size: 16px;
+    margin: 5px 0 0 0;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #3498db;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.user-details h4 {
+    color: #2c3e50;
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.user-details span {
+    color: #7f8c8d;
+    font-size: 14px;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background: #ffffff;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+    border-left: 4px solid #3498db;
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+}
+
+.stat-card.success {
+    border-left-color: #27ae60;
+}
+
+.stat-card.warning {
+    border-left-color: #f39c12;
+}
+
+.stat-card.danger {
+    border-left-color: #e74c3c;
+}
+
+.stat-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.stat-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: white;
+}
+
+.stat-icon.primary {
+    background: #3498db;
+}
+
+.stat-icon.success {
+    background: #27ae60;
+}
+
+.stat-icon.warning {
+    background: #f39c12;
+}
+
+.stat-icon.danger {
+    background: #e74c3c;
+}
+
+.stat-number {
+    font-size: 32px;
+    font-weight: 700;
+    color: #2c3e50;
+    margin: 0;
+}
+
+.stat-label {
+    color: #7f8c8d;
+    font-size: 14px;
+    margin: 5px 0 0 0;
+}
+
+.quick-actions {
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    padding: 30px;
+}
+
+.section-title {
+    color: #2c3e50;
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.section-title i {
+    color: #3498db;
+}
+
+.actions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.action-card {
+    background: #ffffff;
+    border: 2px solid #ecf0f1;
+    border-radius: 12px;
+    padding: 25px;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+}
+
+.action-card:hover {
+    border-color: #3498db;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(52, 152, 219, 0.2);
+    text-decoration: none;
+    color: inherit;
+}
+
+.action-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 15px;
+    font-size: 24px;
+    color: #3498db;
+    transition: all 0.3s ease;
+}
+
+.action-card:hover .action-icon {
+    background: #3498db;
+    color: white;
+    transform: scale(1.1);
+}
+
+.action-title {
+    color: #2c3e50;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.action-description {
+    color: #7f8c8d;
+    font-size: 13px;
+    margin: 8px 0 0 0;
+}
+
+.recent-activity {
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    padding: 30px;
+    margin-top: 30px;
+}
+
+.activity-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 0;
+    border-bottom: 1px solid #ecf0f1;
+}
+
+.activity-item:last-child {
+    border-bottom: none;
+}
+
+.activity-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: #3498db;
+}
+
+.activity-content h6 {
+    color: #2c3e50;
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.activity-content p {
+    color: #7f8c8d;
+    font-size: 12px;
+    margin: 2px 0 0 0;
+}
+
+.activity-time {
+    color: #95a5a6;
+    font-size: 12px;
+    margin-left: auto;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .welcome-section {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .actions-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+    
+    .dashboard-header,
+    .quick-actions,
+    .recent-activity {
+        padding: 20px;
+    }
+}
+</style>
+
+<section class="dashboard-container">
     <div class="container">
-        <div class="row contactWrp">
+        <div class="row">
             @include('dashboard.sidebar')
             <div class="col-lg-9">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">Dashboard</h3>
-                    </div>
-                    <div class="card-body p-5">
-                        <div class="item-all-cat">
-                            <div class="row category-type">
-                                @if(auth()->user()->isSeeker())
-                                <div class="col-lg-3 col-md-6 col-sm-6">
-                                    <div class="item-all-card text-dark text-center card">
-                                        <a href="{{ route('profile') }}"></a>
-                                        <div class="iteam-all-icon1"><i class="fas fa-user"></i></div>
-                                        <div class="item-all-text mt-3">
-                                            <h5 class="mb-0 text-body">Profile</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6 col-sm-6">
-                                    <div class="item-all-card text-dark text-center card">
-                                        <a href="{{ route('seeker.cv.create') }}"></a>
-                                        <div class="iteam-all-icon1"><i class="fas fa-file-alt"></i></div>
-                                        <div class="item-all-text mt-3">
-                                            <h5 class="mb-0 text-body">My CV</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6 col-sm-6">
-                                    <div class="item-all-card text-dark text-center card">
-                                        <a href="{{ route('applications.index') }}"></a>
-                                        <div class="iteam-all-icon1"><i class="fas fa-briefcase"></i></div>
-                                        <div class="item-all-text mt-3">
-                                            <h5 class="mb-0 text-body">Applications</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6 col-sm-6">
-                                    <div class="item-all-card text-dark text-center card">
-                                        <a href="{{ route('jobs.index') }}"></a>
-                                        <div class="iteam-all-icon1"><i class="fas fa-search"></i></div>
-                                        <div class="item-all-text mt-3">
-                                            <h5 class="mb-0 text-body">Browse Jobs</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6 col-sm-6">
-                                    <div class="item-all-card text-dark text-center card">
-                                        <a href="{{ route('change.password') }}"></a>
-                                        <div class="iteam-all-icon1"><i class="fas fa-lock"></i></div>
-                                        <div class="item-all-text mt-3">
-                                            <h5 class="mb-0 text-body">Change Password</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                                @elseif(auth()->user()->isEmployer())
-                                <div class="col-lg-3 col-md-6 col-sm-6">
-                                    <div class="item-all-card text-dark text-center card">
-                                        <a href="{{ route('employer.jobs.create') }}"></a>
-                                        <div class="iteam-all-icon1"><i class="fas fa-plus-circle"></i></div>
-                                        <div class="item-all-text mt-3">
-                                            <h5 class="mb-0 text-body">Post Job</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6 col-sm-6">
-                                    <div class="item-all-card text-dark text-center card">
-                                        <a href="{{ route('employer.jobs.index') }}"></a>
-                                        <div class="iteam-all-icon1"><i class="fas fa-briefcase"></i></div>
-                                        <div class="item-all-text mt-3">
-                                            <h5 class="mb-0 text-body">My Jobs</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6 col-sm-6">
-                                    <div class="item-all-card text-dark text-center card">
-                                        <a href="{{ route('employer.applications') }}"></a>
-                                        <div class="iteam-all-icon1"><i class="fas fa-file-alt"></i></div>
-                                        <div class="item-all-text mt-3">
-                                            <h5 class="mb-0 text-body">Applications</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6 col-sm-6">
-                                    <div class="item-all-card text-dark text-center card">
-                                        <a href="{{ route('profile') }}"></a>
-                                        <div class="iteam-all-icon1"><i class="fas fa-building"></i></div>
-                                        <div class="item-all-text mt-3">
-                                            <h5 class="mb-0 text-body">Company Profile</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                                @endif
-                                <div class="col-lg-3 col-md-6 col-sm-6">
-                                    <div class="item-all-card text-dark text-center card">
-                                        <form action="{{ route('logout') }}" method="POST">
-                                            @csrf
-                                            <a href="#" onclick="event.preventDefault(); this.closest('form').submit();"></a>
-                                        </form>
-                                        <div class="iteam-all-icon1"><i class="fas fa-sign-out-alt"></i></div>
-                                        <div class="item-all-text mt-3">
-                                            <h5 class="mb-0 text-body">Logout</h5>
-                                        </div>
-                                    </div>
-                                </div>
+                <!-- Welcome Header -->
+                <div class="dashboard-header">
+                    <div class="welcome-section">
+                        <div class="welcome-content">
+                            <h1>Welcome back, {{ auth()->user()->name }}!</h1>
+                            <p>Here's what's happening with your {{ auth()->user()->isSeeker() ? 'job search' : 'business' }} today.</p>
+                        </div>
+                        <div class="user-info">
+                            <div class="user-avatar">
+                                {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
+                            </div>
+                            <div class="user-details">
+                                <h4>{{ auth()->user()->name }}</h4>
+                                <span>{{ ucfirst(auth()->user()->role->slug) }}</span>
                             </div>
                         </div>
+                    </div>
+                </div>
+
+                <!-- Statistics Cards -->
+                <div class="stats-grid">
+                    @if(auth()->user()->isSeeker())
+                        <div class="stat-card success">
+                            <div class="stat-header">
+                                <div class="stat-icon success">
+                                    <i class="fas fa-paper-plane"></i>
+                                </div>
+                            </div>
+                            <h3 class="stat-number">{{ auth()->user()->jobApplications()->count() }}</h3>
+                            <p class="stat-label">Applications Sent</p>
+                        </div>
+                        
+                        <div class="stat-card primary">
+                            <div class="stat-header">
+                                <div class="stat-icon primary">
+                                    <i class="fas fa-eye"></i>
+                                </div>
+                            </div>
+                            <h3 class="stat-number">{{ auth()->user()->jobApplications()->where('status', 'viewed')->count() }}</h3>
+                            <p class="stat-label">Profile Views</p>
+                        </div>
+                        
+                        <div class="stat-card warning">
+                            <div class="stat-header">
+                                <div class="stat-icon warning">
+                                    <i class="fas fa-bell"></i>
+                                </div>
+                            </div>
+                            <h3 class="stat-number">{{ auth()->user()->unreadNotifications->count() }}</h3>
+                            <p class="stat-label">New Notifications</p>
+                        </div>
+                    @elseif(auth()->user()->isEmployer())
+                        <div class="stat-card primary">
+                            <div class="stat-header">
+                                <div class="stat-icon primary">
+                                    <i class="fas fa-briefcase"></i>
+                                </div>
+                            </div>
+                            <h3 class="stat-number">{{ auth()->user()->jobPostings()->count() }}</h3>
+                            <p class="stat-label">Active Jobs</p>
+                        </div>
+                        
+                        <div class="stat-card success">
+                            <div class="stat-header">
+                                <div class="stat-icon success">
+                                    <i class="fas fa-file-alt"></i>
+                                </div>
+                            </div>
+                            <h3 class="stat-number">{{ auth()->user()->jobPostings()->withCount('applications')->get()->sum('applications_count') }}</h3>
+                            <p class="stat-label">Total Applications</p>
+                        </div>
+                        
+                        <div class="stat-card warning">
+                            <div class="stat-header">
+                                <div class="stat-icon warning">
+                                    <i class="fas fa-bell"></i>
+                                </div>
+                            </div>
+                            <h3 class="stat-number">{{ auth()->user()->unreadNotifications->count() }}</h3>
+                            <p class="stat-label">New Notifications</p>
+                        </div>
+                    @endif
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="quick-actions">
+                    <h2 class="section-title">
+                        <i class="fas fa-bolt"></i>
+                        Quick Actions
+                    </h2>
+                    <div class="actions-grid">
+                        @if(auth()->user()->isSeeker())
+                            <a href="{{ route('profile') }}" class="action-card">
+                                <div class="action-icon">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <h5 class="action-title">Update Profile</h5>
+                                <p class="action-description">Complete your profile information</p>
+                            </a>
+                            
+                            <a href="{{ route('seeker.cv.create') }}" class="action-card">
+                                <div class="action-icon">
+                                    <i class="fas fa-file-alt"></i>
+                                </div>
+                                <h5 class="action-title">Create CV</h5>
+                                <p class="action-description">Build your professional resume</p>
+                            </a>
+                            
+                            <a href="{{ route('applications.index') }}" class="action-card">
+                                <div class="action-icon">
+                                    <i class="fas fa-paper-plane"></i>
+                                </div>
+                                <h5 class="action-title">My Applications</h5>
+                                <p class="action-description">Track your job applications</p>
+                            </a>
+                            
+                            <a href="{{ route('jobs.index') }}" class="action-card">
+                                <div class="action-icon">
+                                    <i class="fas fa-search"></i>
+                                </div>
+                                <h5 class="action-title">Browse Jobs</h5>
+                                <p class="action-description">Find your next opportunity</p>
+                            </a>
+                        @elseif(auth()->user()->isEmployer())
+                            @php
+                                $user = auth()->user();
+                                $requiredTypes = ['trade_license', 'office_landline', 'company_email'];
+                                $approvedDocuments = $user->employerDocuments()
+                                    ->whereIn('document_type', $requiredTypes)
+                                    ->where('status', 'approved')
+                                    ->get();
+                                $approvedTypes = $approvedDocuments->pluck('document_type')->toArray();
+                                $allDocumentsApproved = count(array_intersect($requiredTypes, $approvedTypes)) === count($requiredTypes);
+                            @endphp
+                            
+                            @if($allDocumentsApproved)
+                                <a href="{{ route('employer.jobs.create') }}" class="action-card">
+                                    <div class="action-icon">
+                                        <i class="fas fa-plus-circle"></i>
+                                    </div>
+                                    <h5 class="action-title">Post New Job</h5>
+                                    <p class="action-description">Create a new job posting</p>
+                                </a>
+                            @else
+                                <a href="{{ route('employer.documents.index') }}" class="action-card" style="opacity: 0.6;">
+                                    <div class="action-icon">
+                                        <i class="fas fa-plus-circle"></i>
+                                    </div>
+                                    <h5 class="action-title">Post New Job</h5>
+                                    <p class="action-description">Complete verification first</p>
+                                </a>
+                            @endif
+                            
+                            <a href="{{ route('employer.jobs.index') }}" class="action-card">
+                                <div class="action-icon">
+                                    <i class="fas fa-briefcase"></i>
+                                </div>
+                                <h5 class="action-title">Manage Jobs</h5>
+                                <p class="action-description">View and edit your job postings</p>
+                            </a>
+                            
+                            <a href="{{ route('employer.applications') }}" class="action-card">
+                                <div class="action-icon">
+                                    <i class="fas fa-file-alt"></i>
+                                </div>
+                                <h5 class="action-title">View Applications</h5>
+                                <p class="action-description">Review candidate applications</p>
+                            </a>
+                            
+                            <a href="{{ route('profile') }}" class="action-card">
+                                <div class="action-icon">
+                                    <i class="fas fa-building"></i>
+                                </div>
+                                <h5 class="action-title">Company Profile</h5>
+                                <p class="action-description">Update company information</p>
+                            </a>
+                        @endif
+                        
+                        <a href="{{ route('change.password') }}" class="action-card">
+                            <div class="action-icon">
+                                <i class="fas fa-lock"></i>
+                            </div>
+                            <h5 class="action-title">Change Password</h5>
+                            <p class="action-description">Update your account security</p>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="recent-activity">
+                    <h2 class="section-title">
+                        <i class="fas fa-clock"></i>
+                        Recent Activity
+                    </h2>
+                    <div class="activity-list">
+                        @if(auth()->user()->notifications()->latest()->take(5)->count() > 0)
+                            @foreach(auth()->user()->notifications()->latest()->take(5)->get() as $notification)
+                                <div class="activity-item">
+                                    <div class="activity-icon">
+                                        <i class="fas fa-bell"></i>
+                                    </div>
+                                    <div class="activity-content">
+                                        <h6>{{ $notification->data['title'] ?? 'New Notification' }}</h6>
+                                        <p>{{ $notification->data['message'] ?? 'You have a new notification' }}</p>
+                                    </div>
+                                    <div class="activity-time">
+                                        {{ $notification->created_at->diffForHumans() }}
+                                    </div>
+                                </div>
+                            @endforeach
+                        @else
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-info-circle"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <h6>No Recent Activity</h6>
+                                    <p>Your recent activities will appear here</p>
+                                </div>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
