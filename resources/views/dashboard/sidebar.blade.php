@@ -56,6 +56,29 @@
     border-color: rgba(255,255,255,0.6);
 }
 
+.default-user-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    border: 3px solid rgba(255,255,255,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.default-user-icon:hover {
+    transform: scale(1.05);
+    border-color: rgba(255,255,255,0.6);
+    background: rgba(255,255,255,0.15);
+}
+
+.default-user-icon i {
+    font-size: 32px;
+    color: rgba(255,255,255,0.8);
+}
+
 .online-indicator {
     position: absolute;
     bottom: 5px;
@@ -222,6 +245,15 @@
         height: 60px;
     }
     
+    .default-user-icon {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .default-user-icon i {
+        font-size: 24px;
+    }
+    
     .nav-link {
         padding: 12px 15px;
     }
@@ -249,7 +281,9 @@
                 @elseif(auth()->user()->isEmployer() && auth()->user()->employerProfile && auth()->user()->employerProfile->company_logo)
                     <img src="{{ Storage::url(auth()->user()->employerProfile->company_logo) }}" class="profile-image" alt="Company Logo">
                 @else
-                    <img src="{{ asset('images/profile_img.jpg') }}" class="profile-image" alt="Default Profile">
+                    <div class="default-user-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
                 @endif
                 <span class="online-indicator" data-toggle="tooltip" data-placement="top" title="Online"></span>
             </div>
