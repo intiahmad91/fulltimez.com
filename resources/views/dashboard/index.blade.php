@@ -71,84 +71,35 @@
     font-size: 14px;
 }
 
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    margin-bottom: 30px;
-}
-
-.stat-card {
-    background: #ffffff;
-    border-radius: 15px;
-    padding: 25px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-    transition: all 0.3s ease;
-    border-left: 4px solid #3498db;
-}
-
-.stat-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.12);
-}
-
-.stat-card.success {
-    border-left-color: #27ae60;
-}
-
-.stat-card.warning {
-    border-left-color: #f39c12;
-}
-
-.stat-card.danger {
-    border-left-color: #e74c3c;
-}
-
-.stat-header {
+.stats-row {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 15px;
+    justify-content: flex-end;
+    gap: 30px;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #ecf0f1;
 }
 
-.stat-icon {
-    width: 50px;
-    height: 50px;
-    border-radius: 12px;
+.simple-stat {
+    text-align: center;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    color: white;
 }
 
-.stat-icon.primary {
-    background: #3498db;
-}
-
-.stat-icon.success {
-    background: #27ae60;
-}
-
-.stat-icon.warning {
-    background: #f39c12;
-}
-
-.stat-icon.danger {
-    background: #e74c3c;
-}
-
-.stat-number {
-    font-size: 32px;
+.simple-stat .stat-number {
+    font-size: 24px;
     font-weight: 700;
     color: #2c3e50;
     margin: 0;
 }
 
-.stat-label {
+.simple-stat .stat-label {
     color: #7f8c8d;
-    font-size: 14px;
+    font-size: 12px;
     margin: 5px 0 0 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .quick-actions {
@@ -289,8 +240,10 @@
         text-align: center;
     }
     
-    .stats-grid {
-        grid-template-columns: 1fr;
+    .stats-row {
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
     }
     
     .actions-grid {
@@ -310,7 +263,7 @@
         <div class="row">
             @include('dashboard.sidebar')
             <div class="col-lg-9">
-                <!-- Welcome Header -->
+                <!-- Welcome Header with Stats -->
                 <div class="dashboard-header">
                     <div class="welcome-section">
                         <div class="welcome-content">
@@ -327,71 +280,41 @@
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <!-- Statistics Cards -->
-                <div class="stats-grid">
-                    @if(auth()->user()->isSeeker())
-                        <div class="stat-card success">
-                            <div class="stat-header">
-                                <div class="stat-icon success">
-                                    <i class="fas fa-paper-plane"></i>
-                                </div>
+                    
+                    <!-- Simple Statistics Row -->
+                    <div class="stats-row">
+                        @if(auth()->user()->isSeeker())
+                            <div class="simple-stat">
+                                <span class="stat-number">{{ auth()->user()->jobApplications()->count() }}</span>
+                                <span class="stat-label">Applications Sent</span>
                             </div>
-                            <h3 class="stat-number">{{ auth()->user()->jobApplications()->count() }}</h3>
-                            <p class="stat-label">Applications Sent</p>
-                        </div>
-                        
-                        <div class="stat-card primary">
-                            <div class="stat-header">
-                                <div class="stat-icon primary">
-                                    <i class="fas fa-eye"></i>
-                                </div>
+                            
+                            <div class="simple-stat">
+                                <span class="stat-number">{{ auth()->user()->jobApplications()->where('status', 'viewed')->count() }}</span>
+                                <span class="stat-label">Profile Views</span>
                             </div>
-                            <h3 class="stat-number">{{ auth()->user()->jobApplications()->where('status', 'viewed')->count() }}</h3>
-                            <p class="stat-label">Profile Views</p>
-                        </div>
-                        
-                        <div class="stat-card warning">
-                            <div class="stat-header">
-                                <div class="stat-icon warning">
-                                    <i class="fas fa-bell"></i>
-                                </div>
+                            
+                            <div class="simple-stat">
+                                <span class="stat-number">{{ auth()->user()->unreadNotifications->count() }}</span>
+                                <span class="stat-label">New Notifications</span>
                             </div>
-                            <h3 class="stat-number">{{ auth()->user()->unreadNotifications->count() }}</h3>
-                            <p class="stat-label">New Notifications</p>
-                        </div>
-                    @elseif(auth()->user()->isEmployer())
-                        <div class="stat-card primary">
-                            <div class="stat-header">
-                                <div class="stat-icon primary">
-                                    <i class="fas fa-briefcase"></i>
-                                </div>
+                        @elseif(auth()->user()->isEmployer())
+                            <div class="simple-stat">
+                                <span class="stat-number">{{ auth()->user()->jobPostings()->count() }}</span>
+                                <span class="stat-label">Active Jobs</span>
                             </div>
-                            <h3 class="stat-number">{{ auth()->user()->jobPostings()->count() }}</h3>
-                            <p class="stat-label">Active Jobs</p>
-                        </div>
-                        
-                        <div class="stat-card success">
-                            <div class="stat-header">
-                                <div class="stat-icon success">
-                                    <i class="fas fa-file-alt"></i>
-                                </div>
+                            
+                            <div class="simple-stat">
+                                <span class="stat-number">{{ auth()->user()->jobPostings()->withCount('applications')->get()->sum('applications_count') }}</span>
+                                <span class="stat-label">Total Applications</span>
                             </div>
-                            <h3 class="stat-number">{{ auth()->user()->jobPostings()->withCount('applications')->get()->sum('applications_count') }}</h3>
-                            <p class="stat-label">Total Applications</p>
-                        </div>
-                        
-                        <div class="stat-card warning">
-                            <div class="stat-header">
-                                <div class="stat-icon warning">
-                                    <i class="fas fa-bell"></i>
-                                </div>
+                            
+                            <div class="simple-stat">
+                                <span class="stat-number">{{ auth()->user()->unreadNotifications->count() }}</span>
+                                <span class="stat-label">New Notifications</span>
                             </div>
-                            <h3 class="stat-number">{{ auth()->user()->unreadNotifications->count() }}</h3>
-                            <p class="stat-label">New Notifications</p>
-                        </div>
-                    @endif
+                        @endif
+                    </div>
                 </div>
 
                 <!-- Quick Actions -->
