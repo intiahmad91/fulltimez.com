@@ -274,12 +274,23 @@
         <!-- Profile Section -->
         <div class="profile-section">
             <div class="profile-image-container">
-                @if(auth()->user()->isSeeker() && auth()->user()->seekerProfile && auth()->user()->seekerProfile->profile_picture)
-                    <img src="{{ Storage::url(auth()->user()->seekerProfile->profile_picture) }}" class="profile-image" alt="Profile Picture">
-                @elseif(auth()->user()->isEmployer() && auth()->user()->employerProfile && auth()->user()->employerProfile->profile_picture)
-                    <img src="{{ Storage::url(auth()->user()->employerProfile->profile_picture) }}" class="profile-image" alt="Profile Picture">
-                @elseif(auth()->user()->isEmployer() && auth()->user()->employerProfile && auth()->user()->employerProfile->company_logo)
-                    <img src="{{ Storage::url(auth()->user()->employerProfile->company_logo) }}" class="profile-image" alt="Company Logo">
+                @php
+                    $profileImage = null;
+                    
+                    if(auth()->user()->isSeeker() && auth()->user()->seekerProfile && auth()->user()->seekerProfile->profile_picture) {
+                        $profileImage = auth()->user()->seekerProfile->profile_picture;
+                    } elseif(auth()->user()->isEmployer() && auth()->user()->employerProfile && auth()->user()->employerProfile->profile_picture) {
+                        $profileImage = auth()->user()->employerProfile->profile_picture;
+                    } elseif(auth()->user()->isEmployer() && auth()->user()->employerProfile && auth()->user()->employerProfile->company_logo) {
+                        $profileImage = auth()->user()->employerProfile->company_logo;
+                    }
+                @endphp
+                
+                @if($profileImage)
+                    <img src="{{ Storage::url($profileImage) }}" class="profile-image" alt="Profile Picture" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="default-user-icon" style="display: none;">
+                        <i class="fas fa-user"></i>
+                    </div>
                 @else
                     <div class="default-user-icon">
                         <i class="fas fa-user"></i>

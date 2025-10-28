@@ -183,6 +183,32 @@ Route::get('/contact', function () {
 })->name('contact');
 Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');
 
+// Storage fallback route for missing images
+Route::get('/storage/{path}', function ($path) {
+    $fullPath = storage_path('app/public/' . $path);
+    
+    // Check if file exists
+    if (file_exists($fullPath)) {
+        return response()->file($fullPath);
+    }
+    
+    // If file doesn't exist, return default user icon
+    $defaultImagePath = public_path('images/profile_img.jpg');
+    
+    if (file_exists($defaultImagePath)) {
+        return response()->file($defaultImagePath);
+    }
+    
+    // If even default image doesn't exist, create a simple SVG
+    $svg = '<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="50" fill="#e0e0e0"/>
+        <circle cx="50" cy="35" r="15" fill="#999"/>
+        <path d="M20 80 Q50 60 80 80" stroke="#999" stroke-width="8" fill="none"/>
+    </svg>';
+    
+    return response($svg, 200, ['Content-Type' => 'image/svg+xml']);
+})->where('path', '.*');
+
 Route::get('/australia', function () {
     return view('pages.australia');
 })->name('pages.australia');
