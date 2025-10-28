@@ -8,6 +8,22 @@ use Illuminate\Support\Facades\Storage;
 
 @push('styles')
 <style>
+/* Desktop Overflow Fix */
+.category-wrap {
+    overflow-x: hidden !important;
+    width: 100% !important;
+}
+
+.cate_list {
+    overflow-x: hidden !important;
+    width: 100% !important;
+}
+
+.jobs_list {
+    overflow-x: hidden !important;
+    width: 100% !important;
+}
+
 /* Home Page Responsive Improvements */
 @media (max-width: 768px) {
     .main_title {
@@ -19,6 +35,17 @@ use Illuminate\Support\Facades\Storage;
     .jobs_list {
         padding: 0 15px !important;
         display: block !important;
+        width: 100% !important;
+        overflow-x: hidden !important;
+    }
+    
+    .category-wrap {
+        overflow-x: hidden !important;
+        width: 100% !important;
+    }
+    
+    .cate_list {
+        overflow-x: hidden !important;
         width: 100% !important;
     }
     
@@ -176,10 +203,10 @@ use Illuminate\Support\Facades\Storage;
 
 
    <section class="category-wrap jobwrp popular-items mt-5">
-      <div class="container">
+      <div class="container" style="overflow-x: hidden; width: 100%;">
          <div class="main_title">Featured Jobs</div>
-         <div class="cate_list">
-         <ul class="owl-carousel jobs_list">
+         <div class="cate_list" style="overflow-x: hidden; width: 100%;">
+         <ul class="owl-carousel jobs_list" style="overflow-x: hidden; width: 100%;">
             @foreach($featuredJobs as $job)
             <li class="item wow fadeInUp">
               <div class="add-exp">
@@ -324,10 +351,10 @@ JOBSEEKER</a></div>
 
 
    <section class="category-wrap seekerwrp popular-items mt-5">
-      <div class="container">
+      <div class="container" style="overflow-x: hidden; width: 100%;">
          <div class="main_title">Job Seekers</div>
-         <div class="cate_list">
-         <ul class="owl-carousel jobs_list">
+         <div class="cate_list" style="overflow-x: hidden; width: 100%;">
+         <ul class="owl-carousel jobs_list" style="overflow-x: hidden; width: 100%;">
             @foreach($jobSeekers as $seeker)
             <li class="item wow fadeInUp">
               <div class="add-exp">
