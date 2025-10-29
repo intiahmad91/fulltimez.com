@@ -14,6 +14,12 @@
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('css/custom-fixes.css') }}" rel="stylesheet">
     <link href="{{ asset('css/responsive-improvements.css') }}" rel="stylesheet">
+    <style>
+        .dashboard_wrap {
+            background: #f9f9ff !important;
+            padding: 30px 0 !important;
+        }
+    </style>
     @stack('styles')
     <title>@yield('title', 'FullTimez')</title>
 </head>
