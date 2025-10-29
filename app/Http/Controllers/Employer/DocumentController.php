@@ -11,9 +11,37 @@ use Illuminate\Support\Str;
 
 class DocumentController extends Controller
 {
+    private function employerProfileIsComplete($user): bool
+    {
+        $profile = $user->employerProfile;
+        if (!$profile) {
+            return false;
+        }
+
+        $required = [
+            'company_name',
+            'city',
+            'country',
+            'mobile_no',
+            'email_id',
+        ];
+
+        foreach ($required as $field) {
+            if (empty($profile->{$field})) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     public function index()
     {
         $user = Auth::user();
+        if (!$this->employerProfileIsComplete($user)) {
+            return redirect()->route('profile')
+                ->with('error', 'Please complete your company profile first before uploading documents.');
+        }
         $documents = $user->employerDocuments()->orderBy('created_at', 'desc')->get();
         
         return view('employer.documents.index', compact('documents'));
@@ -22,6 +50,10 @@ class DocumentController extends Controller
     public function create()
     {
         $user = Auth::user();
+        if (!$this->employerProfileIsComplete($user)) {
+            return redirect()->route('profile')
+                ->with('error', 'Please complete your company profile first before uploading documents.');
+        }
         // Hide sections only for documents that are already submitted and not rejected
         $existingDocuments = $user->employerDocuments()
             ->whereIn('status', ['pending', 'approved'])
@@ -39,6 +71,11 @@ class DocumentController extends Controller
 
     public function store(Request $request)
     {
+        $user = Auth::user();
+        if (!$this->employerProfileIsComplete($user)) {
+            return redirect()->route('profile')
+                ->with('error', 'Please complete your company profile first before uploading documents.');
+        }
         $request->validate([
             'trade_license_file' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
             'trade_license_number' => 'nullable|string|max:255',
@@ -50,8 +87,6 @@ class DocumentController extends Controller
             'contact_person_position' => 'nullable|string|min:2|max:100',
             'contact_person_email' => 'nullable|email|max:255',
         ]);
-
-        $user = Auth::user();
         $submittedDocuments = [];
 
         // Process Trade License
