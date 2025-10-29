@@ -277,6 +277,7 @@ Route::middleware(['auth', 'verified', 'role:employer'])->prefix('employer')->na
     Route::get('/documents/create', [App\Http\Controllers\Employer\DocumentController::class, 'create'])->name('documents.create');
     Route::post('/documents', [App\Http\Controllers\Employer\DocumentController::class, 'store'])->name('documents.store');
     Route::get('/documents/{document}', [App\Http\Controllers\Employer\DocumentController::class, 'show'])->name('documents.show');
+    Route::get('/documents/{document}/file', [App\Http\Controllers\Employer\DocumentController::class, 'viewFile'])->name('documents.file');
     Route::delete('/documents/{document}', [App\Http\Controllers\Employer\DocumentController::class, 'destroy'])->name('documents.destroy');
 });
 

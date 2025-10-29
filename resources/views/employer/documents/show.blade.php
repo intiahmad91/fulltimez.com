@@ -119,7 +119,7 @@ use Illuminate\Support\Facades\Storage;
                                                                 <strong>Document File:</strong>
                                                             </div>
                                                             <div class="col-sm-8">
-                                                                <a href="{{ Storage::url($document->document_path) }}" target="_blank" class="btn btn-sm btn-outline-primary">
+                                                                <a href="{{ route('employer.documents.file', $document) }}" target="_blank" class="btn btn-sm btn-outline-primary">
                                                                     <i class="fas fa-download"></i> View Document
                                                                 </a>
                                                             </div>

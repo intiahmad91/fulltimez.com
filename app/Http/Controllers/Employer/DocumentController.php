@@ -82,7 +82,17 @@ class DocumentController extends Controller
             return redirect()->route('profile')
                 ->with('error', 'Please complete your company profile first before uploading documents.');
         }
-        $request->validate([
+
+		// Normalize company website: add https:// if missing scheme
+		if ($request->filled('company_website')) {
+			$website = trim($request->input('company_website'));
+			if (!preg_match('/^https?:\/\//i', $website)) {
+				$website = 'https://' . ltrim($website);
+			}
+			$request->merge(['company_website' => $website]);
+		}
+
+		$request->validate([
             'trade_license_file' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
             'trade_license_number' => 'nullable|string|max:255',
             'landline_number' => 'nullable|string|max:20',
@@ -92,6 +102,8 @@ class DocumentController extends Controller
             'contact_person_mobile' => 'nullable|string|min:10|max:20',
             'contact_person_position' => 'nullable|string|min:2|max:100',
             'contact_person_email' => 'nullable|email|max:255',
+        ], [
+            'company_website.url' => 'Please enter a valid website URL (e.g., https://www.example.com).',
         ]);
         $submittedDocuments = [];
 
@@ -315,5 +327,28 @@ class DocumentController extends Controller
 
         return redirect()->route('employer.documents.index')
             ->with('success', 'Document deleted successfully.');
+    }
+
+    public function viewFile(EmployerDocument $document)
+    {
+        // Ensure the document belongs to the authenticated user
+        if ($document->employer_id !== Auth::id()) {
+            abort(403);
+        }
+
+        if (!$document->document_path) {
+            return redirect()->back()->withErrors(['error' => 'No file attached for this document.']);
+        }
+
+        $fullPath = storage_path('app/public/' . ltrim($document->document_path, '/'));
+        if (!file_exists($fullPath)) {
+            return redirect()->back()->withErrors(['error' => 'File not found. Please re-upload the document.']);
+        }
+
+        $mime = mime_content_type($fullPath) ?: 'application/octet-stream';
+        return response()->file($fullPath, [
+            'Content-Type' => $mime,
+            'Cache-Control' => 'private, max-age=0, must-revalidate',
+        ]);
     }
 }
