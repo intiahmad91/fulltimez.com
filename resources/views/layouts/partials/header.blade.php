@@ -65,6 +65,7 @@
  
 </div>
 
+    @if(!(auth()->check() && auth()->user()->isEmployer() && request()->routeIs('dashboard')))
     <section class="search-wrap">
       <form action="{{ route('jobs.index') }}" method="GET">
       <div class="search-barwrp">
@@ -110,6 +111,7 @@
       </div>
       </form>
     </section>
+    @endif
     
   </div>
 </div>
