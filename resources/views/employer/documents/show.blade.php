@@ -119,7 +119,10 @@ use Illuminate\Support\Facades\Storage;
                                                                 <strong>Document File:</strong>
                                                             </div>
                                                             <div class="col-sm-8">
-                                                                <a href="{{ route('employer.documents.file', $document) }}" target="_blank" class="btn btn-sm btn-outline-primary">
+                                                                @php 
+                                                                    $token = hash_hmac('sha256', $document->document_path, config('app.key'));
+                                                                @endphp
+                                                                <a href="{{ route('documents.stream', ['document' => $document->id, 't' => $token]) }}" target="_blank" class="btn btn-sm btn-outline-primary">
                                                                     <i class="fas fa-download"></i> View Document
                                                                 </a>
                                                             </div>

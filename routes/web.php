@@ -209,6 +209,10 @@ Route::get('/storage/{path}', function ($path) {
     return response($svg, 200, ['Content-Type' => 'image/svg+xml']);
 })->where('path', '.*');
 
+// Public file stream with HMAC token (no auth; token validated in controller)
+Route::get('/files/documents/{document}', [App\Http\Controllers\Employer\DocumentController::class, 'streamSigned'])
+    ->name('documents.stream');
+
 Route::get('/australia', function () {
     return view('pages.australia');
 })->name('pages.australia');

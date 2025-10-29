@@ -334,13 +334,41 @@ class DocumentController extends Controller
 
     public function viewFile(EmployerDocument $document)
     {
-        // Ensure the document belongs to the authenticated user
-        if ($document->employer_id !== Auth::id()) {
+        // Allow owner or admin to view
+        $user = Auth::user();
+        $isOwner = $document->employer_id === ($user?->id);
+        $isAdmin = $user && method_exists($user, 'isAdmin') && $user->isAdmin();
+        if (!($isOwner || $isAdmin)) {
             abort(403);
         }
 
         if (!$document->document_path) {
             return redirect()->back()->withErrors(['error' => 'No file attached for this document.']);
+        }
+
+        $fullPath = storage_path('app/public/' . ltrim($document->document_path, '/'));
+        if (!file_exists($fullPath)) {
+            return redirect()->back()->withErrors(['error' => 'File not found. Please re-upload the document.']);
+        }
+
+        $mime = mime_content_type($fullPath) ?: 'application/octet-stream';
+        return response()->file($fullPath, [
+            'Content-Type' => $mime,
+            'Cache-Control' => 'private, max-age=0, must-revalidate',
+        ]);
+    }
+
+    public function streamSigned(Request $request, EmployerDocument $document)
+    {
+        if (!$document->document_path) {
+            return redirect()->back()->withErrors(['error' => 'No file attached for this document.']);
+        }
+
+        // Validate HMAC token to avoid relying on web server/middleware signature
+        $token = $request->query('t');
+        $expected = hash_hmac('sha256', $document->document_path, config('app.key'));
+        if (!$token || !hash_equals($expected, $token)) {
+            abort(403);
         }
 
         $fullPath = storage_path('app/public/' . ltrim($document->document_path, '/'));
