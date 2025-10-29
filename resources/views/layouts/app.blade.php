@@ -19,6 +19,10 @@
             background: #f9f9ff !important;
             padding: 30px 0 !important;
         }
+        .breadcrumb-section
+        {
+            display: none !important;
+        }
     </style>
     @stack('styles')
     <title>@yield('title', 'FullTimez')</title>
