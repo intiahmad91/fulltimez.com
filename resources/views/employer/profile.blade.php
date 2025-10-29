@@ -7,26 +7,6 @@ use Illuminate\Support\Facades\Storage;
 @section('title', 'Employer Profile')
 
 @section('content')
-<section class="breadcrumb-section">
-    <div class="container-auto">
-        <div class="row">
-            <div class="col-md-6 col-sm-6 col-12">
-                <div class="page-title">
-                    <h1>Company Profile</h1>
-                </div>
-            </div>
-            <div class="col-md-6 col-sm-6 col-12">
-                <nav aria-label="breadcrumb" class="theme-breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Company Profile</li>
-                    </ol>
-                </nav>
-            </div>
-        </div>
-    </div>
-</section>
-
 <section class="pagecontent dashboard_wrap">
     <div class="container">
         <div class="row contactWrp">
