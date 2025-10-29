@@ -20,7 +20,6 @@ class DocumentController extends Controller
 
         $required = [
             'company_name',
-            'city',
             'country',
             'mobile_no',
             'email_id',
@@ -30,6 +29,13 @@ class DocumentController extends Controller
             if (empty($profile->{$field})) {
                 return false;
             }
+        }
+
+        // require either city or state (one must be present, not necessarily both)
+        $hasCity = !empty($profile->city);
+        $hasState = !empty($profile->state);
+        if (!($hasCity || $hasState)) {
+            return false;
         }
 
         return true;

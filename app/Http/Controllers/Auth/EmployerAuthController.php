@@ -98,7 +98,8 @@ class EmployerAuthController extends Controller
         EmployerProfile::create([
             'user_id' => $user->id,
             'company_name' => $validated['company_name'],
-            'city' => $validated['city'],
+            'city' => $validated['city'] ?? null,
+            'state' => $validated['state'] ?? null,
             'country' => $validated['country'],
             'mobile_no' => $fullPhoneNumber,
             'email_id' => $validated['email_id'],
