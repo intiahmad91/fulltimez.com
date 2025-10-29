@@ -297,8 +297,11 @@ class DocumentController extends Controller
 
     public function show(EmployerDocument $document)
     {
-        // Ensure the document belongs to the authenticated user
-        if ($document->employer_id !== Auth::id()) {
+        // Ensure the document belongs to the authenticated user OR current user is admin
+        $user = Auth::user();
+        $isOwner = $document->employer_id === ($user?->id);
+        $isAdmin = $user && method_exists($user, 'isAdmin') && $user->isAdmin();
+        if (!($isOwner || $isAdmin)) {
             abort(403);
         }
 

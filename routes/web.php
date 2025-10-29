@@ -323,6 +323,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->name('ad
     // Admin Document Verification
     Route::get('/documents', [App\Http\Controllers\Admin\DocumentController::class, 'index'])->name('documents.index');
     Route::get('/documents/{document}', [App\Http\Controllers\Admin\DocumentController::class, 'show'])->name('documents.show');
+    Route::get('/documents/{document}/file', [App\Http\Controllers\Admin\DocumentController::class, 'viewFile'])->name('documents.file');
     Route::post('/documents/{document}/approve', [App\Http\Controllers\Admin\DocumentController::class, 'approve'])->name('documents.approve');
     Route::post('/documents/{document}/reject', [App\Http\Controllers\Admin\DocumentController::class, 'reject'])->name('documents.reject');
     Route::post('/documents/bulk-approve', [App\Http\Controllers\Admin\DocumentController::class, 'bulkApprove'])->name('documents.bulk-approve');

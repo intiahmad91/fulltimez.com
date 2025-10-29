@@ -9,6 +9,7 @@ use App\Notifications\DocumentRejected;
 use App\Notifications\AllDocumentsApproved;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class DocumentController extends Controller
 {
@@ -52,6 +53,25 @@ class DocumentController extends Controller
     {
         $document->load(['employer', 'reviewer']);
         return view('admin.documents.show', compact('document'));
+    }
+
+    public function viewFile(EmployerDocument $document)
+    {
+        // Admins can view any document file
+        if (!$document->document_path) {
+            return redirect()->back()->withErrors(['error' => 'No file attached for this document.']);
+        }
+
+        $fullPath = storage_path('app/public/' . ltrim($document->document_path, '/'));
+        if (!file_exists($fullPath)) {
+            return redirect()->back()->withErrors(['error' => 'File not found.']);
+        }
+
+        $mime = mime_content_type($fullPath) ?: 'application/octet-stream';
+        return response()->file($fullPath, [
+            'Content-Type' => $mime,
+            'Cache-Control' => 'private, max-age=0, must-revalidate',
+        ]);
     }
 
     public function approve(Request $request, EmployerDocument $document)
