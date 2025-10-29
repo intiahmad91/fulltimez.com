@@ -238,7 +238,7 @@ body {
                            </h3>
                         </div>
                      </div>
-                     <span class="boosted-popular-premium">Featured</span>
+                     <span class="boosted-popular-premium">Featured Job</span>
                   </div>
                   <div class="catebox">
                      <h3 class="mt-0 add-title"><a href="{{ route('jobs.show', $job->slug) }}">{{ $job->title }}</a></h3>
