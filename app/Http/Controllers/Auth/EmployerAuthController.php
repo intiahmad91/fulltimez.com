@@ -67,8 +67,24 @@ class EmployerAuthController extends Controller
         $role = Role::where('slug', 'employer')->first();
 
         // Extract country code from flag + code format (e.g., "🇦🇪 +971" -> "+971")
-        $countryCode = explode(' ', $validated['country_code'])[1]; // Get "+971" from "🇦🇪 +971"
-        $fullPhoneNumber = $countryCode . ' ' . $validated['mobile_no'];
+		$countryCode = explode(' ', $validated['country_code'])[1]; // Get "+971" from "🇦🇪 +971"
+		$fullPhoneNumber = $countryCode . ' ' . $validated['mobile_no'];
+
+		// Prevent duplicate registration by email or phone
+		if (User::where('email', $validated['email_id'])->exists()) {
+			return back()
+				->withErrors(['email_id' => 'This email address is already registered. Please login or use a different email.'])
+				->withInput();
+		}
+
+		if (
+			User::where('phone', $fullPhoneNumber)->exists() ||
+			EmployerProfile::where('mobile_no', $fullPhoneNumber)->exists()
+		) {
+			return back()
+				->withErrors(['mobile_no' => 'This phone number is already registered. Please login or use a different number.'])
+				->withInput();
+		}
 
         $user = User::create([
             'name' => $validated['name'],
