@@ -285,12 +285,12 @@
                     <div class="stats-row">
                         @if(auth()->user()->isSeeker())
                             <div class="simple-stat">
-                                <span class="stat-number">{{ auth()->user()->jobApplications()->count() }}</span>
+                                <span class="stat-number">{{ auth()->user()->applications()->count() }}</span>
                                 <span class="stat-label">Applications Sent</span>
                             </div>
                             
                             <div class="simple-stat">
-                                <span class="stat-number">{{ auth()->user()->jobApplications()->where('status', 'viewed')->count() }}</span>
+                                <span class="stat-number">{{ auth()->user()->applications()->where('status', 'reviewed')->count() }}</span>
                                 <span class="stat-label">Profile Views</span>
                             </div>
                             
