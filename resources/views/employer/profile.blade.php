@@ -265,7 +265,7 @@ use Illuminate\Support\Facades\Storage;
                                                     <label>Company Logo (Max 2MB)</label>
                                                     <input type="file" name="company_logo" class="form-control @error('company_logo') is-invalid @enderror" accept="image/*">
                                                     @if($user->employerProfile && $user->employerProfile->company_logo)
-                                                        <small class="text-muted d-block mt-1">Current: <a href="{{ Storage::url($user->employerProfile->company_logo) }}" target="_blank">View Logo</a></small>
+                                                        <small class="text-muted d-block mt-1">Current: <a href="{{ asset($user->employerProfile->company_logo) }}" target="_blank">View Logo</a></small>
                                                     @endif
                                                     @error('company_logo')
                                                         <div class="invalid-feedback">{{ $message }}</div>

@@ -570,7 +570,7 @@
                                         <div class="text-muted mt-1">Max 2MB, JPG/PNG format</div>
                                         @if($user->employerProfile && $user->employerProfile->company_logo)
                                             <div class="file-upload-info">
-                                                Current: <a href="{{ Storage::url($user->employerProfile->company_logo) }}" target="_blank">View Current Logo</a>
+                                                Current: <a href="{{ asset($user->employerProfile->company_logo) }}" target="_blank">View Current Logo</a>
                                             </div>
                                         @endif
                                         @error('company_logo')

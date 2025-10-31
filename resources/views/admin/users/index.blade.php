@@ -240,7 +240,7 @@
                                     <div class="d-flex align-items-center">
                                         <div class="admin-avatar-sm me-2">
                                             @if($ad->employer->employerProfile && $ad->employer->employerProfile->company_logo)
-                                                <img src="{{ Storage::url($ad->employer->employerProfile->company_logo) }}" alt="Company Logo">
+                                                <img src="{{ asset($ad->employer->employerProfile->company_logo) }}" alt="Company Logo">
                                             @else
                                                 <div class="default-avatar-sm">
                                                     <i class="fas fa-building"></i>
