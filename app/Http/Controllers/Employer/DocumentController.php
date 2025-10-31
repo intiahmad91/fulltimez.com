@@ -130,8 +130,12 @@ class DocumentController extends Controller
                 if ($request->hasFile('trade_license_file')) {
                     $file = $request->file('trade_license_file');
                     $filename = 'trade_license_' . $user->id . '_' . time() . '.' . $file->getClientOriginalExtension();
-                    $path = $file->storeAs('documents/trade_licenses', $filename, 'public');
-                    $documentData['document_path'] = $path;
+                    $directory = public_path('documents/trade_licenses');
+                    if (!file_exists($directory)) {
+                        mkdir($directory, 0755, true);
+                    }
+                    $file->move($directory, $filename);
+                    $documentData['document_path'] = 'documents/trade_licenses/' . $filename;
                 }
 
                 EmployerDocument::create($documentData);
@@ -153,13 +157,20 @@ class DocumentController extends Controller
 
                 if ($request->hasFile('trade_license_file')) {
                     // delete old file if exists
-                    if ($existingDocument->document_path && Storage::disk('public')->exists($existingDocument->document_path)) {
-                        Storage::disk('public')->delete($existingDocument->document_path);
+                    if ($existingDocument->document_path) {
+                        $oldPath = public_path($existingDocument->document_path);
+                        if (file_exists($oldPath)) {
+                            unlink($oldPath);
+                        }
                     }
                     $file = $request->file('trade_license_file');
                     $filename = 'trade_license_' . $user->id . '_' . time() . '.' . $file->getClientOriginalExtension();
-                    $path = $file->storeAs('documents/trade_licenses', $filename, 'public');
-                    $updateData['document_path'] = $path;
+                    $directory = public_path('documents/trade_licenses');
+                    if (!file_exists($directory)) {
+                        mkdir($directory, 0755, true);
+                    }
+                    $file->move($directory, $filename);
+                    $updateData['document_path'] = 'documents/trade_licenses/' . $filename;
                 }
 
                 $existingDocument->update($updateData);
@@ -322,8 +333,11 @@ class DocumentController extends Controller
         }
 
         // Delete file if exists
-        if ($document->document_path && Storage::disk('public')->exists($document->document_path)) {
-            Storage::disk('public')->delete($document->document_path);
+        if ($document->document_path) {
+            $filePath = public_path($document->document_path);
+            if (file_exists($filePath)) {
+                unlink($filePath);
+            }
         }
 
         $document->delete();
@@ -346,7 +360,7 @@ class DocumentController extends Controller
             return redirect()->back()->withErrors(['error' => 'No file attached for this document.']);
         }
 
-        $fullPath = storage_path('app/public/' . ltrim($document->document_path, '/'));
+        $fullPath = public_path($document->document_path);
         if (!file_exists($fullPath)) {
             return redirect()->back()->withErrors(['error' => 'File not found. Please re-upload the document.']);
         }
@@ -371,7 +385,7 @@ class DocumentController extends Controller
             abort(403, 'Invalid or missing token.');
         }
 
-        $fullPath = storage_path('app/public/' . ltrim($document->document_path, '/'));
+        $fullPath = public_path($document->document_path);
         if (!file_exists($fullPath)) {
             abort(404, 'File not found. Please re-upload the document.');
         }

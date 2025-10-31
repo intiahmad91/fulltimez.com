@@ -62,7 +62,7 @@ class DocumentController extends Controller
             return redirect()->back()->withErrors(['error' => 'No file attached for this document.']);
         }
 
-        $fullPath = storage_path('app/public/' . ltrim($document->document_path, '/'));
+        $fullPath = public_path($document->document_path);
         if (!file_exists($fullPath)) {
             return redirect()->back()->withErrors(['error' => 'File not found.']);
         }

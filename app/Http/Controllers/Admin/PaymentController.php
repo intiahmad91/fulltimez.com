@@ -183,7 +183,10 @@ class PaymentController extends Controller
     {
         // Delete the payment screenshot file
         if ($payment->payment_screenshot) {
-            Storage::disk('public')->delete($payment->payment_screenshot);
+            $filePath = public_path($payment->payment_screenshot);
+            if (file_exists($filePath)) {
+                unlink($filePath);
+            }
         }
 
         $payment->delete();

@@ -11,6 +11,7 @@ use App\Http\Controllers\JobApplicationController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -190,7 +191,7 @@ Route::get('/storage-link', function () {
     $target = storage_path('app/public');
     
     // Check if link already exists
-    if (is_link($link)) {
+    if (is_link($link) || (file_exists($link) && is_link($link))) {
         return response()->json([
             'status' => 'success',
             'message' => 'Storage link already exists',
@@ -206,6 +207,31 @@ Route::get('/storage-link', function () {
             'message' => 'A directory or file already exists at the link path. Please remove it first.',
             'link_path' => $link
         ], 400);
+    }
+    
+    // Check if symlink function is available
+    if (!function_exists('symlink')) {
+        // Try using Artisan command as fallback
+        try {
+            Artisan::call('storage:link');
+            $output = Artisan::output();
+            
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Storage link created successfully using Artisan command!',
+                'link_path' => $link,
+                'target_path' => $target,
+                'note' => 'symlink() function is not available, used Artisan command instead'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'symlink() function is not available on this server. Please run "php artisan storage:link" manually via SSH/Terminal.',
+                'error' => $e->getMessage(),
+                'link_path' => $link,
+                'target_path' => $target
+            ], 500);
+        }
     }
     
     // Create the symbolic link
@@ -225,7 +251,7 @@ Route::get('/storage-link', function () {
         } else {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to create storage link. Please check permissions.',
+                'message' => 'Failed to create storage link. Please check permissions or run "php artisan storage:link" manually.',
                 'link_path' => $link,
                 'target_path' => $target
             ], 500);
@@ -233,16 +259,16 @@ Route::get('/storage-link', function () {
     } catch (\Exception $e) {
         return response()->json([
             'status' => 'error',
-            'message' => 'Error creating storage link: ' . $e->getMessage(),
+            'message' => 'Error creating storage link: ' . $e->getMessage() . '. Please run "php artisan storage:link" manually.',
             'link_path' => $link,
             'target_path' => $target
         ], 500);
     }
 })->name('storage.link');
 
-// Storage fallback route for missing images
+// Storage fallback route for missing images (now files are in public directory directly)
 Route::get('/storage/{path}', function ($path) {
-    $fullPath = storage_path('app/public/' . $path);
+    $fullPath = public_path($path);
     
     // Check if file exists
     if (file_exists($fullPath)) {

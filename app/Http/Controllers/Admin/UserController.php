@@ -97,15 +97,13 @@ class UserController extends Controller
         }
 
         $path = $user->seekerProfile->cv_file;
-        if (!Storage::disk('public')->exists($path)) {
-            // If stored path is absolute or on default disk, try url-to-path resolution
-            if (Storage::exists($path)) {
-                return Storage::download($path, 'CV-'.$user->name.'.pdf');
-            }
+        $fullPath = public_path($path);
+        
+        if (!file_exists($fullPath)) {
             return redirect()->back()->with('error', 'CV file is missing on the server.');
         }
 
-        return Storage::disk('public')->download($path, 'CV-'.$user->name.'.pdf');
+        return response()->download($fullPath, 'CV-'.$user->name.'.pdf');
     }
 
     public function destroy(User $user)

@@ -97,11 +97,25 @@ class JobseekerAuthController extends Controller
         ];
 
         if ($request->hasFile('profile_picture')) {
-            $profileData['profile_picture'] = $request->file('profile_picture')->store('profiles', 'public');
+            $file = $request->file('profile_picture');
+            $filename = 'profile_' . $user->id . '_' . time() . '.' . $file->getClientOriginalExtension();
+            $directory = public_path('profiles');
+            if (!file_exists($directory)) {
+                mkdir($directory, 0755, true);
+            }
+            $file->move($directory, $filename);
+            $profileData['profile_picture'] = 'profiles/' . $filename;
         }
 
         if ($request->hasFile('cv_file')) {
-            $profileData['cv_file'] = $request->file('cv_file')->store('cvs', 'public');
+            $file = $request->file('cv_file');
+            $filename = 'cv_' . $user->id . '_' . time() . '.' . $file->getClientOriginalExtension();
+            $directory = public_path('cvs');
+            if (!file_exists($directory)) {
+                mkdir($directory, 0755, true);
+            }
+            $file->move($directory, $filename);
+            $profileData['cv_file'] = 'cvs/' . $filename;
         }
 
         // Create profile with pending verification by default

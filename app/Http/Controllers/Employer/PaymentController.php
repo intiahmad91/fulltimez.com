@@ -87,7 +87,14 @@ class PaymentController extends Controller
 
         // Handle file upload
         if ($request->hasFile('payment_screenshot')) {
-            $validated['payment_screenshot'] = $request->file('payment_screenshot')->store('payment-screenshots', 'public');
+            $file = $request->file('payment_screenshot');
+            $filename = 'payment_' . auth()->id() . '_' . time() . '.' . $file->getClientOriginalExtension();
+            $directory = public_path('payment-screenshots');
+            if (!file_exists($directory)) {
+                mkdir($directory, 0755, true);
+            }
+            $file->move($directory, $filename);
+            $validated['payment_screenshot'] = 'payment-screenshots/' . $filename;
         }
 
         $validated['employer_id'] = auth()->id();
