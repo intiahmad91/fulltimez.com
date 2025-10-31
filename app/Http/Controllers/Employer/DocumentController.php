@@ -361,19 +361,19 @@ class DocumentController extends Controller
     public function streamSigned(Request $request, EmployerDocument $document)
     {
         if (!$document->document_path) {
-            return redirect()->back()->withErrors(['error' => 'No file attached for this document.']);
+            abort(404, 'No file attached for this document.');
         }
 
         // Validate HMAC token to avoid relying on web server/middleware signature
         $token = $request->query('t');
         $expected = hash_hmac('sha256', $document->document_path, config('app.key'));
         if (!$token || !hash_equals($expected, $token)) {
-            abort(403);
+            abort(403, 'Invalid or missing token.');
         }
 
         $fullPath = storage_path('app/public/' . ltrim($document->document_path, '/'));
         if (!file_exists($fullPath)) {
-            return redirect()->back()->withErrors(['error' => 'File not found. Please re-upload the document.']);
+            abort(404, 'File not found. Please re-upload the document.');
         }
 
         $mime = mime_content_type($fullPath) ?: 'application/octet-stream';

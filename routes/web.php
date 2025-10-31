@@ -119,6 +119,7 @@ Route::get('/employer/payments/stripe-test', function(\Illuminate\Http\Request $
     ]);
 });
 
+
 // Test route to check if PaymentController works without authentication
 Route::get('/test-payment-controller', [App\Http\Controllers\Employer\PaymentController::class, 'stripe']);
 
