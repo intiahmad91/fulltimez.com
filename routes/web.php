@@ -183,6 +183,62 @@ Route::get('/contact', function () {
 })->name('contact');
 Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');
 
+// Route to create storage link
+Route::get('/storage-link', function () {
+    $link = public_path('storage');
+    $target = storage_path('app/public');
+    
+    // Check if link already exists
+    if (is_link($link)) {
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Storage link already exists',
+            'link_path' => $link,
+            'target_path' => $target
+        ]);
+    }
+    
+    // Check if directory exists and is not a link
+    if (file_exists($link) && !is_link($link)) {
+        return response()->json([
+            'status' => 'error',
+            'message' => 'A directory or file already exists at the link path. Please remove it first.',
+            'link_path' => $link
+        ], 400);
+    }
+    
+    // Create the symbolic link
+    try {
+        // Create parent directory if it doesn't exist
+        if (!is_dir(dirname($link))) {
+            mkdir(dirname($link), 0755, true);
+        }
+        
+        if (symlink($target, $link)) {
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Storage link created successfully!',
+                'link_path' => $link,
+                'target_path' => $target
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Failed to create storage link. Please check permissions.',
+                'link_path' => $link,
+                'target_path' => $target
+            ], 500);
+        }
+    } catch (\Exception $e) {
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Error creating storage link: ' . $e->getMessage(),
+            'link_path' => $link,
+            'target_path' => $target
+        ], 500);
+    }
+})->name('storage.link');
+
 // Storage fallback route for missing images
 Route::get('/storage/{path}', function ($path) {
     $fullPath = storage_path('app/public/' . $path);
