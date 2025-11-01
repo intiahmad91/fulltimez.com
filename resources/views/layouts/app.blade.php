@@ -58,8 +58,8 @@
             }
         });
     </script>
-    <script src="{{ asset('js/owl.carousel.js') }}"></script>
-    <script src="{{ asset('js/script.js') }}"></script>
+    <script src="{{ asset('js/owl.carousel.js') }}?v={{ time() }}"></script>
+    <script src="{{ asset('js/script.js') }}?v={{ time() }}"></script>
     <script>
         function toggleMenu() {
             document.getElementById("sidebarMenu").classList.toggle("show");
