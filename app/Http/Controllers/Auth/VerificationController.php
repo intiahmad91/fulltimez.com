@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class VerificationController extends Controller
 {
@@ -29,11 +30,24 @@ class VerificationController extends Controller
             return redirect()->route('home')->with('error', 'Invalid verification link.');
         }
 
+        // Auto-login the user if not already logged in
+        if (!Auth::check()) {
+            Auth::login($user);
+        }
+
         if ($user->hasVerifiedEmail()) {
+            // Check if user is employer and redirect to documents page
+            if ($user->isEmployer()) {
+                return redirect()->route('employer.documents.create')->with('info', 'Email already verified. Please upload your documents.');
+            }
             return redirect()->route('dashboard')->with('info', 'Email already verified.');
         }
 
         if ($user->markEmailAsVerified()) {
+            // Check if user is employer and redirect to documents page
+            if ($user->isEmployer()) {
+                return redirect()->route('employer.documents.create')->with('success', 'Email verified successfully! Please upload your documents to complete your registration.');
+            }
             return redirect()->route('dashboard')->with('success', 'Email verified successfully! You can now access all features.');
         }
 
