@@ -364,6 +364,165 @@ body {
     overflow-x: hidden !important;
 }
 
+/* Recommended Jobs Section Styling */
+.jobs-wrap .jobs {
+    background: #ffffff !important;
+    border: 1px solid #e5e7eb !important;
+    border-radius: 12px !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+    transition: all 0.3s ease !important;
+    padding: 20px !important;
+    margin-bottom: 24px !important;
+    height: 100% !important;
+}
+
+.jobs-wrap .jobs:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
+    transform: translateY(-4px) !important;
+    border-color: #cbd5e1 !important;
+}
+
+.jobs-wrap .job-content {
+    margin-bottom: 16px !important;
+}
+
+.jobs-wrap .jobdate {
+    font-size: 11px !important;
+    color: #6b7280 !important;
+    font-weight: 500 !important;
+    margin-bottom: 8px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+}
+
+.jobs-wrap .job-content > p {
+    font-size: 14px !important;
+    color: #667eea !important;
+    font-weight: 600 !important;
+    margin-bottom: 12px !important;
+}
+
+.jobs-wrap .job-content h3 {
+    margin-bottom: 16px !important;
+}
+
+.jobs-wrap .job-content h3 a {
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    color: #111827 !important;
+    text-decoration: none !important;
+    line-height: 1.5 !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+    transition: color 0.2s ease !important;
+    letter-spacing: -0.2px !important;
+}
+
+.jobs-wrap .job-content h3 a:hover {
+    color: #667eea !important;
+}
+
+.jobs-wrap .tags {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 0 16px 0 !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+}
+
+.jobs-wrap .tags li {
+    margin: 0 !important;
+}
+
+.jobs-wrap .tags li a {
+    display: inline-block !important;
+    padding: 4px 12px !important;
+    background: #f3f4f6 !important;
+    color: #374151 !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    border-radius: 4px !important;
+    text-decoration: none !important;
+    transition: all 0.2s ease !important;
+    border: 1px solid #e5e7eb !important;
+}
+
+.jobs-wrap .tags li a:hover {
+    background: #667eea !important;
+    color: #ffffff !important;
+    border-color: #667eea !important;
+}
+
+.jobs-wrap .d-flex.align-items-center.justify-content-between {
+    padding-top: 16px !important;
+    border-top: 1px solid #f3f4f6 !important;
+    margin-top: auto !important;
+}
+
+.jobs-wrap .job_price {
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    color: #059669 !important;
+}
+
+.jobs-wrap .job_price span {
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    color: #6b7280 !important;
+    margin-left: 8px !important;
+}
+
+.jobs-wrap .readmore {
+    margin: 0 !important;
+}
+
+.jobs-wrap .readmore a {
+    padding: 8px 20px !important;
+    background: #667eea !important;
+    color: #ffffff !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    border-radius: 6px !important;
+    text-decoration: none !important;
+    transition: all 0.2s ease !important;
+    display: inline-block !important;
+}
+
+.jobs-wrap .readmore a:hover {
+    background: #5568d3 !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3) !important;
+}
+
+@media (max-width: 768px) {
+    .jobs-wrap .jobs {
+        padding: 16px !important;
+        margin-bottom: 20px !important;
+    }
+    
+    .jobs-wrap .job-content h3 a {
+        font-size: 17px !important;
+    }
+    
+    .jobs-wrap .d-flex.align-items-center.justify-content-between {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 12px !important;
+    }
+    
+    .jobs-wrap .readmore {
+        width: 100% !important;
+    }
+    
+    .jobs-wrap .readmore a {
+        width: 100% !important;
+        text-align: center !important;
+    }
+}
+
 /* Desktop Container Fix */
 @media (min-width: 769px) {
     .category-wrap {
