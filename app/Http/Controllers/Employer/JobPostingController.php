@@ -71,7 +71,11 @@ class JobPostingController extends Controller
 
         $categories = JobCategory::where('is_active', true)->get();
         $packages = Package::where('is_active', true)->orderBy('sort_order')->get();
-        return view('employer.jobs.create', compact('categories', 'packages'));
+        
+        // Get countries for location dropdown
+        $countries = \App\Models\Country::where('is_active', true)->orderBy('name')->get();
+        
+        return view('employer.jobs.create', compact('categories', 'packages', 'countries'));
     }
 
     public function store(Request $request)

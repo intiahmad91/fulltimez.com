@@ -974,12 +974,13 @@
                                             <div class="form-group">
                                             <label class="form-label">Location (Country) <sup class="text-danger">*</sup></label>
                                                 <select name="location_country" id="location_country" class="form-control @error('location_country') is-invalid @enderror" required>
-                                                    @php $oldCountry = old('location_country', 'United Arab Emirates'); @endphp
-                                                    <option value="United Arab Emirates" {{ $oldCountry == 'United Arab Emirates' ? 'selected' : '' }}>United Arab Emirates</option>
-                                                    <option value="Saudi Arabia" {{ $oldCountry == 'Saudi Arabia' ? 'selected' : '' }}>Saudi Arabia</option>
-                                                    <option value="Qatar" {{ $oldCountry == 'Qatar' ? 'selected' : '' }}>Qatar</option>
-                                                    <option value="Oman" {{ $oldCountry == 'Oman' ? 'selected' : '' }}>Oman</option>
-                                                    <option value="Bahrain" {{ $oldCountry == 'Bahrain' ? 'selected' : '' }}>Bahrain</option>
+                                                    <option value="">Select Country</option>
+                                                    @php $oldCountry = old('location_country'); @endphp
+                                                    @foreach($countries as $country)
+                                                        <option value="{{ $country->name }}" {{ $oldCountry == $country->name ? 'selected' : '' }}>
+                                                            {{ $country->name }}
+                                                        </option>
+                                                    @endforeach
                                                 </select>
                                                 @error('location_country')
                                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -1362,38 +1363,59 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize progress
     updateProgress();
-    // Country -> City mapping (5 countries)
-    const countryToCities = {
-        'United Arab Emirates': ['Dubai', 'Abu Dhabi', 'Sharjah', 'Ajman', 'Ras Al Khaimah'],
-        'Saudi Arabia': ['Riyadh', 'Jeddah', 'Dammam', 'Makkah', 'Medina'],
-        'Qatar': ['Doha', 'Al Rayyan', 'Al Wakrah', 'Al Khor', 'Umm Salal'],
-        'Oman': ['Muscat', 'Salalah', 'Sohar', 'Nizwa', 'Sur'],
-        'Bahrain': ['Manama', 'Riffa', 'Muharraq', 'Hamad Town', 'Isa Town']
-    };
-
+    // Dynamic city loading based on country selection
     const countrySelect = document.getElementById('location_country');
     const citySelect = document.getElementById('location_city');
 
-    function populateCities(country, selectedCity) {
+    function loadCities(countryName, selectedCity) {
         if (!citySelect) return;
-        citySelect.innerHTML = '<option value="">Select City</option>';
-        const cities = countryToCities[country] || [];
-        cities.forEach(function(city){
-            const opt = document.createElement('option');
-            opt.value = city;
-            opt.textContent = city;
-            if (selectedCity && selectedCity === city) opt.selected = true;
-            citySelect.appendChild(opt);
-        });
+        
+        if (!countryName) {
+            citySelect.innerHTML = '<option value="">Select City</option>';
+            citySelect.disabled = false;
+            return;
+        }
+        
+        citySelect.innerHTML = '<option value="">Loading...</option>';
+        citySelect.disabled = true;
+        
+        fetch(`{{ url('/api/cities') }}/${encodeURIComponent(countryName)}`)
+            .then(response => {
+                if (!response.ok) throw new Error('Network response was not ok');
+                return response.json();
+            })
+            .then(data => {
+                citySelect.innerHTML = '<option value="">Select City</option>';
+                if (data.success && data.cities && Array.isArray(data.cities)) {
+                    data.cities.forEach(city => {
+                        const option = document.createElement('option');
+                        option.value = city.name;
+                        option.textContent = city.name;
+                        if (selectedCity && selectedCity === city.name) {
+                            option.selected = true;
+                        }
+                        citySelect.appendChild(option);
+                    });
+                }
+                citySelect.disabled = false;
+            })
+            .catch(error => {
+                console.error('Error loading cities:', error);
+                citySelect.innerHTML = '<option value="">Select City</option>';
+                citySelect.disabled = false;
+            });
     }
 
     // Initialize on load with old values
     if (countrySelect && citySelect) {
         const initialCountry = countrySelect.value;
         const initialCity = '{{ old('location_city') }}';
-        populateCities(initialCountry, initialCity);
+        if (initialCountry) {
+            loadCities(initialCountry, initialCity);
+        }
+        
         countrySelect.addEventListener('change', function(){
-            populateCities(this.value, null);
+            loadCities(this.value, null);
         });
     }
 
