@@ -14,6 +14,22 @@ body {
 }
 
 /* Professional Job Card Design - Clean & Modern */
+.jobs_list {
+    display: flex;
+}
+
+.jobs_list .item {
+    display: flex;
+    height: 100%;
+}
+
+.add-exp {
+    display: flex;
+    flex: 1;
+    width: 100%;
+    min-height: 100%;
+}
+
 .jobs-ad-card {
     background: #ffffff;
     border: 1px solid #e5e7eb;
@@ -22,6 +38,7 @@ body {
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
+    width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -35,7 +52,10 @@ body {
 
 .add-exp {
     padding: 0;
+    width: 100%;
     height: 100%;
+    display: flex;
+    flex: 1;
 }
 
 .job-card-header {
@@ -181,6 +201,7 @@ body {
     border-top: 1px solid #f3f4f6;
     margin-top: auto;
     background: #ffffff;
+    flex-shrink: 0;
 }
 
 .price-ad {
@@ -313,12 +334,25 @@ body {
     
     .jobs_list .item {
         width: 100% !important;
-        display: block !important;
+        display: flex !important;
         float: none !important;
         clear: both !important;
         margin-bottom: 20px !important;
         max-width: 100% !important;
         box-sizing: border-box !important;
+        height: auto !important;
+    }
+    
+    .add-exp {
+        width: 100% !important;
+        height: 100% !important;
+        display: flex !important;
+        flex: 1 !important;
+    }
+    
+    .jobs-ad-card {
+        height: 100% !important;
+        min-height: 100% !important;
     }
     
     .jobs-ad-card {
