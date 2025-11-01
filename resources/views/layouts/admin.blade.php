@@ -47,7 +47,7 @@
                     @if(auth()->user()->isSeeker() && auth()->user()->seekerProfile && auth()->user()->seekerProfile->profile_picture)
                         <img src="{{ Storage::url(auth()->user()->seekerProfile->profile_picture) }}" alt="Admin Avatar">
                     @elseif(auth()->user()->isEmployer() && auth()->user()->employerProfile && auth()->user()->employerProfile->company_logo)
-                        <img src="{{ Storage::url(auth()->user()->employerProfile->company_logo) }}" alt="Admin Avatar">
+                        <img src="{{ asset(auth()->user()->employerProfile->company_logo) }}" alt="Admin Avatar">
                     @else
                         <div class="default-avatar">
                             <i class="fas fa-user"></i>

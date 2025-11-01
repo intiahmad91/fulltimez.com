@@ -78,17 +78,37 @@ class ProfileController extends Controller
 
             if ($request->hasFile('profile_picture')) {
                 if ($user->seekerProfile && $user->seekerProfile->profile_picture) {
-                    Storage::disk('public')->delete($user->seekerProfile->profile_picture);
+                    $oldPath = public_path($user->seekerProfile->profile_picture);
+                    if (file_exists($oldPath)) {
+                        unlink($oldPath);
+                    }
                 }
-                $profileData['profile_picture'] = $request->file('profile_picture')->store('profiles', 'public');
+                $file = $request->file('profile_picture');
+                $filename = 'profile_' . $user->id . '_' . time() . '.' . $file->getClientOriginalExtension();
+                $directory = public_path('profiles');
+                if (!file_exists($directory)) {
+                    mkdir($directory, 0755, true);
+                }
+                $file->move($directory, $filename);
+                $profileData['profile_picture'] = 'profiles/' . $filename;
                 $profileDataChanged = true; // File upload is always a change
             }
 
             if ($request->hasFile('cv_file')) {
                 if ($user->seekerProfile && $user->seekerProfile->cv_file) {
-                    Storage::disk('public')->delete($user->seekerProfile->cv_file);
+                    $oldPath = public_path($user->seekerProfile->cv_file);
+                    if (file_exists($oldPath)) {
+                        unlink($oldPath);
+                    }
                 }
-                $profileData['cv_file'] = $request->file('cv_file')->store('cvs', 'public');
+                $file = $request->file('cv_file');
+                $filename = 'cv_' . $user->id . '_' . time() . '.' . $file->getClientOriginalExtension();
+                $directory = public_path('cvs');
+                if (!file_exists($directory)) {
+                    mkdir($directory, 0755, true);
+                }
+                $file->move($directory, $filename);
+                $profileData['cv_file'] = 'cvs/' . $filename;
                 $profileDataChanged = true; // File upload is always a change
             }
 
@@ -118,17 +138,37 @@ class ProfileController extends Controller
             // Handle profile picture upload
             if ($request->hasFile('profile_picture')) {
                 if ($user->employerProfile && $user->employerProfile->profile_picture) {
-                    Storage::disk('public')->delete($user->employerProfile->profile_picture);
+                    $oldPath = public_path($user->employerProfile->profile_picture);
+                    if (file_exists($oldPath)) {
+                        unlink($oldPath);
+                    }
                 }
-                $profileData['profile_picture'] = $request->file('profile_picture')->store('profiles', 'public');
+                $file = $request->file('profile_picture');
+                $filename = 'profile_' . $user->id . '_' . time() . '.' . $file->getClientOriginalExtension();
+                $directory = public_path('profiles');
+                if (!file_exists($directory)) {
+                    mkdir($directory, 0755, true);
+                }
+                $file->move($directory, $filename);
+                $profileData['profile_picture'] = 'profiles/' . $filename;
                 $profileDataChanged = true; // File upload is always a change
             }
 
             if ($request->hasFile('company_logo')) {
                 if ($user->employerProfile && $user->employerProfile->company_logo) {
-                    Storage::disk('public')->delete($user->employerProfile->company_logo);
+                    $oldPath = public_path($user->employerProfile->company_logo);
+                    if (file_exists($oldPath)) {
+                        unlink($oldPath);
+                    }
                 }
-                $profileData['company_logo'] = $request->file('company_logo')->store('logos', 'public');
+                $file = $request->file('company_logo');
+                $filename = 'logo_' . $user->id . '_' . time() . '.' . $file->getClientOriginalExtension();
+                $directory = public_path('logos');
+                if (!file_exists($directory)) {
+                    mkdir($directory, 0755, true);
+                }
+                $file->move($directory, $filename);
+                $profileData['company_logo'] = 'logos/' . $filename;
                 $profileDataChanged = true; // File upload is always a change
             }
 

@@ -86,7 +86,7 @@
                                     <div class="row align-items-center">
                                         <div class="col-md-2 text-center">
                                             @if($application->job->employer && $application->job->employer->employerProfile && $application->job->employer->employerProfile->company_logo)
-                                                <img src="{{ Storage::url($application->job->employer->employerProfile->company_logo) }}" 
+                                                <img src="{{ asset($application->job->employer->employerProfile->company_logo) }}" 
                                                      alt="company" 
                                                      class="img-fluid rounded"
                                                      style="max-width: 80px; max-height: 80px; object-fit: contain;">

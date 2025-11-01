@@ -4,7 +4,7 @@
             @if(auth()->user()->isSeeker() && auth()->user()->seekerProfile && auth()->user()->seekerProfile->profile_picture)
                 <img src="{{ Storage::url(auth()->user()->seekerProfile->profile_picture) }}" alt="" class="img-fluid" style="width: 100px; height: 100px; object-fit: cover; border-radius: 50%;">
             @elseif(auth()->user()->isEmployer() && auth()->user()->employerProfile && auth()->user()->employerProfile->company_logo)
-                <img src="{{ Storage::url(auth()->user()->employerProfile->company_logo) }}" alt="" class="img-fluid" style="width: 100px; height: 100px; object-fit: cover; border-radius: 50%;">
+                <img src="{{ asset(auth()->user()->employerProfile->company_logo) }}" alt="" class="img-fluid" style="width: 100px; height: 100px; object-fit: cover; border-radius: 50%;">
             @else
                 <img src="{{ asset('images/avatar2.jpg') }}" alt="" class="img-fluid">
             @endif
