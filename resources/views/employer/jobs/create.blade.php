@@ -960,18 +960,6 @@
                                 <div class="row">
                                         <div class="col-lg-6">
                                             <div class="form-group">
-                                            <label class="form-label">Location (City) <sup class="text-danger">*</sup></label>
-                                                <select name="location_city" id="location_city" class="form-control @error('location_city') is-invalid @enderror" required>
-                                                    <option value="">Select City</option>
-                                                </select>
-                                                @error('location_city')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-6">
-                                            <div class="form-group">
                                             <label class="form-label">Location (Country) <sup class="text-danger">*</sup></label>
                                                 <select name="location_country" id="location_country" class="form-control @error('location_country') is-invalid @enderror" required>
                                                     <option value="">Select Country</option>
@@ -983,6 +971,18 @@
                                                     @endforeach
                                                 </select>
                                                 @error('location_country')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                            <label class="form-label">Location (City) <sup class="text-danger">*</sup></label>
+                                                <select name="location_city" id="location_city" class="form-control @error('location_city') is-invalid @enderror" required>
+                                                    <option value="">Select City</option>
+                                                </select>
+                                                @error('location_city')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                             </div>
