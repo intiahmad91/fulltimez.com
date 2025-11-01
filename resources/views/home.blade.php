@@ -496,7 +496,7 @@ body {
             @foreach($featuredJobs as $job)
             <li class="item wow fadeInUp">
               <div class="add-exp">
-                  <div class="jobs-ad-card">
+                  <div class="">
                      <div class="job-card-header">
                         <div class="header-top">
                            <span class="category-badge-top">{{ optional($job->category)->name ?? 'N/A' }}</span>
