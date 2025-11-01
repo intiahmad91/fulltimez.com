@@ -251,6 +251,7 @@ body {
                         </div>
                      </div>
                      <span class="boosted-popular-premium">{{ optional($job->category)->name ?? 'N/A' }}</span>
+                     <br>
                   </div>
                   <div class="catebox">
                      <h3 class="mt-0 add-title"><a href="{{ route('jobs.show', $job->slug) }}">{{ $job->title }}</a></h3>
