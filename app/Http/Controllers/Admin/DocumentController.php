@@ -37,16 +37,16 @@ class DocumentController extends Controller
             });
         }
 
-        $documents = $query->orderBy('created_at', 'desc')->get();
+        $documents = $query->orderBy('id', 'desc')->get();
 
         // Group documents by employer
         $groupedDocuments = $documents->groupBy('employer_id')->map(function ($docs) {
             return [
                 'employer' => $docs->first()->employer,
-                'documents' => $docs->sortByDesc('created_at'),
+                'documents' => $docs->sortByDesc('id'),
             ];
-        })->sortBy(function ($group) {
-            return $group['employer']->name;
+        })->sortByDesc(function ($group) {
+            return $group['employer']->id;
         });
 
         // Paginate the grouped documents
