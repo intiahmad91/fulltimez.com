@@ -67,6 +67,11 @@ $('[data-toggle="offcanvas"]').on('click', function () {
                     items: 4,
                     nav: true,
                     margin: 20
+                },
+                1400: {
+                    items: 4,
+                    nav: true,
+                    margin: 20
                 }
             }
         });
