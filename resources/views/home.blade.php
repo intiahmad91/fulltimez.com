@@ -15,272 +15,266 @@ body {
 
 /* Professional Job Card Design - Clean & Modern */
 .jobs_list {
-    display: flex;
+    display: flex !important;
 }
 
 .jobs_list .item {
-    display: flex;
-    height: 100%;
+    display: flex !important;
+    height: 100% !important;
 }
 
 .add-exp {
-    display: flex;
-    flex: 1;
-    width: 100%;
-    min-height: 100%;
+    display: flex !important;
+    flex: 1 !important;
+    width: 100% !important;
+    min-height: 100% !important;
+    padding: 0 !important;
+    height: 100% !important;
 }
 
 .jobs-ad-card {
-    background: #ffffff;
-    border: 1px solid #e5e7eb;
-    border-radius: 12px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    overflow: hidden;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
+    background: #ffffff !important;
+    border: 1px solid #e5e7eb !important;
+    border-radius: 12px !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08) !important;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    position: relative !important;
+    overflow: hidden !important;
+    width: 100% !important;
+    height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
 }
 
 .jobs-ad-card:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-    transform: translateY(-2px);
-    border-color: #d1d5db;
-}
-
-.add-exp {
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex: 1;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12) !important;
+    transform: translateY(-2px) !important;
+    border-color: #d1d5db !important;
 }
 
 .job-card-header {
-    padding: 24px 24px 20px;
-    background: #ffffff;
-    border-bottom: 1px solid #f3f4f6;
+    padding: 24px 24px 20px !important;
+    background: #ffffff !important;
+    border-bottom: 1px solid #f3f4f6 !important;
 }
 
 .header-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 16px;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: flex-start !important;
+    margin-bottom: 16px !important;
 }
 
 .category-badge-top {
-    background: #f3f4f6;
-    color: #374151;
-    font-size: 11px;
-    font-weight: 600;
-    padding: 5px 12px;
-    border-radius: 6px;
-    text-transform: uppercase;
-    letter-spacing: 0.3px;
-    border: none;
+    background: #f3f4f6 !important;
+    color: #374151 !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    padding: 5px 12px !important;
+    border-radius: 6px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.3px !important;
+    border: none !important;
 }
 
 .company-header {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    width: 100%;
+    display: flex !important;
+    align-items: center !important;
+    gap: 14px !important;
+    width: 100% !important;
 }
 
 .company-logo {
-    width: 56px;
-    height: 56px;
-    border-radius: 10px;
-    background: #f9fafb;
-    border: 1px solid #e5e7eb;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
+    width: 56px !important;
+    height: 56px !important;
+    border-radius: 10px !important;
+    background: #f9fafb !important;
+    border: 1px solid #e5e7eb !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
 }
 
 .company-logo img {
-    width: 32px;
-    height: 32px;
-    object-fit: cover;
+    width: 32px !important;
+    height: 32px !important;
+    object-fit: cover !important;
 }
 
 .company-name {
-    flex: 1;
-    min-width: 0;
+    flex: 1 !important;
+    min-width: 0 !important;
 }
 
 .company-name h3 {
-    font-size: 16px;
-    font-weight: 600;
-    color: #111827;
-    margin: 0;
-    line-height: 1.4;
-    word-wrap: break-word;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    color: #111827 !important;
+    margin: 0 !important;
+    line-height: 1.4 !important;
+    word-wrap: break-word !important;
 }
 
 .job-card-body {
-    padding: 0 24px 20px;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    background: #ffffff;
+    padding: 0 24px 20px !important;
+    flex: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    background: #ffffff !important;
 }
 
 .job-title {
-    margin-bottom: 16px;
+    margin-bottom: 16px !important;
 }
 
 .job-title a {
-    font-size: 18px;
-    font-weight: 600;
-    color: #111827;
-    text-decoration: none;
-    line-height: 1.5;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    transition: color 0.2s ease;
+    font-size: 18px !important;
+    font-weight: 600 !important;
+    color: #111827 !important;
+    text-decoration: none !important;
+    line-height: 1.5 !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+    transition: color 0.2s ease !important;
 }
 
 .job-title a:hover {
-    color: #2563eb;
+    color: #2563eb !important;
 }
 
 .job-meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 16px;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+    margin-bottom: 16px !important;
 }
 
 .meta-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    padding: 6px 12px;
-    background: #f9fafb;
-    border: 1px solid #e5e7eb;
-    border-radius: 6px;
-    font-size: 12px;
-    color: #6b7280;
-    transition: all 0.2s ease;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 5px !important;
+    padding: 6px 12px !important;
+    background: #f9fafb !important;
+    border: 1px solid #e5e7eb !important;
+    border-radius: 6px !important;
+    font-size: 12px !important;
+    color: #6b7280 !important;
+    transition: all 0.2s ease !important;
 }
 
 .meta-badge:hover {
-    background: #f3f4f6;
-    border-color: #d1d5db;
+    background: #f3f4f6 !important;
+    border-color: #d1d5db !important;
 }
 
 .meta-badge span {
-    font-weight: 600;
-    color: #374151;
+    font-weight: 600 !important;
+    color: #374151 !important;
 }
 
 .location-info {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: #6b7280;
-    font-size: 13px;
-    margin-bottom: 16px;
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    color: #6b7280 !important;
+    font-size: 13px !important;
+    margin-bottom: 16px !important;
 }
 
 .location-info img {
-    width: 16px;
-    height: 16px;
-    opacity: 0.6;
+    width: 16px !important;
+    height: 16px !important;
+    opacity: 0.6 !important;
 }
 
 .job-card-footer {
-    padding: 16px 24px 24px;
-    border-top: 1px solid #f3f4f6;
-    margin-top: auto;
-    background: #ffffff;
-    flex-shrink: 0;
+    padding: 16px 24px 24px !important;
+    border-top: 1px solid #f3f4f6 !important;
+    margin-top: auto !important;
+    background: #ffffff !important;
+    flex-shrink: 0 !important;
 }
 
 .price-ad {
-    text-align: left;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
+    text-align: left !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
 }
 
 .price-ad p {
-    margin: 0;
-    padding: 0;
-    font-size: 16px;
-    font-weight: 600;
-    color: #059669;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    white-space: normal;
-    line-height: 1.4;
-    max-width: 100%;
-    display: block;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    color: #059669 !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    white-space: normal !important;
+    line-height: 1.4 !important;
+    max-width: 100% !important;
+    display: block !important;
 }
 
 .price-ad p span {
-    font-size: 13px;
-    font-weight: 400;
-    color: #9ca3af;
-    margin-left: 4px;
+    font-size: 13px !important;
+    font-weight: 400 !important;
+    color: #9ca3af !important;
+    margin-left: 4px !important;
 }
 
 @media (max-width: 768px) {
     .header-top {
-        margin-bottom: 14px;
+        margin-bottom: 14px !important;
     }
     
     .category-badge-top {
-        font-size: 10px;
-        padding: 4px 10px;
+        font-size: 10px !important;
+        padding: 4px 10px !important;
     }
     
     .company-header {
-        flex-direction: column;
-        text-align: center;
-        gap: 12px;
+        flex-direction: column !important;
+        text-align: center !important;
+        gap: 12px !important;
     }
     
     .company-logo {
-        margin: 0 auto;
-        width: 52px;
-        height: 52px;
+        margin: 0 auto !important;
+        width: 52px !important;
+        height: 52px !important;
     }
     
     .company-name h3 {
-        text-align: center;
-        font-size: 15px;
+        text-align: center !important;
+        font-size: 15px !important;
     }
     
     .job-card-body {
-        padding: 0 20px 18px;
+        padding: 0 20px 18px !important;
     }
     
     .job-title a {
-        text-align: center;
-        font-size: 17px;
+        text-align: center !important;
+        font-size: 17px !important;
     }
     
     .job-meta {
-        justify-content: center;
+        justify-content: center !important;
     }
     
     .location-info {
-        justify-content: center;
+        justify-content: center !important;
     }
     
     .job-card-footer {
-        padding: 14px 20px 20px;
+        padding: 14px 20px 20px !important;
     }
     
     .price-ad {
-        text-align: center;
+        text-align: center !important;
     }
 }
 
