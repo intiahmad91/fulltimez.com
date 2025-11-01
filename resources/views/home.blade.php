@@ -89,7 +89,7 @@ body {
 }
 
 .company-name h3 {
-    font-size: 14px !important;
+    font-size: 16px !important;
     font-weight: 700 !important;
     color: #ffffff !important;
     margin: 0 !important;
