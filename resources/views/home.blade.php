@@ -40,52 +40,52 @@ body {
 
 .job-card-header {
     position: relative;
-    padding: 24px 24px 20px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 20px 20px 18px;
+    background: #667eea;
     color: #ffffff;
+    border-bottom: 3px solid #5a67d8;
+}
+
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
 }
 
 .category-badge-top {
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    background: rgba(255, 255, 255, 0.25);
-    backdrop-filter: blur(10px);
-    color: #ffffff;
-    font-size: 10px;
+    background: #ffffff;
+    color: #667eea;
+    font-size: 11px;
     font-weight: 700;
-    padding: 5px 12px;
+    padding: 6px 14px;
     border-radius: 20px;
     text-transform: uppercase;
-    letter-spacing: 0.8px;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    z-index: 2;
+    letter-spacing: 0.5px;
 }
 
 .company-header {
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 12px;
+    width: 100%;
 }
 
 .company-logo {
-    width: 52px;
-    height: 52px;
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(10px);
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    background: #ffffff;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    border: 2px solid rgba(255, 255, 255, 0.3);
 }
 
 .company-logo img {
-    width: 32px;
-    height: 32px;
+    width: 28px;
+    height: 28px;
     object-fit: cover;
-    filter: brightness(0) invert(1);
 }
 
 .company-name {
@@ -94,13 +94,12 @@ body {
 }
 
 .company-name h3 {
-    font-size: 17px;
+    font-size: 16px;
     font-weight: 700;
     color: #ffffff;
     margin: 0;
     line-height: 1.4;
     word-wrap: break-word;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .job-card-body {
@@ -130,6 +129,32 @@ body {
 
 .job-title a:hover {
     color: #667eea;
+}
+
+@media (max-width: 768px) {
+    .header-top {
+        margin-bottom: 12px;
+    }
+    
+    .category-badge-top {
+        font-size: 10px;
+        padding: 5px 12px;
+    }
+    
+    .company-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+    
+    .company-logo {
+        margin: 0 auto;
+    }
+    
+    .company-name h3 {
+        text-align: center;
+        font-size: 15px;
+    }
 }
 
 .job-meta {
@@ -402,7 +427,9 @@ body {
               <div class="add-exp">
                   <div class="jobs-ad-card">
                      <div class="job-card-header">
-                        <span class="category-badge-top">{{ optional($job->category)->name ?? 'N/A' }}</span>
+                        <div class="header-top">
+                           <span class="category-badge-top">{{ optional($job->category)->name ?? 'N/A' }}</span>
+                        </div>
                         <div class="company-header">
                            <div class="company-logo">
                               <img src="{{ asset('images/job.svg') }}" alt="company-logo">
