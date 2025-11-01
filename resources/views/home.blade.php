@@ -234,12 +234,12 @@ body {
                            <img src="{{ asset('images/job.svg') }}" alt="job-ico" class="img-fluid">
                         </div>
                         <div class="categery-name">
-                           <span>Category</span>
-                           <h3>{{ optional($job->category)->name ?? 'N/A' }}
+                           <span>Company</span>
+                           <h3>{{ optional($job->employer->employerProfile)->company_name ?? 'Company' }}
                            </h3>
                         </div>
                      </div>
-                     <span class="boosted-popular-premium">Featured Job</span>
+                     <span class="boosted-popular-premium">{{ optional($job->category)->name ?? 'N/A' }}</span>
                   </div>
                   <div class="catebox">
                      <h3 class="mt-0 add-title"><a href="{{ route('jobs.show', $job->slug) }}">{{ $job->title }}</a></h3>
