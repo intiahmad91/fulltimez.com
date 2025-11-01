@@ -369,7 +369,7 @@ function approveDocument(documentId) {
 }
 
 .company-header-card {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #2773e8 0%, #764ba2 100%);
     color: white;
     border: none;
 }

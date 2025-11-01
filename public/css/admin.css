@@ -394,13 +394,13 @@
     color: #ffffff;
 }
 
-.stat-primary .stat-icon { background: linear-gradient(135deg, #667eea, #764ba2); }
+.stat-primary .stat-icon { background: linear-gradient(135deg, #2773e8, #764ba2); }
 .stat-success .stat-icon { background: linear-gradient(135deg, #56ab2f, #a8e6cf); }
 .stat-info .stat-icon { background: linear-gradient(135deg, #3498db, #85c1e9); }
 .stat-warning .stat-icon { background: linear-gradient(135deg, #f39c12, #f7dc6f); }
 .stat-secondary .stat-icon { background: linear-gradient(135deg, #95a5a6, #bdc3c7); }
 
-.stat-primary { border-left-color: #667eea; }
+.stat-primary { border-left-color: #2773e8; }
 .stat-success { border-left-color: #56ab2f; }
 .stat-info { border-left-color: #3498db; }
 .stat-warning { border-left-color: #f39c12; }
@@ -448,7 +448,7 @@
 }
 
 .admin-card-header i {
-    color: #667eea;
+    color: #2773e8;
 }
 
 .admin-card-body {

@@ -85,7 +85,7 @@
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(90deg, #1e3c72, #2a5298, #667eea);
+    background: linear-gradient(90deg, #1e3c72, #2a5298, #2773e8);
 }
 
 .admin-header {

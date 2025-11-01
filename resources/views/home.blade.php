@@ -124,7 +124,7 @@ body {
 }
 
 .job-title a:hover {
-    color: #667eea !important;
+    color: #2773e8 !important;
     text-decoration: none !important;
 }
 
@@ -136,7 +136,7 @@ body {
 }
 
 .category-badge-top {
-    background: #667eea !important;
+    background: #2773e8 !important;
     color: #ffffff !important;
     font-size: 11px !important;
     padding: 6px 14px !important;
@@ -391,7 +391,7 @@ body {
 
 .jobs-wrap .job-content > p {
     font-size: 14px !important;
-    color: #667eea !important;
+    color: #2773e8 !important;
     font-weight: 600 !important;
     margin-bottom: 12px !important;
 }
@@ -414,7 +414,7 @@ body {
 }
 
 .jobs-wrap .job-content h3 a:hover {
-    color: #667eea !important;
+    color: #2773e8 !important;
 }
 
 .jobs-wrap .tags {
@@ -444,9 +444,9 @@ body {
 }
 
 .jobs-wrap .tags li a:hover {
-    background: #667eea !important;
+    background: #2773e8 !important;
     color: #ffffff !important;
-    border-color: #667eea !important;
+    border-color: #2773e8 !important;
 }
 
 .jobs-wrap .d-flex.align-items-center.justify-content-between {
@@ -473,7 +473,7 @@ body {
 
 .jobs-wrap .readmore a {
     padding: 8px 20px !important;
-    background: #667eea !important;
+    background: #2773e8 !important;
     color: #ffffff !important;
     font-size: 13px !important;
     font-weight: 600 !important;
@@ -559,7 +559,7 @@ body {
     width: 64px !important;
     height: 64px !important;
     border-radius: 50% !important;
-    background: #667eea !important;
+    background: #2773e8 !important;
     border: 3px solid #e5e7eb !important;
     display: flex !important;
     align-items: center !important;
@@ -572,7 +572,7 @@ body {
 }
 
 .seekerwrp .jobs-ad-card:hover .seeker-avatar {
-    border-color: #667eea !important;
+    border-color: #2773e8 !important;
     transform: scale(1.05) !important;
 }
 
@@ -608,7 +608,7 @@ body {
 }
 
 .seekerwrp .add-title a:hover {
-    color: #667eea !important;
+    color: #2773e8 !important;
 }
 
 .seekerwrp .carinfo {
