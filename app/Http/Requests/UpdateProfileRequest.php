@@ -51,7 +51,6 @@ class UpdateProfileRequest extends FormRequest
                 'company_size' => 'nullable|string|max:50',
                 'founded_year' => 'nullable|integer|min:1900|max:' . date('Y'),
                 'city' => 'required|string|max:100',
-                'state' => 'nullable|string|max:100',
                 'country' => 'required|string|max:100',
                 'company_description' => 'nullable|string|max:2000',
                 'company_logo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UpdateProfileRequest;
 use App\Notifications\UserActionNotification;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -130,7 +129,6 @@ class ProfileController extends Controller
                 'company_size' => $request->company_size,
                 'founded_year' => $request->founded_year,
                 'city' => $request->city,
-                'state' => $request->state,
                 'country' => $request->country,
                 'company_description' => $request->company_description,
             ];
@@ -184,7 +182,6 @@ class ProfileController extends Controller
                     'company_size' => $user->employerProfile->company_size,
                     'founded_year' => $user->employerProfile->founded_year,
                     'city' => $user->employerProfile->city,
-                    'state' => $user->employerProfile->state,
                     'country' => $user->employerProfile->country,
                     'company_description' => $user->employerProfile->company_description,
                 ];

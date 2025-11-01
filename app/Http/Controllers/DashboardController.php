@@ -20,7 +20,8 @@ class DashboardController extends Controller
         
         // Show employer-specific profile view for employers
         if ($user->isEmployer()) {
-            return view('employer.profile', compact('user'));
+            $countries = \App\Models\Country::where('is_active', true)->orderBy('name')->get();
+            return view('employer.profile', compact('user', 'countries'));
         }
         
         return view('dashboard.profile', compact('user'));

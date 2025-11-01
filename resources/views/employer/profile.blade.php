@@ -209,46 +209,27 @@ use Illuminate\Support\Facades\Storage;
                                         <div class="row">
                                             <div class="col-lg-6">
                                                 <div class="form-group">
-                                                    <label>City <sup class="text-danger">*</sup></label>
-                                                    <select name="city" class="form-control @error('city') is-invalid @enderror" required>
-                                                        <option value="">Select City</option>
-                                                        <option value="Abu Dhabi" {{ old('city', $user->employerProfile->city ?? '') == 'Abu Dhabi' ? 'selected' : '' }}>Abu Dhabi</option>
-                                                        <option value="Dubai" {{ old('city', $user->employerProfile->city ?? '') == 'Dubai' ? 'selected' : '' }}>Dubai</option>
-                                                        <option value="Sharjah" {{ old('city', $user->employerProfile->city ?? '') == 'Sharjah' ? 'selected' : '' }}>Sharjah</option>
-                                                        <option value="Ajman" {{ old('city', $user->employerProfile->city ?? '') == 'Ajman' ? 'selected' : '' }}>Ajman</option>
-                                                        <option value="Ras Al Khaimah" {{ old('city', $user->employerProfile->city ?? '') == 'Ras Al Khaimah' ? 'selected' : '' }}>Ras Al Khaimah</option>
-                                                        <option value="Fujairah" {{ old('city', $user->employerProfile->city ?? '') == 'Fujairah' ? 'selected' : '' }}>Fujairah</option>
-                                                        <option value="Umm Al Quwain" {{ old('city', $user->employerProfile->city ?? '') == 'Umm Al Quwain' ? 'selected' : '' }}>Umm Al Quwain</option>
-                                                        <option value="Other" {{ old('city', $user->employerProfile->city ?? '') == 'Other' ? 'selected' : '' }}>Other</option>
-                                                    </select>
-                                                    @error('city')
-                                                        <div class="invalid-feedback">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="form-group">
-                                                    <label>State</label>
-                                                    <input type="text" name="state" class="form-control @error('state') is-invalid @enderror" value="{{ old('state', $user->employerProfile->state ?? '') }}" placeholder="State">
-                                                    @error('state')
-                                                        <div class="invalid-feedback">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="form-group">
                                                     <label>Country <sup class="text-danger">*</sup></label>
-                                                    <select name="country" class="form-control @error('country') is-invalid @enderror" required>
+                                                    <select id="country" name="country" class="form-control @error('country') is-invalid @enderror" required>
                                                         <option value="">Select Country</option>
-                                                        <option value="United Arab Emirates" {{ old('country', $user->employerProfile->country ?? '') == 'United Arab Emirates' ? 'selected' : '' }}>United Arab Emirates</option>
-                                                        <option value="Saudi Arabia" {{ old('country', $user->employerProfile->country ?? '') == 'Saudi Arabia' ? 'selected' : '' }}>Saudi Arabia</option>
-                                                        <option value="Qatar" {{ old('country', $user->employerProfile->country ?? '') == 'Qatar' ? 'selected' : '' }}>Qatar</option>
-                                                        <option value="Kuwait" {{ old('country', $user->employerProfile->country ?? '') == 'Kuwait' ? 'selected' : '' }}>Kuwait</option>
-                                                        <option value="Bahrain" {{ old('country', $user->employerProfile->country ?? '') == 'Bahrain' ? 'selected' : '' }}>Bahrain</option>
-                                                        <option value="Oman" {{ old('country', $user->employerProfile->country ?? '') == 'Oman' ? 'selected' : '' }}>Oman</option>
-                                                        <option value="Other" {{ old('country', $user->employerProfile->country ?? '') == 'Other' ? 'selected' : '' }}>Other</option>
+                                                        @foreach($countries as $country)
+                                                            <option value="{{ $country->name }}" {{ old('country', $user->employerProfile->country ?? '') == $country->name ? 'selected' : '' }}>
+                                                                {{ $country->name }}
+                                                            </option>
+                                                        @endforeach
                                                     </select>
                                                     @error('country')
+                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label>City <sup class="text-danger">*</sup></label>
+                                                    <select id="city" name="city" class="form-control @error('city') is-invalid @enderror" required>
+                                                        <option value="">Select City</option>
+                                                    </select>
+                                                    @error('city')
                                                         <div class="invalid-feedback">{{ $message }}</div>
                                                     @enderror
                                                 </div>
@@ -296,6 +277,64 @@ use Illuminate\Support\Facades\Storage;
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('employerProfileForm');
+    const countrySelect = document.getElementById('country');
+    const citySelect = document.getElementById('city');
+    const currentCity = '{{ old("city", $user->employerProfile->city ?? "") }}';
+    const currentCountry = '{{ old("country", $user->employerProfile->country ?? "") }}';
+    
+    // Handle country selection change
+    countrySelect.addEventListener('change', function() {
+        const selectedCountry = this.value;
+        
+        // Clear city dropdown
+        citySelect.innerHTML = '<option value="">Select City</option>';
+        
+        if (selectedCountry) {
+            // Show loading state
+            citySelect.innerHTML = '<option value="">Loading cities...</option>';
+            citySelect.disabled = true;
+            
+            // Fetch cities for selected country
+            fetch(`/api/cities/${encodeURIComponent(selectedCountry)}`)
+                .then(response => response.json())
+                .then(data => {
+                    citySelect.innerHTML = '<option value="">Select City</option>';
+                    
+                    if (data.success && data.cities.length > 0) {
+                        data.cities.forEach(city => {
+                            const option = document.createElement('option');
+                            option.value = city.name;
+                            option.textContent = city.name;
+                            
+                            // Select current city if it matches
+                            if (currentCity === city.name) {
+                                option.selected = true;
+                            }
+                            
+                            citySelect.appendChild(option);
+                        });
+                    } else {
+                        citySelect.innerHTML = '<option value="">No cities available</option>';
+                    }
+                    
+                    citySelect.disabled = false;
+                })
+                .catch(error => {
+                    console.error('Error fetching cities:', error);
+                    citySelect.innerHTML = '<option value="">Error loading cities</option>';
+                    citySelect.disabled = false;
+                });
+        } else {
+            citySelect.disabled = false;
+        }
+    });
+    
+    // If a country is already selected, load its cities
+    if (currentCountry && countrySelect.value === currentCountry) {
+        countrySelect.dispatchEvent(new Event('change'));
+    } else if (countrySelect.value) {
+        countrySelect.dispatchEvent(new Event('change'));
+    }
     
     form.addEventListener('submit', function(e) {
         let isValid = true;
