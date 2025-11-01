@@ -360,8 +360,26 @@ class DocumentController extends Controller
             return redirect()->back()->withErrors(['error' => 'No file attached for this document.']);
         }
 
-        $fullPath = public_path($document->document_path);
-        if (!file_exists($fullPath)) {
+        // Handle different path formats (with or without leading slash)
+        $documentPath = ltrim($document->document_path, '/');
+        
+        // Try multiple path possibilities
+        $possiblePaths = [
+            public_path($documentPath), // documents/trade_licenses/file.pdf
+            public_path('/' . $documentPath), // /documents/trade_licenses/file.pdf
+            storage_path('app/public/' . $documentPath), // In case files are in storage
+            base_path('public/' . $documentPath), // Alternative base path
+        ];
+
+        $fullPath = null;
+        foreach ($possiblePaths as $path) {
+            if (file_exists($path)) {
+                $fullPath = $path;
+                break;
+            }
+        }
+
+        if (!$fullPath || !file_exists($fullPath)) {
             return redirect()->back()->withErrors(['error' => 'File not found. Please re-upload the document.']);
         }
 
@@ -385,8 +403,26 @@ class DocumentController extends Controller
             abort(403, 'Invalid or missing token.');
         }
 
-        $fullPath = public_path($document->document_path);
-        if (!file_exists($fullPath)) {
+        // Handle different path formats (with or without leading slash)
+        $documentPath = ltrim($document->document_path, '/');
+        
+        // Try multiple path possibilities
+        $possiblePaths = [
+            public_path($documentPath), // documents/trade_licenses/file.pdf
+            public_path('/' . $documentPath), // /documents/trade_licenses/file.pdf
+            storage_path('app/public/' . $documentPath), // In case files are in storage
+            base_path('public/' . $documentPath), // Alternative base path
+        ];
+
+        $fullPath = null;
+        foreach ($possiblePaths as $path) {
+            if (file_exists($path)) {
+                $fullPath = $path;
+                break;
+            }
+        }
+
+        if (!$fullPath || !file_exists($fullPath)) {
             abort(404, 'File not found. Please re-upload the document.');
         }
 
