@@ -45,7 +45,7 @@
             <div class="admin-profile">
                 <div class="admin-avatar">
                     @if(auth()->user()->isSeeker() && auth()->user()->seekerProfile && auth()->user()->seekerProfile->profile_picture)
-                        <img src="{{ Storage::url(auth()->user()->seekerProfile->profile_picture) }}" alt="Admin Avatar">
+                        <img src="{{ asset(auth()->user()->seekerProfile->profile_picture) }}" alt="Admin Avatar">
                     @elseif(auth()->user()->isEmployer() && auth()->user()->employerProfile && auth()->user()->employerProfile->company_logo)
                         <img src="{{ asset(auth()->user()->employerProfile->company_logo) }}" alt="Admin Avatar">
                     @else
@@ -240,9 +240,9 @@
                             <button class="user-menu-btn" data-bs-toggle="dropdown">
                                 <div class="user-avatar">
                                     @if(auth()->user()->isSeeker() && auth()->user()->seekerProfile && auth()->user()->seekerProfile->profile_picture)
-                                        <img src="{{ Storage::url(auth()->user()->seekerProfile->profile_picture) }}" alt="User">
+                                        <img src="{{ asset(auth()->user()->seekerProfile->profile_picture) }}" alt="User">
                                     @elseif(auth()->user()->isEmployer() && auth()->user()->employerProfile && auth()->user()->employerProfile->company_logo)
-                                        <img src="{{ Storage::url(auth()->user()->employerProfile->company_logo) }}" alt="User">
+                                        <img src="{{ asset(auth()->user()->employerProfile->company_logo) }}" alt="User">
                                     @else
                                         <i class="fas fa-user"></i>
                                     @endif

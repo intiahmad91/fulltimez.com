@@ -229,7 +229,7 @@
             <div class="candidate-item">
                 <div class="d-flex align-items-start">
                     <div class="me-3">
-                        <img src="{{ $candidate->seekerProfile && $candidate->seekerProfile->profile_picture ? Storage::url($candidate->seekerProfile->profile_picture) : asset('images/avatar.jpg') }}" 
+                        <img src="{{ $candidate->seekerProfile && $candidate->seekerProfile->profile_picture ? asset($candidate->seekerProfile->profile_picture) : asset('images/avatar.jpg') }}" 
                              alt="Candidate" class="candidate-avatar">
                     </div>
                     <div class="flex-grow-1">

@@ -287,7 +287,7 @@
                 @endphp
                 
                 @if($profileImage)
-                    <img src="{{ Storage::url($profileImage) }}" class="profile-image" alt="Profile Picture" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <img src="{{ asset($profileImage) }}" class="profile-image" alt="Profile Picture" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                     <div class="default-user-icon" style="display: none;">
                         <i class="fas fa-user"></i>
                     </div>

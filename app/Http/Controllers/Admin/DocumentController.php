@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\EmployerDocument;
+use App\Models\User;
 use App\Notifications\DocumentApproved;
 use App\Notifications\DocumentRejected;
 use App\Notifications\AllDocumentsApproved;
@@ -62,14 +63,47 @@ class DocumentController extends Controller
             return redirect()->back()->withErrors(['error' => 'No file attached for this document.']);
         }
 
-        $fullPath = public_path($document->document_path);
-        if (!file_exists($fullPath)) {
-            return redirect()->back()->withErrors(['error' => 'File not found.']);
+        // Handle different path formats (with or without leading slash)
+        $documentPath = ltrim($document->document_path, '/');
+        
+        // Try multiple path possibilities
+        $possiblePaths = [
+            public_path($documentPath), // documents/trade_licenses/file.pdf
+            public_path('/' . $documentPath), // /documents/trade_licenses/file.pdf
+            storage_path('app/public/' . $documentPath), // In case files are in storage
+            base_path('public/' . $documentPath), // Alternative base path
+        ];
+
+        $fullPath = null;
+        foreach ($possiblePaths as $path) {
+            if (file_exists($path)) {
+                $fullPath = $path;
+                break;
+            }
         }
 
-        $mime = mime_content_type($fullPath) ?: 'application/octet-stream';
-        return response()->file($fullPath, [
-            'Content-Type' => $mime,
+        if (!$fullPath || !file_exists($fullPath)) {
+            // Log the error for debugging
+            \Log::error('Document file not found', [
+                'document_id' => $document->id,
+                'document_path' => $document->document_path,
+                'attempted_paths' => $possiblePaths,
+            ]);
+            
+            return redirect()->back()->withErrors(['error' => 'File not found. The file may have been deleted or moved.']);
+        }
+
+        // Get the original filename from the path or generate one
+        $filename = basename($documentPath);
+        if (empty($filename) || $filename === $documentPath) {
+            // Generate filename based on document type
+            $extension = pathinfo($documentPath, PATHINFO_EXTENSION);
+            $filename = 'document_' . $document->id . '.' . ($extension ?: 'pdf');
+        }
+
+        // Force download instead of inline viewing
+        return response()->download($fullPath, $filename, [
+            'Content-Type' => mime_content_type($fullPath) ?: 'application/octet-stream',
             'Cache-Control' => 'private, max-age=0, must-revalidate',
         ]);
     }

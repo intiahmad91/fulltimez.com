@@ -28,7 +28,7 @@
         <div class="job-header">
             <div class="row align-items-center">
                 <div class="col-md-2">
-                    <img src="{{ $candidate->seekerProfile && $candidate->seekerProfile->profile_picture ? Storage::url($candidate->seekerProfile->profile_picture) : asset('images/avatar.jpg') }}" alt="{{ $candidate->name }}" class="img-fluid rounded" style="width: 150px; height: 150px; object-fit: cover;">
+                    <img src="{{ $candidate->seekerProfile && $candidate->seekerProfile->profile_picture ? asset($candidate->seekerProfile->profile_picture) : asset('images/avatar.jpg') }}" alt="{{ $candidate->name }}" class="img-fluid rounded" style="width: 150px; height: 150px; object-fit: cover;">
                 </div>
                 <div class="col-md-7">
                     <h2>{{ $candidate->seekerProfile->full_name ?? $candidate->name }}</h2>

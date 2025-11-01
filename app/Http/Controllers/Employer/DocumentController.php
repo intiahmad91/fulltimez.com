@@ -134,12 +134,44 @@ class DocumentController extends Controller
                     if (!file_exists($directory)) {
                         mkdir($directory, 0755, true);
                     }
-                    $file->move($directory, $filename);
-                    $documentData['document_path'] = 'documents/trade_licenses/' . $filename;
+                    
+                    // Move file and verify it was saved
+                    try {
+                        $file->move($directory, $filename);
+                        $documentData['document_path'] = 'documents/trade_licenses/' . $filename;
+                    } catch (\Exception $e) {
+                        \Log::error('Trade license file upload failed', [
+                            'error' => $e->getMessage(),
+                            'user_id' => $user->id,
+                            'filename' => $filename,
+                        ]);
+                        return redirect()->back()
+                            ->withErrors(['trade_license_file' => 'Failed to upload file. Please try again.'])
+                            ->withInput();
+                    }
                 }
 
-                EmployerDocument::create($documentData);
-                $submittedDocuments[] = 'Trade License';
+                try {
+                    EmployerDocument::create($documentData);
+                    $submittedDocuments[] = 'Trade License';
+                } catch (\Exception $e) {
+                    \Log::error('Trade license document creation failed', [
+                        'error' => $e->getMessage(),
+                        'user_id' => $user->id,
+                    ]);
+                    
+                    // Delete uploaded file if document creation failed
+                    if (isset($documentData['document_path'])) {
+                        $fullPath = public_path($documentData['document_path']);
+                        if (file_exists($fullPath)) {
+                            unlink($fullPath);
+                        }
+                    }
+                    
+                    return redirect()->back()
+                        ->withErrors(['error' => 'Failed to save trade license. Please try again.'])
+                        ->withInput();
+                }
             } elseif ($existingDocument->status === 'rejected') {
                 // Allow resubmission by updating existing rejected record
                 $updateData = [
@@ -159,8 +191,17 @@ class DocumentController extends Controller
                     // delete old file if exists
                     if ($existingDocument->document_path) {
                         $oldPath = public_path($existingDocument->document_path);
-                        if (file_exists($oldPath)) {
-                            unlink($oldPath);
+                        // Try multiple path formats
+                        $oldPaths = [
+                            $oldPath,
+                            public_path('/' . ltrim($existingDocument->document_path, '/')),
+                            storage_path('app/public/' . ltrim($existingDocument->document_path, '/')),
+                        ];
+                        foreach ($oldPaths as $path) {
+                            if (file_exists($path)) {
+                                unlink($path);
+                                break;
+                            }
                         }
                     }
                     $file = $request->file('trade_license_file');
@@ -169,12 +210,119 @@ class DocumentController extends Controller
                     if (!file_exists($directory)) {
                         mkdir($directory, 0755, true);
                     }
-                    $file->move($directory, $filename);
-                    $updateData['document_path'] = 'documents/trade_licenses/' . $filename;
+                    
+                    try {
+                        $file->move($directory, $filename);
+                        $updateData['document_path'] = 'documents/trade_licenses/' . $filename;
+                    } catch (\Exception $e) {
+                        \Log::error('Trade license file upload failed (resubmission)', [
+                            'error' => $e->getMessage(),
+                            'user_id' => $user->id,
+                            'filename' => $filename,
+                        ]);
+                        return redirect()->back()
+                            ->withErrors(['trade_license_file' => 'Failed to upload file. Please try again.'])
+                            ->withInput();
+                    }
                 }
 
-                $existingDocument->update($updateData);
-                $submittedDocuments[] = 'Trade License (Resubmitted)';
+                try {
+                    $existingDocument->update($updateData);
+                    $submittedDocuments[] = 'Trade License (Resubmitted)';
+                } catch (\Exception $e) {
+                    \Log::error('Trade license document update failed', [
+                        'error' => $e->getMessage(),
+                        'user_id' => $user->id,
+                        'document_id' => $existingDocument->id,
+                    ]);
+                    
+                    return redirect()->back()
+                        ->withErrors(['error' => 'Failed to update trade license. Please try again.'])
+                        ->withInput();
+                }
+            } elseif ($existingDocument->status === 'pending') {
+                // Allow updating pending documents (admin hasn't reviewed yet)
+                $updateData = [];
+                
+                if ($request->filled('trade_license_number')) {
+                    $updateData['document_number'] = $request->trade_license_number;
+                }
+                
+                if ($request->hasFile('trade_license_file')) {
+                    // delete old file if exists
+                    if ($existingDocument->document_path) {
+                        $oldPath = public_path($existingDocument->document_path);
+                        $oldPaths = [
+                            $oldPath,
+                            public_path('/' . ltrim($existingDocument->document_path, '/')),
+                            storage_path('app/public/' . ltrim($existingDocument->document_path, '/')),
+                        ];
+                        foreach ($oldPaths as $path) {
+                            if (file_exists($path)) {
+                                unlink($path);
+                                break;
+                            }
+                        }
+                    }
+                    $file = $request->file('trade_license_file');
+                    $filename = 'trade_license_' . $user->id . '_' . time() . '.' . $file->getClientOriginalExtension();
+                    $directory = public_path('documents/trade_licenses');
+                    if (!file_exists($directory)) {
+                        mkdir($directory, 0755, true);
+                    }
+                    
+                    try {
+                        $file->move($directory, $filename);
+                        $updateData['document_path'] = 'documents/trade_licenses/' . $filename;
+                    } catch (\Exception $e) {
+                        \Log::error('Trade license file upload failed (pending update)', [
+                            'error' => $e->getMessage(),
+                            'user_id' => $user->id,
+                            'filename' => $filename,
+                        ]);
+                        return redirect()->back()
+                            ->withErrors(['trade_license_file' => 'Failed to upload file. Please try again.'])
+                            ->withInput();
+                    }
+                }
+                
+                // Update other fields if provided
+                if ($request->filled('company_website')) {
+                    $updateData['company_website'] = $request->company_website;
+                }
+                if ($request->filled('contact_person_name')) {
+                    $updateData['contact_person_name'] = $request->contact_person_name;
+                }
+                if ($request->filled('contact_person_mobile')) {
+                    $updateData['contact_person_mobile'] = $request->contact_person_mobile;
+                }
+                if ($request->filled('contact_person_position')) {
+                    $updateData['contact_person_position'] = $request->contact_person_position;
+                }
+                if ($request->filled('contact_person_email')) {
+                    $updateData['contact_person_email'] = $request->contact_person_email;
+                }
+                
+                if (!empty($updateData)) {
+                    try {
+                        $existingDocument->update($updateData);
+                        $submittedDocuments[] = 'Trade License (Updated)';
+                    } catch (\Exception $e) {
+                        \Log::error('Trade license document update failed (pending)', [
+                            'error' => $e->getMessage(),
+                            'user_id' => $user->id,
+                            'document_id' => $existingDocument->id,
+                        ]);
+                        return redirect()->back()
+                            ->withErrors(['error' => 'Failed to update trade license. Please try again.'])
+                            ->withInput();
+                    }
+                }
+            } else {
+                // Document is approved, cannot update
+                return redirect()->back()
+                    ->withErrors(['error' => 'Your trade license has already been approved and cannot be updated.'])
+                    ->withInput();
             }
         }
 
@@ -360,8 +508,26 @@ class DocumentController extends Controller
             return redirect()->back()->withErrors(['error' => 'No file attached for this document.']);
         }
 
-        $fullPath = public_path($document->document_path);
-        if (!file_exists($fullPath)) {
+        // Handle different path formats (with or without leading slash)
+        $documentPath = ltrim($document->document_path, '/');
+        
+        // Try multiple path possibilities
+        $possiblePaths = [
+            public_path($documentPath), // documents/trade_licenses/file.pdf
+            public_path('/' . $documentPath), // /documents/trade_licenses/file.pdf
+            storage_path('app/public/' . $documentPath), // In case files are in storage
+            base_path('public/' . $documentPath), // Alternative base path
+        ];
+
+        $fullPath = null;
+        foreach ($possiblePaths as $path) {
+            if (file_exists($path)) {
+                $fullPath = $path;
+                break;
+            }
+        }
+
+        if (!$fullPath || !file_exists($fullPath)) {
             return redirect()->back()->withErrors(['error' => 'File not found. Please re-upload the document.']);
         }
 
@@ -382,16 +548,55 @@ class DocumentController extends Controller
         $token = $request->query('t');
         $expected = hash_hmac('sha256', $document->document_path, config('app.key'));
         if (!$token || !hash_equals($expected, $token)) {
+            \Log::error('Invalid HMAC token for document stream', [
+                'document_id' => $document->id,
+                'provided_token' => $token,
+                'expected_token' => $expected,
+                'document_path' => $document->document_path,
+            ]);
             abort(403, 'Invalid or missing token.');
         }
 
-        $fullPath = public_path($document->document_path);
-        if (!file_exists($fullPath)) {
+        // Handle different path formats (with or without leading slash)
+        $documentPath = ltrim($document->document_path, '/');
+        
+        // Try multiple path possibilities
+        $possiblePaths = [
+            public_path($documentPath), // documents/trade_licenses/file.pdf
+            public_path('/' . $documentPath), // /documents/trade_licenses/file.pdf
+            storage_path('app/public/' . $documentPath), // In case files are in storage
+            base_path('public/' . $documentPath), // Alternative base path
+        ];
+
+        $fullPath = null;
+        foreach ($possiblePaths as $path) {
+            if (file_exists($path)) {
+                $fullPath = $path;
+                break;
+            }
+        }
+
+        if (!$fullPath || !file_exists($fullPath)) {
+            \Log::error('Document file not found in streamSigned', [
+                'document_id' => $document->id,
+                'document_path' => $document->document_path,
+                'attempted_paths' => $possiblePaths,
+            ]);
             abort(404, 'File not found. Please re-upload the document.');
         }
 
+        // Get the original filename from the path or generate one
+        $filename = basename($documentPath);
+        if (empty($filename) || $filename === $documentPath) {
+            // Generate filename based on document type
+            $extension = pathinfo($documentPath, PATHINFO_EXTENSION);
+            $filename = 'document_' . $document->id . '.' . ($extension ?: 'pdf');
+        }
+
         $mime = mime_content_type($fullPath) ?: 'application/octet-stream';
-        return response()->file($fullPath, [
+        
+        // Force download instead of inline viewing
+        return response()->download($fullPath, $filename, [
             'Content-Type' => $mime,
             'Cache-Control' => 'private, max-age=0, must-revalidate',
         ]);

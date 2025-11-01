@@ -20,8 +20,8 @@ class EmployerRegisterRequest extends FormRequest
             'mobile_no' => 'required|string|min:7|max:15',
             'email_id' => 'required|email|max:255|unique:users,email',
             'country' => 'required|string|max:100',
-            'city' => 'nullable|string|max:100|required_without:state|prohibited_with:state',
-            'state' => 'nullable|string|max:100|required_without:city|prohibited_with:city',
+            'city' => 'nullable|string|max:100|required_without:state|prohibits:state',
+            'state' => 'nullable|string|max:100|required_without:city|prohibits:city',
             'password' => 'required|string|min:8|confirmed|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/',
         ];
     }
@@ -42,9 +42,9 @@ class EmployerRegisterRequest extends FormRequest
             'email_id.unique' => 'This email address is already registered. Please use a different email or try logging in.',
             'country.required' => 'Country is required',
             'city.required_without' => 'Provide city or state (one is required).',
-            'city.prohibited_with' => 'Provide either city or state, not both.',
+            'city.prohibits' => 'Provide either city or state, not both.',
             'state.required_without' => 'Provide state or city (one is required).',
-            'state.prohibited_with' => 'Provide either state or city, not both.',
+            'state.prohibits' => 'Provide either state or city, not both.',
             'password.required' => 'Password is required',
             'password.min' => 'Password must be at least 8 characters',
             'password.confirmed' => 'Password confirmation does not match',

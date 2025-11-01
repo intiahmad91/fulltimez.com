@@ -254,7 +254,7 @@
                             @endphp
                             
                             @if($profileImage)
-                                <img src="{{ Storage::url($profileImage) }}" class="profile-avatar" alt="Profile Picture" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <img src="{{ asset($profileImage) }}" class="profile-avatar" alt="Profile Picture" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                                 <div class="default-avatar-large" style="display: none;">
                                     {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
                                 </div>
@@ -466,7 +466,7 @@
                                         <div class="text-muted mt-1">Max 2MB, JPG/PNG format</div>
                                         @if($user->seekerProfile && $user->seekerProfile->profile_picture)
                                             <div class="file-upload-info">
-                                                Current: <a href="{{ Storage::url($user->seekerProfile->profile_picture) }}" target="_blank">View Current Picture</a>
+                                                Current: <a href="{{ asset($user->seekerProfile->profile_picture) }}" target="_blank">View Current Picture</a>
                                             </div>
                                         @endif
                                         @error('profile_picture')
@@ -481,7 +481,7 @@
                                         <div class="text-muted mt-1">Max 5MB, PDF/DOC/DOCX format</div>
                                         @if($user->seekerProfile && $user->seekerProfile->cv_file)
                                             <div class="file-upload-info">
-                                                Current: <a href="{{ Storage::url($user->seekerProfile->cv_file) }}" target="_blank">Download Current CV</a>
+                                                Current: <a href="{{ asset($user->seekerProfile->cv_file) }}" target="_blank">Download Current CV</a>
                                             </div>
                                         @endif
                                         @error('cv_file')

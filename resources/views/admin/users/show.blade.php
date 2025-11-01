@@ -96,7 +96,7 @@
                         </p>
                         @if($user->employerProfile->trade_license)
                             <p><strong>Trade License:</strong></p>
-                            <a href="{{ Storage::url($user->employerProfile->trade_license) }}" target="_blank" class="btn btn-sm btn-outline-primary">
+                            <a href="{{ asset($user->employerProfile->trade_license) }}" target="_blank" class="btn btn-sm btn-outline-primary">
                                 <i class="fas fa-file"></i> View Document
                             </a>
                         @endif

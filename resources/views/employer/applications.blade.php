@@ -59,7 +59,7 @@
                                     <tr>
                                         <td>
                                             <div class="d-flex align-items-center">
-                                                <img src="{{ $application->seeker->seekerProfile && $application->seeker->seekerProfile->profile_picture ? Storage::url($application->seeker->seekerProfile->profile_picture) : asset('images/avatar2.jpg') }}" 
+                                                <img src="{{ $application->seeker->seekerProfile && $application->seeker->seekerProfile->profile_picture ? asset($application->seeker->seekerProfile->profile_picture) : asset('images/avatar2.jpg') }}" 
                                                      alt="avatar" 
                                                      class="rounded-circle me-2" 
                                                      style="width: 40px; height: 40px; object-fit: cover;">
@@ -89,7 +89,7 @@
                                         </td>
                                         <td>
                                             @if($application->seeker->seekerProfile && $application->seeker->seekerProfile->cv_file)
-                                                <a href="{{ Storage::url($application->seeker->seekerProfile->cv_file) }}" 
+                                                <a href="{{ asset($application->seeker->seekerProfile->cv_file) }}" 
                                                    class="btn btn-sm btn-outline-primary" 
                                                    target="_blank">
                                                     <i class="fas fa-download"></i> Download

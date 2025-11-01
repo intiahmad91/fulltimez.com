@@ -120,7 +120,7 @@
                         <div class="d-flex align-items-center">
                             <i class="fas fa-file-pdf text-danger me-2"></i>
                             <span class="me-3">Resume attached</span>
-                            <a href="{{ Storage::url($application->resume_file) }}" 
+                            <a href="{{ asset($application->resume_file) }}" 
                                class="btn btn-outline-primary btn-sm" 
                                target="_blank">
                                 <i class="fas fa-download"></i> Download Resume
@@ -145,7 +145,7 @@
                             </a>
                             
                             @if($application->seeker->seekerProfile && $application->seeker->seekerProfile->cv_file)
-                            <a href="{{ Storage::url($application->seeker->seekerProfile->cv_file) }}" 
+                            <a href="{{ asset($application->seeker->seekerProfile->cv_file) }}" 
                                class="btn btn-outline-success" 
                                target="_blank">
                                 <i class="fas fa-download"></i> Download CV

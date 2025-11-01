@@ -111,7 +111,7 @@ use Illuminate\Support\Facades\Storage;
                                     <strong>Document File:</strong>
                                 </div>
                                 <div class="col-sm-9">
-                                    <a href="{{ Storage::url($document->document_path) }}" target="_blank" class="btn btn-outline-primary">
+                                    <a href="{{ route('admin.documents.file', $document) }}" target="_blank" class="btn btn-outline-primary">
                                         <i class="fas fa-download"></i> View Document
                                     </a>
                                 </div>
@@ -318,7 +318,7 @@ use Illuminate\Support\Facades\Storage;
                                                     <div><strong>License #:</strong> {{ $doc->document_number }}</div>
                                                 @endif
                                                 @if($doc->document_path)
-                                                    <a href="{{ Storage::url($doc->document_path) }}" target="_blank" class="btn btn-xs btn-outline-primary mt-1">
+                                                    <a href="{{ route('admin.documents.file', $doc) }}" target="_blank" class="btn btn-xs btn-outline-primary mt-1">
                                                         <i class="fas fa-eye"></i> View File
                                                     </a>
                                                 @endif
