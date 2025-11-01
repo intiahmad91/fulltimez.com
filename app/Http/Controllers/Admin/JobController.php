@@ -42,9 +42,19 @@ class JobController extends Controller
         $perPage = $request->get('per_page', 20);
         $perPage = in_array($perPage, [10, 20, 50, 100]) ? $perPage : 20;
         
-        $jobs = $query->orderBy('created_at', 'desc')->paginate($perPage);
+        $jobs = $query->orderBy('id', 'desc')->paginate($perPage);
 
-        return view('admin.jobs.index', compact('jobs'));
+        // Get statistics
+        $stats = [
+            'total' => JobPosting::count(),
+            'published' => JobPosting::where('status', 'published')->count(),
+            'pending' => JobPosting::where('status', 'pending')->count(),
+            'featured_pending' => JobPosting::where('status', 'featured_pending')->count(),
+            'draft' => JobPosting::where('status', 'draft')->count(),
+            'closed' => JobPosting::where('status', 'closed')->count(),
+        ];
+
+        return view('admin.jobs.index', compact('jobs', 'stats'));
     }
 
     public function create()
