@@ -84,13 +84,13 @@ class ProfileController extends Controller
                 }
                 $file = $request->file('profile_picture');
                 $filename = 'profile_' . $user->id . '_' . time() . '.' . $file->getClientOriginalExtension();
-                $directory = public_path('profiles');
+                $directory = public_path('images/profiles');
                 if (!file_exists($directory)) {
                     mkdir($directory, 0755, true);
                 }
                 try {
                     $file->move($directory, $filename);
-                    $profileData['profile_picture'] = 'profiles/' . $filename;
+                    $profileData['profile_picture'] = 'images/profiles/' . $filename;
                     $profileDataChanged = true; // File upload is always a change
                 } catch (\Exception $e) {
                     \Log::error('Profile picture upload failed', [
@@ -165,13 +165,13 @@ class ProfileController extends Controller
                 }
                 $file = $request->file('profile_picture');
                 $filename = 'profile_' . $user->id . '_' . time() . '.' . $file->getClientOriginalExtension();
-                $directory = public_path('profiles');
+                $directory = public_path('images/profiles');
                 if (!file_exists($directory)) {
                     mkdir($directory, 0755, true);
                 }
                 try {
                     $file->move($directory, $filename);
-                    $profileData['profile_picture'] = 'profiles/' . $filename;
+                    $profileData['profile_picture'] = 'images/profiles/' . $filename;
                     $profileDataChanged = true; // File upload is always a change
                 } catch (\Exception $e) {
                     \Log::error('Employer profile picture upload failed', [

@@ -99,12 +99,12 @@ class JobseekerAuthController extends Controller
         if ($request->hasFile('profile_picture')) {
             $file = $request->file('profile_picture');
             $filename = 'profile_' . $user->id . '_' . time() . '.' . $file->getClientOriginalExtension();
-            $directory = public_path('profiles');
+            $directory = public_path('images/profiles');
             if (!file_exists($directory)) {
                 mkdir($directory, 0755, true);
             }
             $file->move($directory, $filename);
-            $profileData['profile_picture'] = 'profiles/' . $filename;
+            $profileData['profile_picture'] = 'images/profiles/' . $filename;
         }
 
         if ($request->hasFile('cv_file')) {
