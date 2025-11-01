@@ -29,7 +29,7 @@
                             </div>
                         </div>
                         <div class="flex-grow-1 ms-3">
-                            <h5 class="mb-1">{{ $documents->total() }}</h5>
+                            <h5 class="mb-1">{{ $stats['total'] }}</h5>
                             <p class="text-muted mb-0">Total Documents</p>
                         </div>
                     </div>
@@ -46,7 +46,7 @@
                             </div>
                         </div>
                         <div class="flex-grow-1 ms-3">
-                            <h5 class="mb-1">{{ $documents->where('status', 'pending')->count() }}</h5>
+                            <h5 class="mb-1">{{ $stats['pending'] }}</h5>
                             <p class="text-muted mb-0">Pending Review</p>
                         </div>
                     </div>
@@ -63,7 +63,7 @@
                             </div>
                         </div>
                         <div class="flex-grow-1 ms-3">
-                            <h5 class="mb-1">{{ $documents->where('status', 'approved')->count() }}</h5>
+                            <h5 class="mb-1">{{ $stats['approved'] }}</h5>
                             <p class="text-muted mb-0">Approved</p>
                         </div>
                     </div>
@@ -80,7 +80,7 @@
                             </div>
                         </div>
                         <div class="flex-grow-1 ms-3">
-                            <h5 class="mb-1">{{ $documents->where('status', 'rejected')->count() }}</h5>
+                            <h5 class="mb-1">{{ $stats['rejected'] }}</h5>
                             <p class="text-muted mb-0">Rejected</p>
                         </div>
                     </div>
@@ -133,120 +133,115 @@
                         </div>
                     </div>
 
-                    <!-- Documents Table -->
-                    <div class="table-responsive">
-                        <table class="table table-striped table-hover">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Employer</th>
-                                    <th>Document Type</th>
-                                    <th>Details</th>
-                                    <th>Status</th>
-                                    <th>Submitted</th>
-                                    <th>Reviewed</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @forelse($documents as $document)
-                                    <tr>
-                                        <td>{{ $document->id }}</td>
-                                        <td>
+                    <!-- Documents Grid Grouped by Company -->
+                    @forelse($paginatedGroups as $group)
+                        <div class="company-group mb-4">
+                            <!-- Company Header -->
+                            <div class="card mb-3 company-header-card">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="d-flex align-items-center">
+                                            <div class="avatar-lg me-3">
+                                                <div class="avatar-title rounded-circle bg-primary-subtle text-primary">
+                                                    <i class="fas fa-building font-24"></i>
+                                                </div>
+                                            </div>
                                             <div>
-                                                <strong>{{ $document->employer->name }}</strong><br>
-                                                <small class="text-muted">{{ $document->employer->email }}</small>
+                                                <h5 class="mb-1">{{ $group['employer']->name }}</h5>
+                                                <p class="text-muted mb-0">
+                                                    <i class="fas fa-envelope me-1"></i>{{ $group['employer']->email }}
+                                                    @if($group['employer']->employerProfile && $group['employer']->employerProfile->company_name)
+                                                        <br><i class="fas fa-briefcase me-1"></i>{{ $group['employer']->employerProfile->company_name }}
+                                                    @endif
+                                                </p>
                                             </div>
-                                        </td>
-                                        <td>
-                                            <span class="badge badge-info">{{ $document->document_type_name }}</span>
-                                        </td>
-                                        <td>
-                                            @if($document->document_type === 'trade_license')
-                                                @if($document->document_number)
-                                                    <small><strong>License #:</strong> {{ $document->document_number }}</small><br>
-                                                @endif
-                                            @elseif($document->document_type === 'office_landline')
-                                                @if($document->landline_number)
-                                                    <small><strong>Landline:</strong> {{ $document->landline_number }}</small>
-                                                @endif
-                                            @elseif($document->document_type === 'company_email')
-                                                @if($document->company_email)
-                                                    <small><strong>Email:</strong> {{ $document->company_email }}</small>
-                                                @endif
-                                            @elseif($document->document_type === 'company_info')
-                                                <small><strong>Company Information</strong></small>
-                                            @endif
-                                            
-                                            <!-- Company Information View Button -->
-                                            @if($document->company_website || $document->contact_person_name || $document->contact_person_mobile || $document->contact_person_position || $document->contact_person_email)
-                                                <br><a href="{{ route('admin.documents.show', $document) }}" class="btn btn-sm btn-outline-primary mt-1">
-                                                    <i class="fas fa-eye"></i> View Details
-                                                </a>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            <span class="badge {{ $document->status_badge_class }}">
-                                                {{ ucfirst($document->status) }}
+                                        </div>
+                                        <div class="text-end">
+                                            <span class="badge bg-info">
+                                                {{ $group['documents']->count() }} Document(s)
                                             </span>
-                                        </td>
-                                        <td>
-                                            <small>{{ $document->created_at->format('M j, Y') }}</small><br>
-                                            <small class="text-muted">{{ $document->created_at->diffForHumans() }}</small>
-                                        </td>
-                                        <td>
-                                            @if($document->reviewed_at)
-                                                <small>{{ $document->reviewed_at->format('M j, Y') }}</small><br>
-                                                <small class="text-muted">{{ $document->reviewed_at->diffForHumans() }}</small>
-                                            @else
-                                                <span class="text-muted">-</span>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            <div class="dropdown">
-                                                <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="actionsDropdown{{ $document->id }}" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    <i class="fas fa-cog"></i> Actions
-                                                </button>
-                                                <ul class="dropdown-menu" aria-labelledby="actionsDropdown{{ $document->id }}">
-                                                    <li>
-                                                        <a class="dropdown-item" href="{{ route('admin.documents.show', $document) }}">
-                                                            <i class="fas fa-eye text-primary"></i> View Details
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Documents Grid -->
+                            <div class="row g-3">
+                                @foreach($group['documents'] as $document)
+                                    <div class="col-md-6 col-lg-4">
+                                        <div class="card document-card h-100">
+                                            <div class="card-body">
+                                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                                    <span class="badge {{ $document->status_badge_class }}">
+                                                        {{ ucfirst($document->status) }}
+                                                    </span>
+                                                    <span class="badge badge-info">{{ $document->document_type_name }}</span>
+                                                </div>
+
+                                                <h6 class="card-title mb-3">{{ $document->document_type_name }}</h6>
+
+                                                @if($document->document_type === 'trade_license')
+                                                    @if($document->document_number)
+                                                        <p class="mb-2"><small><strong>License #:</strong> {{ $document->document_number }}</small></p>
+                                                    @endif
+                                                    @if($document->document_path)
+                                                        <a href="{{ asset($document->document_path) }}" target="_blank" class="btn btn-sm btn-outline-primary mb-2">
+                                                            <i class="fas fa-eye"></i> View File
                                                         </a>
-                                                    </li>
-                                                    <li>
-                                                        <form action="{{ route('admin.documents.approve', $document) }}" method="POST" class="d-inline" onsubmit="return confirm('Approve this document? This will notify the employer.');">
-                                                            @csrf
-                                                            <button type="submit" class="dropdown-item text-success">
-                                                                <i class="fas fa-check"></i> Approve Document
-                                                            </button>
-                                                        </form>
-                                                    </li>
-                                                    <li>
-                                                        <button type="button" class="dropdown-item text-danger" onclick="showRejectForm({{ $document->id }})">
-                                                            <i class="fas fa-times"></i> Reject Document
-                                                        </button>
-                                                    </li>
-                                                </ul>
+                                                    @endif
+                                                @elseif($document->document_type === 'office_landline')
+                                                    @if($document->landline_number)
+                                                        <p class="mb-2"><small><strong>Landline:</strong> {{ $document->landline_number }}</small></p>
+                                                    @endif
+                                                @elseif($document->document_type === 'company_email')
+                                                    @if($document->company_email)
+                                                        <p class="mb-2"><small><strong>Email:</strong> {{ $document->company_email }}</small></p>
+                                                    @endif
+                                                @endif
+
+                                                <div class="mt-3 pt-3 border-top">
+                                                    <small class="text-muted d-block mb-1">
+                                                        <i class="fas fa-calendar me-1"></i>Submitted: {{ $document->created_at->format('M j, Y') }}
+                                                    </small>
+                                                    @if($document->reviewed_at)
+                                                        <small class="text-muted d-block">
+                                                            <i class="fas fa-check-circle me-1"></i>Reviewed: {{ $document->reviewed_at->format('M j, Y') }}
+                                                        </small>
+                                                    @endif
+                                                </div>
                                             </div>
-                                        </td>
-                                    </tr>
-                                @empty
-                                    <tr>
-                                        <td colspan="8" class="text-center py-4">
-                                            <i class="fas fa-file-alt fa-3x text-muted mb-3"></i>
-                                            <h5 class="text-muted">No documents found</h5>
-                                            <p class="text-muted">No documents match your current filters.</p>
-                                        </td>
-                                    </tr>
-                                @endforelse
-                            </tbody>
-                        </table>
-                    </div>
+                                            <div class="card-footer bg-transparent">
+                                                <div class="btn-group w-100" role="group">
+                                                    <a href="{{ route('admin.documents.show', $document) }}" class="btn btn-sm btn-outline-primary">
+                                                        <i class="fas fa-eye"></i> View
+                                                    </a>
+                                                    @if($document->status === 'pending')
+                                                        <button type="button" class="btn btn-sm btn-outline-success" onclick="approveDocument({{ $document->id }})">
+                                                            <i class="fas fa-check"></i> Approve
+                                                        </button>
+                                                        <button type="button" class="btn btn-sm btn-outline-danger" onclick="showRejectForm({{ $document->id }})">
+                                                            <i class="fas fa-times"></i> Reject
+                                                        </button>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    @empty
+                        <div class="text-center py-5">
+                            <i class="fas fa-file-alt fa-4x text-muted mb-3"></i>
+                            <h5 class="text-muted">No documents found</h5>
+                            <p class="text-muted">No documents match your current filters.</p>
+                        </div>
+                    @endforelse
 
                     <!-- Pagination -->
                     <div class="row mt-4">
                         <div class="col-md-12">
-                            {{ $documents->appends(request()->query())->links('pagination::bootstrap-4') }}
+                            {{ $paginatedGroups->appends(request()->query())->links('pagination::bootstrap-4') }}
                         </div>
                     </div>
                 </div>
@@ -292,6 +287,23 @@ function showRejectForm(documentId) {
     // Show the modal
     var modal = new bootstrap.Modal(document.getElementById('rejectModal'));
     modal.show();
+}
+
+function approveDocument(documentId) {
+    if (confirm('Approve this document? This will notify the employer.')) {
+        var form = document.createElement('form');
+        form.method = 'POST';
+        form.action = '/admin/documents/' + documentId + '/approve';
+        
+        var csrfToken = document.createElement('input');
+        csrfToken.type = 'hidden';
+        csrfToken.name = '_token';
+        csrfToken.value = '{{ csrf_token() }}';
+        form.appendChild(csrfToken);
+        
+        document.body.appendChild(form);
+        form.submit();
+    }
 }
 </script>
 
@@ -352,14 +364,67 @@ function showRejectForm(documentId) {
     margin-right: 0;
 }
 
+.company-group {
+    margin-bottom: 2rem;
+}
+
+.company-header-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+}
+
+.company-header-card .card-body {
+    color: white;
+}
+
+.company-header-card h5,
+.company-header-card p {
+    color: white !important;
+}
+
+.company-header-card .text-muted {
+    color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.document-card {
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 1px solid #e0e0e0;
+}
+
+.document-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.avatar-lg {
+    width: 4rem;
+    height: 4rem;
+}
+
+.avatar-title {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.font-24 {
+    font-size: 1.5rem;
+}
+
 @media (max-width: 768px) {
-    .table-responsive {
-        font-size: 0.875rem;
+    .document-card {
+        margin-bottom: 1rem;
+    }
+    
+    .btn-group {
+        flex-direction: column;
     }
     
     .btn-group .btn {
-        padding: 0.25rem 0.5rem;
-        margin-right: 1px;
+        margin-bottom: 0.25rem;
     }
 }
 </style>

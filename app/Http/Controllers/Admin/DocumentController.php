@@ -16,7 +16,7 @@ class DocumentController extends Controller
 {
     public function index(Request $request)
     {
-        $query = EmployerDocument::with(['employer', 'reviewer']);
+        $query = EmployerDocument::with(['employer.employerProfile', 'reviewer']);
 
         // Filter by status
         if ($request->filled('status')) {
@@ -37,7 +37,29 @@ class DocumentController extends Controller
             });
         }
 
-        $documents = $query->orderBy('created_at', 'desc')->paginate(20);
+        $documents = $query->orderBy('created_at', 'desc')->get();
+
+        // Group documents by employer
+        $groupedDocuments = $documents->groupBy('employer_id')->map(function ($docs) {
+            return [
+                'employer' => $docs->first()->employer,
+                'documents' => $docs->sortByDesc('created_at'),
+            ];
+        })->sortBy(function ($group) {
+            return $group['employer']->name;
+        });
+
+        // Paginate the grouped documents
+        $perPage = 10; // Companies per page
+        $currentPage = request()->get('page', 1);
+        $items = $groupedDocuments->slice(($currentPage - 1) * $perPage, $perPage);
+        $paginatedGroups = new \Illuminate\Pagination\LengthAwarePaginator(
+            $items,
+            $groupedDocuments->count(),
+            $perPage,
+            $currentPage,
+            ['path' => request()->url(), 'query' => request()->query()]
+        );
 
         // Get statistics for the dashboard
         $stats = [
@@ -47,7 +69,7 @@ class DocumentController extends Controller
             'rejected' => EmployerDocument::where('status', 'rejected')->count(),
         ];
 
-        return view('admin.documents.index', compact('documents', 'stats'));
+        return view('admin.documents.index', compact('paginatedGroups', 'stats'));
     }
 
     public function show(EmployerDocument $document)
