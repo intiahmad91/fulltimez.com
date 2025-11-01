@@ -8,7 +8,7 @@
     <nav class="top-nav">
       <ul class="tabs">
         <li class="tab"><a href="{{ route('home') }}">Home</a></li>
-        <li class="tab"><a href="{{ route('jobs.index') }}">Jobseeker</a></li>
+        <li class="tab"><a href="{{ route('jobs.index') }}">Jobs</a></li>
         <li class="tab"><a href="{{ route('employer.login') }}">Employer</a></li> 
         <li class="tab"><a href="#">Packages</a></li>
         <li class="tab"><a href="#">Book Meeting</a></li>
@@ -26,7 +26,7 @@
        </button>
        <div class="mobile-nav-menu" id="mobileNavMenu">
            <a href="{{ route('home') }}">Home</a>
-           <a href="{{ route('jobs.index') }}">Jobseeker</a>
+           <a href="{{ route('jobs.index') }}">Jobs</a>
            <a href="{{ route('employer.login') }}">Employer</a>
            <a href="#">Packages</a>
            <a href="#">Book Meeting</a>

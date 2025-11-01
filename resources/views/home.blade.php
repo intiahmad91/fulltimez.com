@@ -526,7 +526,7 @@ button svg{
     align-items: center;
     gap: 10px;
     padding: 14px 32px;
-    background: #667eea;
+    background: #2773e8;
     color: #ffffff;
     font-size: 16px;
     font-weight: 700;
