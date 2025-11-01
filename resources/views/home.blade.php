@@ -379,7 +379,7 @@ JOBSEEKER</a></div>
                   <div class="jobs-ad-card ">
                      <div class="category-job d-flex align-items-center">
                         <div class="job-icons">
-                           <img src="{{ $seeker->seekerProfile && $seeker->seekerProfile->profile_picture ? Storage::url($seeker->seekerProfile->profile_picture) : asset('images/avatar2.jpg') }}" alt="job-ico" class="img-fluid" style="width: 60px; height: 60px; object-fit: cover; border-radius: 50%;">
+                           <img src="{{ $seeker->seekerProfile && $seeker->seekerProfile->profile_picture ? asset($seeker->seekerProfile->profile_picture) : asset('images/avatar2.jpg') }}" alt="job-ico" class="img-fluid" style="width: 60px; height: 60px; object-fit: cover; border-radius: 50%;">
                         </div>
                         <div class="categery-name"> 
                            <h3>{{ $seeker->seekerProfile->full_name ?? $seeker->name }}

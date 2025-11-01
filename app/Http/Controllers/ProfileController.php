@@ -89,9 +89,20 @@ class ProfileController extends Controller
                 if (!file_exists($directory)) {
                     mkdir($directory, 0755, true);
                 }
-                $file->move($directory, $filename);
-                $profileData['profile_picture'] = 'profiles/' . $filename;
-                $profileDataChanged = true; // File upload is always a change
+                try {
+                    $file->move($directory, $filename);
+                    $profileData['profile_picture'] = 'profiles/' . $filename;
+                    $profileDataChanged = true; // File upload is always a change
+                } catch (\Exception $e) {
+                    \Log::error('Profile picture upload failed', [
+                        'error' => $e->getMessage(),
+                        'user_id' => $user->id,
+                        'filename' => $filename,
+                    ]);
+                    return redirect()->back()
+                        ->withErrors(['profile_picture' => 'Failed to upload profile picture. Please try again.'])
+                        ->withInput();
+                }
             }
 
             if ($request->hasFile('cv_file')) {
@@ -107,9 +118,20 @@ class ProfileController extends Controller
                 if (!file_exists($directory)) {
                     mkdir($directory, 0755, true);
                 }
-                $file->move($directory, $filename);
-                $profileData['cv_file'] = 'cvs/' . $filename;
-                $profileDataChanged = true; // File upload is always a change
+                try {
+                    $file->move($directory, $filename);
+                    $profileData['cv_file'] = 'cvs/' . $filename;
+                    $profileDataChanged = true; // File upload is always a change
+                } catch (\Exception $e) {
+                    \Log::error('CV file upload failed', [
+                        'error' => $e->getMessage(),
+                        'user_id' => $user->id,
+                        'filename' => $filename,
+                    ]);
+                    return redirect()->back()
+                        ->withErrors(['cv_file' => 'Failed to upload CV file. Please try again.'])
+                        ->withInput();
+                }
             }
 
             if ($user->seekerProfile) {
@@ -149,9 +171,20 @@ class ProfileController extends Controller
                 if (!file_exists($directory)) {
                     mkdir($directory, 0755, true);
                 }
-                $file->move($directory, $filename);
-                $profileData['profile_picture'] = 'profiles/' . $filename;
-                $profileDataChanged = true; // File upload is always a change
+                try {
+                    $file->move($directory, $filename);
+                    $profileData['profile_picture'] = 'profiles/' . $filename;
+                    $profileDataChanged = true; // File upload is always a change
+                } catch (\Exception $e) {
+                    \Log::error('Employer profile picture upload failed', [
+                        'error' => $e->getMessage(),
+                        'user_id' => $user->id,
+                        'filename' => $filename,
+                    ]);
+                    return redirect()->back()
+                        ->withErrors(['profile_picture' => 'Failed to upload profile picture. Please try again.'])
+                        ->withInput();
+                }
             }
 
             if ($request->hasFile('company_logo')) {
@@ -167,9 +200,20 @@ class ProfileController extends Controller
                 if (!file_exists($directory)) {
                     mkdir($directory, 0755, true);
                 }
-                $file->move($directory, $filename);
-                $profileData['company_logo'] = 'logos/' . $filename;
-                $profileDataChanged = true; // File upload is always a change
+                try {
+                    $file->move($directory, $filename);
+                    $profileData['company_logo'] = 'logos/' . $filename;
+                    $profileDataChanged = true; // File upload is always a change
+                } catch (\Exception $e) {
+                    \Log::error('Company logo upload failed', [
+                        'error' => $e->getMessage(),
+                        'user_id' => $user->id,
+                        'filename' => $filename,
+                    ]);
+                    return redirect()->back()
+                        ->withErrors(['company_logo' => 'Failed to upload company logo. Please try again.'])
+                        ->withInput();
+                }
             }
 
             // Check if profile data actually changed

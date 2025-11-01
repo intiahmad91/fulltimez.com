@@ -114,7 +114,7 @@
                         <div class="mt-4">
                             <h6 class="text-muted">Payment Screenshot</h6>
                             <div class="text-center">
-                                <img src="{{ Storage::url($payment->payment_screenshot) }}" 
+                                <img src="{{ asset($payment->payment_screenshot) }}" 
                                      alt="Payment Screenshot" 
                                      class="img-fluid rounded shadow" 
                                      style="max-height: 400px; cursor: pointer;"

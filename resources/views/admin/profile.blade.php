@@ -13,7 +13,7 @@
             <div class="admin-card-body text-center">
                 <div class="admin-avatar-large mb-3">
                     @if(auth()->user()->isSeeker() && auth()->user()->seekerProfile && auth()->user()->seekerProfile->profile_picture)
-                        <img src="{{ Storage::url(auth()->user()->seekerProfile->profile_picture) }}" alt="Admin Avatar">
+                        <img src="{{ asset(auth()->user()->seekerProfile->profile_picture) }}" alt="Admin Avatar">
                     @elseif(auth()->user()->isEmployer() && auth()->user()->employerProfile && auth()->user()->employerProfile->company_logo)
                         <img src="{{ asset(auth()->user()->employerProfile->company_logo) }}" alt="Admin Avatar">
                     @else

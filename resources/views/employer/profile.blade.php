@@ -62,7 +62,7 @@ use Illuminate\Support\Facades\Storage;
                                                     @enderror
                                                     @if($user->employerProfile && $user->employerProfile->profile_picture)
                                                         <div class="mt-2">
-                                                            <img src="{{ Storage::url($user->employerProfile->profile_picture) }}" alt="Current Profile Picture" class="img-thumbnail" style="max-width: 100px; max-height: 100px;">
+                                                            <img src="{{ asset($user->employerProfile->profile_picture) }}" alt="Current Profile Picture" class="img-thumbnail" style="max-width: 100px; max-height: 100px;">
                                                             <small class="text-muted d-block">Current profile picture</small>
                                                         </div>
                                                     @endif

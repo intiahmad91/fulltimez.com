@@ -204,7 +204,7 @@
                             <div class="alert alert-success">
                                 <i class="fas fa-check-circle"></i> 
                                 Your profile CV will be sent automatically
-                                <a href="{{ Storage::url(auth()->user()->seekerProfile->cv_file) }}" target="_blank" class="btn btn-sm btn-outline-primary ms-2">
+                                <a href="{{ asset(auth()->user()->seekerProfile->cv_file) }}" target="_blank" class="btn btn-sm btn-outline-primary ms-2">
                                     <i class="fas fa-eye"></i> View
                                 </a>
                             </div>
