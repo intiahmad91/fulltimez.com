@@ -111,7 +111,7 @@ body {
 }
 
 .job-title a {
-    font-size: 20px !important;
+    font-size: 16px !important;
     font-weight: 700 !important;
     color: #111827 !important;
     text-decoration: none !important;
