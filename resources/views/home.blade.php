@@ -1015,7 +1015,7 @@ JOBSEEKER</a></div>
          </div>
 
          <div class="d-flex align-items-center justify-content-between">
-         <div class="job_price">${{ number_format((float)($job->salary_min ?? 250)) }}/{{ $job->salary_period ?? 'hr' }} <span>{{ $job->location_city }}</span></div>
+         <div class="job_price">AED {{ number_format((float)($job->salary_min ?? 250)) }}/{{ $job->salary_period ?? 'hr' }} <span>{{ $job->location_city }}</span></div>
          <div class="readmore m-0"><a href="{{ route('jobs.show', $job->slug) }}">Details</a></div>
       </div>
 
