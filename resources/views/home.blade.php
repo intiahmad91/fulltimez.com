@@ -53,26 +53,6 @@ body {
     border-radius: 16px 16px 0 0 !important;
 }
 
-.header-top {
-    display: flex !important;
-    justify-content: flex-end !important;
-    align-items: flex-start !important;
-    margin-bottom: 14px !important;
-}
-
-.category-badge-top {
-    background: #ffffff !important;
-    color: #667eea !important;
-    font-size: 10px !important;
-    font-weight: 700 !important;
-    padding: 6px 14px !important;
-    border-radius: 20px !important;
-    text-transform: uppercase !important;
-    letter-spacing: 0.5px !important;
-    border: none !important;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
-}
-
 .company-header {
     display: flex !important;
     align-items: center !important;
@@ -97,7 +77,7 @@ body {
     width: 38px !important;
     height: 38px !important;
     object-fit: cover !important;
-    filter: brightness(0) invert(1) !important;
+    filter: brightness(0) saturate(100%) invert(27%) sepia(87%) saturate(2837%) hue-rotate(230deg) brightness(95%) contrast(96%) !important;
 }
 
 .company-name {
@@ -152,6 +132,19 @@ body {
     flex-wrap: wrap !important;
     gap: 8px !important;
     margin-bottom: 16px !important;
+}
+
+.category-badge-top {
+    background: #667eea !important;
+    color: #ffffff !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    padding: 6px 14px !important;
+    border-radius: 6px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.3px !important;
+    border: none !important;
+    display: inline-block !important;
 }
 
 .meta-badge {
@@ -590,9 +583,6 @@ body {
             @foreach($featuredJobs as $job)
             <div class="featured-job-card wow fadeInUp">
                <div class="job-card-header">
-                  <div class="header-top">
-                     <span class="category-badge-top">{{ optional($job->category)->name ?? 'N/A' }}</span>
-                  </div>
                   <div class="company-header">
                      <div class="company-logo">
                         <img src="{{ asset('images/job.svg') }}" alt="company-logo">
@@ -607,6 +597,7 @@ body {
                      <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->title }}</a>
                   </div>
                   <div class="job-meta">
+                     <div class="category-badge-top">{{ optional($job->category)->name ?? 'N/A' }}</div>
                      <div class="meta-badge">
                         Type: <span>{{ ucfirst(str_replace('_', ' ', $job->employment_type)) }}</span>
                      </div>
