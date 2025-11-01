@@ -121,10 +121,19 @@ use Illuminate\Support\Facades\Storage;
                                                             <div class="col-sm-8">
                                                                 @php 
                                                                     $token = hash_hmac('sha256', $document->document_path, config('app.key'));
+                                                                    $downloadUrl = asset($document->document_path);
                                                                 @endphp
-                                                                <a href="{{ route('documents.stream', ['document' => $document->id, 't' => $token]) }}" target="_blank" class="btn btn-sm btn-outline-primary">
-                                                                    <i class="fas fa-download"></i> View Document
-                                                                </a>
+                                                                <div class="btn-group" role="group">
+                                                                    <a href="{{ route('documents.stream', ['document' => $document->id, 't' => $token]) }}" target="_blank" class="btn btn-sm btn-outline-primary">
+                                                                        <i class="fas fa-eye"></i> View Document
+                                                                    </a>
+                                                                    <a href="{{ $downloadUrl }}" download class="btn btn-sm btn-primary">
+                                                                        <i class="fas fa-download"></i> Download
+                                                                    </a>
+                                                                </div>
+                                                                <small class="d-block text-muted mt-2">
+                                                                    <strong>File Path:</strong> {{ $document->document_path }}
+                                                                </small>
                                                             </div>
                                                         </div>
                                                     @endif
