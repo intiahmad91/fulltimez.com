@@ -16,9 +16,15 @@ body {
 /* Modern Professional Job Card Design */
 .featured-jobs-grid {
     display: grid !important;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)) !important;
-    gap: 24px !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 20px !important;
     padding: 20px 0 !important;
+}
+
+@media (max-width: 1200px) {
+    .featured-jobs-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
 }
 
 .featured-job-card {
@@ -41,54 +47,55 @@ body {
 }
 
 .job-card-header {
-    padding: 20px 20px 16px !important;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    padding: 20px 20px 18px !important;
+    background: #667eea !important;
     position: relative !important;
+    border-radius: 16px 16px 0 0 !important;
 }
 
 .header-top {
     display: flex !important;
     justify-content: flex-end !important;
     align-items: flex-start !important;
-    margin-bottom: 16px !important;
+    margin-bottom: 14px !important;
 }
 
 .category-badge-top {
-    background: rgba(255, 255, 255, 0.2) !important;
-    backdrop-filter: blur(10px) !important;
-    color: #ffffff !important;
+    background: #ffffff !important;
+    color: #667eea !important;
     font-size: 10px !important;
     font-weight: 700 !important;
     padding: 6px 14px !important;
     border-radius: 20px !important;
     text-transform: uppercase !important;
     letter-spacing: 0.5px !important;
-    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    border: none !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
 }
 
 .company-header {
     display: flex !important;
     align-items: center !important;
-    gap: 12px !important;
+    gap: 14px !important;
     width: 100% !important;
 }
 
 .company-logo {
-    width: 60px !important;
-    height: 60px !important;
-    border-radius: 12px !important;
-    background: rgba(255, 255, 255, 0.15) !important;
-    backdrop-filter: blur(10px) !important;
-    border: 2px solid rgba(255, 255, 255, 0.2) !important;
+    width: 64px !important;
+    height: 64px !important;
+    border-radius: 14px !important;
+    background: #ffffff !important;
+    border: 3px solid rgba(255, 255, 255, 0.3) !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
     flex-shrink: 0 !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
 }
 
 .company-logo img {
-    width: 36px !important;
-    height: 36px !important;
+    width: 38px !important;
+    height: 38px !important;
     object-fit: cover !important;
     filter: brightness(0) invert(1) !important;
 }
@@ -99,13 +106,13 @@ body {
 }
 
 .company-name h3 {
-    font-size: 18px !important;
+    font-size: 17px !important;
     font-weight: 700 !important;
     color: #ffffff !important;
     margin: 0 !important;
     line-height: 1.4 !important;
     word-wrap: break-word !important;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+    letter-spacing: 0.2px !important;
 }
 
 .job-card-body {
@@ -238,10 +245,17 @@ body {
     white-space: nowrap !important;
 }
 
+@media (max-width: 992px) {
+    .featured-jobs-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 18px !important;
+    }
+}
+
 @media (max-width: 768px) {
     .featured-jobs-grid {
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important;
-        gap: 20px !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 16px !important;
     }
     
     .job-card-header {
