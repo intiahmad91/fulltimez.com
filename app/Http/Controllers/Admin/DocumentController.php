@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\EmployerDocument;
+use App\Models\User;
 use App\Notifications\DocumentApproved;
 use App\Notifications\DocumentRejected;
 use App\Notifications\AllDocumentsApproved;
@@ -67,9 +68,17 @@ class DocumentController extends Controller
             return redirect()->back()->withErrors(['error' => 'File not found.']);
         }
 
-        $mime = mime_content_type($fullPath) ?: 'application/octet-stream';
-        return response()->file($fullPath, [
-            'Content-Type' => $mime,
+        // Get the original filename from the path or generate one
+        $filename = basename($document->document_path);
+        if (empty($filename) || $filename === $document->document_path) {
+            // Generate filename based on document type
+            $extension = pathinfo($document->document_path, PATHINFO_EXTENSION);
+            $filename = 'document_' . $document->id . '.' . ($extension ?: 'pdf');
+        }
+
+        // Force download instead of inline viewing
+        return response()->download($fullPath, $filename, [
+            'Content-Type' => mime_content_type($fullPath) ?: 'application/octet-stream',
             'Cache-Control' => 'private, max-age=0, must-revalidate',
         ]);
     }
