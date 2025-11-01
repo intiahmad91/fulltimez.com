@@ -13,81 +13,73 @@ body {
     overflow-x: hidden !important;
 }
 
-/* Professional Job Card Design - Clean & Modern */
-.jobs_list {
-    display: flex !important;
+/* Modern Professional Job Card Design */
+.featured-jobs-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)) !important;
+    gap: 24px !important;
+    padding: 20px 0 !important;
 }
 
-.jobs_list .item {
-    display: flex !important;
-    height: 100% !important;
-}
-
-.add-exp {
-    display: flex !important;
-    flex: 1 !important;
-    width: 100% !important;
-    min-height: 100% !important;
-    padding: 0 !important;
-    height: 100% !important;
-}
-
-.jobs-ad-card {
+.featured-job-card {
     background: #ffffff !important;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08) !important;
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    border: 1px solid #e5e7eb !important;
+    border-radius: 16px !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+    transition: all 0.3s ease !important;
     position: relative !important;
     overflow: hidden !important;
-    width: 100% !important;
     height: 100% !important;
     display: flex !important;
     flex-direction: column !important;
 }
 
-.jobs-ad-card:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12) !important;
-    transform: translateY(-2px) !important;
-    border-color: #d1d5db !important;
+.featured-job-card:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
+    transform: translateY(-4px) !important;
+    border-color: #cbd5e1 !important;
 }
 
 .job-card-header {
-    padding: 24px 24px 20px !important;
-    background: #ffffff !important;
-    border-bottom: 1px solid #f3f4f6 !important;
+    padding: 20px 20px 16px !important;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    position: relative !important;
 }
 
 .header-top {
     display: flex !important;
-    justify-content: space-between !important;
+    justify-content: flex-end !important;
     align-items: flex-start !important;
     margin-bottom: 16px !important;
 }
 
 .category-badge-top {
-    background: #f3f4f6 !important;
-    color: #374151 !important;
-    font-size: 11px !important;
-    font-weight: 600 !important;
-    padding: 5px 12px !important;
-    border-radius: 6px !important;
+    background: rgba(255, 255, 255, 0.2) !important;
+    backdrop-filter: blur(10px) !important;
+    color: #ffffff !important;
+    font-size: 10px !important;
+    font-weight: 700 !important;
+    padding: 6px 14px !important;
+    border-radius: 20px !important;
     text-transform: uppercase !important;
-    letter-spacing: 0.3px !important;
-    border: none !important;
+    letter-spacing: 0.5px !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
 }
 
 .company-header {
     display: flex !important;
     align-items: center !important;
-    gap: 14px !important;
+    gap: 12px !important;
     width: 100% !important;
 }
 
 .company-logo {
-    width: 56px !important;
-    height: 56px !important;
-    border-radius: 10px !important;
-    background: #f9fafb !important;
-    border: 1px solid #e5e7eb !important;
+    width: 60px !important;
+    height: 60px !important;
+    border-radius: 12px !important;
+    background: rgba(255, 255, 255, 0.15) !important;
+    backdrop-filter: blur(10px) !important;
+    border: 2px solid rgba(255, 255, 255, 0.2) !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
@@ -95,9 +87,10 @@ body {
 }
 
 .company-logo img {
-    width: 32px !important;
-    height: 32px !important;
+    width: 36px !important;
+    height: 36px !important;
     object-fit: cover !important;
+    filter: brightness(0) invert(1) !important;
 }
 
 .company-name {
@@ -106,16 +99,17 @@ body {
 }
 
 .company-name h3 {
-    font-size: 16px !important;
-    font-weight: 600 !important;
-    color: #111827 !important;
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    color: #ffffff !important;
     margin: 0 !important;
     line-height: 1.4 !important;
     word-wrap: break-word !important;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
 }
 
 .job-card-body {
-    padding: 0 24px 20px !important;
+    padding: 20px 20px 16px !important;
     flex: 1 !important;
     display: flex !important;
     flex-direction: column !important;
@@ -123,26 +117,26 @@ body {
 }
 
 .job-title {
-    margin-bottom: 16px !important;
+    margin-bottom: 14px !important;
 }
 
 .job-title a {
-    font-size: 19px !important;
+    font-size: 20px !important;
     font-weight: 700 !important;
     color: #111827 !important;
     text-decoration: none !important;
-    line-height: 1.5 !important;
+    line-height: 1.4 !important;
     display: -webkit-box !important;
     -webkit-line-clamp: 2 !important;
     -webkit-box-orient: vertical !important;
     overflow: hidden !important;
     transition: color 0.2s ease !important;
-    letter-spacing: -0.2px !important;
+    letter-spacing: -0.3px !important;
     margin-bottom: 0 !important;
 }
 
 .job-title a:hover {
-    color: #2563eb !important;
+    color: #667eea !important;
     text-decoration: none !important;
 }
 
@@ -245,58 +239,48 @@ body {
 }
 
 @media (max-width: 768px) {
+    .featured-jobs-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important;
+        gap: 20px !important;
+    }
+    
+    .job-card-header {
+        padding: 18px 18px 14px !important;
+    }
+    
     .header-top {
         margin-bottom: 14px !important;
     }
     
     .category-badge-top {
-        font-size: 10px !important;
-        padding: 4px 10px !important;
+        font-size: 9px !important;
+        padding: 5px 12px !important;
     }
     
     .company-header {
         flex-direction: column !important;
         text-align: center !important;
-        gap: 12px !important;
+        gap: 10px !important;
     }
     
     .company-logo {
         margin: 0 auto !important;
-        width: 52px !important;
-        height: 52px !important;
+        width: 56px !important;
+        height: 56px !important;
     }
     
     .company-name h3 {
         text-align: center !important;
-        font-size: 15px !important;
+        font-size: 16px !important;
     }
     
     .job-card-body {
-        padding: 0 20px 18px !important;
+        padding: 18px 18px 14px !important;
     }
     
     .job-title a {
         text-align: center !important;
-        font-size: 17px !important;
-        font-weight: 700 !important;
-    }
-    
-    .price-ad {
-        justify-content: center !important;
-    }
-    
-    .price-ad p {
-        font-size: 15px !important;
-        white-space: normal !important;
-        flex-wrap: wrap !important;
-    }
-    
-    .price-ad p span.price-amount {
-        font-size: 15px !important;
-    }
-    
-    .price-ad p span.price-period {
-        font-size: 12px !important;
+        font-size: 18px !important;
     }
     
     .job-meta {
@@ -308,7 +292,7 @@ body {
     }
     
     .job-card-footer {
-        padding: 14px 20px 20px !important;
+        padding: 14px 18px 18px !important;
     }
     
     .price-ad {
@@ -316,8 +300,52 @@ body {
     }
     
     .price-ad p {
-        font-size: 14px !important;
+        font-size: 15px !important;
         justify-content: center !important;
+    }
+    
+    .price-ad p span.price-amount {
+        font-size: 15px !important;
+    }
+    
+    .price-ad p span.price-period {
+        font-size: 12px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .featured-jobs-grid {
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
+    }
+    
+    .job-card-header {
+        padding: 16px 16px 12px !important;
+    }
+    
+    .company-logo {
+        width: 52px !important;
+        height: 52px !important;
+    }
+    
+    .company-name h3 {
+        font-size: 15px !important;
+    }
+    
+    .job-card-body {
+        padding: 16px 16px 12px !important;
+    }
+    
+    .job-title a {
+        font-size: 17px !important;
+    }
+    
+    .job-card-footer {
+        padding: 12px 16px 16px !important;
+    }
+    
+    .price-ad p {
+        font-size: 14px !important;
     }
     
     .price-ad p span.price-amount {
@@ -544,61 +572,54 @@ body {
    <section class="category-wrap jobwrp popular-items mt-5">
       <div class="container">
          <div class="main_title">Featured Jobs</div>
-         <div class="cate_list">
-         <ul class="owl-carousel jobs_list">
+         <div class="featured-jobs-grid">
             @foreach($featuredJobs as $job)
-            <li class="item wow fadeInUp">
-              <div class="add-exp">
-                  <div class="">
-                     <div class="job-card-header">
-                        <div class="header-top">
-                           <span class="category-badge-top">{{ optional($job->category)->name ?? 'N/A' }}</span>
-                        </div>
-                        <div class="company-header">
-                           <div class="company-logo">
-                              <img src="{{ asset('images/job.svg') }}" alt="company-logo">
-                           </div>
-                           <div class="company-name">
-                              <h3>{{ optional($job->employer->employerProfile)->company_name ?? 'Company' }}</h3>
-                           </div>
-                        </div>
+            <div class="featured-job-card wow fadeInUp">
+               <div class="job-card-header">
+                  <div class="header-top">
+                     <span class="category-badge-top">{{ optional($job->category)->name ?? 'N/A' }}</span>
+                  </div>
+                  <div class="company-header">
+                     <div class="company-logo">
+                        <img src="{{ asset('images/job.svg') }}" alt="company-logo">
                      </div>
-                     <div class="job-card-body">
-                        <div class="job-title">
-                           <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->title }}</a>
-                        </div>
-                        <div class="job-meta">
-                           <div class="meta-badge">
-                              Type: <span>{{ ucfirst(str_replace('_', ' ', $job->employment_type)) }}</span>
-                           </div>
-                           <div class="meta-badge">
-                              Experience: <span>{{ $job->experience_years ?? 'N/A' }}</span>
-                           </div>
-                        </div>
-                        <div class="location-info">
-                           <img src="{{ asset('images/location.svg') }}" alt="location">
-                           <span>{{ $job->location_city }}</span>
-                        </div>
-                     </div>
-                     <div class="job-card-footer">
-                        <div class="price-ad">
-                           <p>
-                              @if(!empty($job->salary_min) && !empty($job->salary_max))
-                                  <span class="price-amount">{{ $job->salary_currency ?? 'AED' }} {{ number_format((float)$job->salary_min) }} - {{ number_format((float)$job->salary_max) }}</span>
-                                  <span class="price-period">/ {{ ucfirst($job->salary_period ?? 'monthly') }}</span>
-                              @else
-                                  <span class="price-negotiable">Negotiable</span>
-                              @endif
-                           </p>
-                        </div>
+                     <div class="company-name">
+                        <h3>{{ optional($job->employer->employerProfile)->company_name ?? 'Company' }}</h3>
                      </div>
                   </div>
                </div>
-            </li>
+               <div class="job-card-body">
+                  <div class="job-title">
+                     <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->title }}</a>
+                  </div>
+                  <div class="job-meta">
+                     <div class="meta-badge">
+                        Type: <span>{{ ucfirst(str_replace('_', ' ', $job->employment_type)) }}</span>
+                     </div>
+                     <div class="meta-badge">
+                        Experience: <span>{{ $job->experience_years ?? 'N/A' }}</span>
+                     </div>
+                  </div>
+                  <div class="location-info">
+                     <img src="{{ asset('images/location.svg') }}" alt="location">
+                     <span>{{ $job->location_city }}</span>
+                  </div>
+               </div>
+               <div class="job-card-footer">
+                  <div class="price-ad">
+                     <p>
+                        @if(!empty($job->salary_min) && !empty($job->salary_max))
+                            <span class="price-amount">{{ $job->salary_currency ?? 'AED' }} {{ number_format((float)$job->salary_min) }} - {{ number_format((float)$job->salary_max) }}</span>
+                            <span class="price-period">/ {{ ucfirst($job->salary_period ?? 'monthly') }}</span>
+                        @else
+                            <span class="price-negotiable">Negotiable</span>
+                        @endif
+                     </p>
+                  </div>
+               </div>
+            </div>
             @endforeach
-
-         </ul>
-      </div> 
+         </div>
       </div> 
    </section>
  
