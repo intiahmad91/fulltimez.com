@@ -538,7 +538,7 @@ body {
     transition: all 0.3s ease !important;
     padding: 20px !important;
     height: 100% !important;
-    min-height: 300px !important;
+    min-height: 130px !important;
     display: flex !important;
     flex-direction: column !important;
 }
