@@ -624,7 +624,7 @@ body {
 .seekerwrp .carinfo {
     list-style: none !important;
     padding: 0 !important;
-    margin: 0 0 14px 0 !important;
+    margin: 0 0 -28px 0 !important;
     display: flex !important;
     flex-wrap: wrap !important;
     gap: 12px !important;
