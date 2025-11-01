@@ -523,6 +523,169 @@ body {
     }
 }
 
+/* Job Seekers Section Styling */
+.seekerwrp .jobs-ad-card {
+    background: #ffffff !important;
+    border: 1px solid #e5e7eb !important;
+    border-radius: 16px !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+    transition: all 0.3s ease !important;
+    padding: 20px !important;
+    height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+.seekerwrp .jobs-ad-card:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
+    transform: translateY(-4px) !important;
+    border-color: #cbd5e1 !important;
+}
+
+.seekerwrp .category-job {
+    padding: 0 0 16px 0 !important;
+    border-bottom: 1px solid #f3f4f6 !important;
+    margin-bottom: 16px !important;
+}
+
+.seekerwrp .job-icons {
+    margin-right: 12px !important;
+}
+
+.seekerwrp .job-icons img {
+    width: 64px !important;
+    height: 64px !important;
+    border-radius: 50% !important;
+    border: 3px solid #e5e7eb !important;
+    object-fit: cover !important;
+    transition: border-color 0.3s ease !important;
+}
+
+.seekerwrp .jobs-ad-card:hover .job-icons img {
+    border-color: #667eea !important;
+}
+
+.seekerwrp .categery-name h3 {
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    color: #111827 !important;
+    margin: 0 !important;
+    line-height: 1.4 !important;
+    word-wrap: break-word !important;
+}
+
+.seekerwrp .catebox {
+    flex: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+.seekerwrp .add-title {
+    margin-bottom: 14px !important;
+}
+
+.seekerwrp .add-title a {
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    color: #111827 !important;
+    text-decoration: none !important;
+    line-height: 1.5 !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+    transition: color 0.2s ease !important;
+}
+
+.seekerwrp .add-title a:hover {
+    color: #667eea !important;
+}
+
+.seekerwrp .carinfo {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 0 14px 0 !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 12px !important;
+}
+
+.seekerwrp .carinfo li {
+    font-size: 13px !important;
+    color: #6b7280 !important;
+    margin: 0 !important;
+}
+
+.seekerwrp .carinfo li span {
+    font-weight: 700 !important;
+    color: #374151 !important;
+    margin-left: 4px !important;
+}
+
+.seekerwrp .cartbx {
+    margin-bottom: 14px !important;
+}
+
+.seekerwrp .cartbx a {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    color: #6b7280 !important;
+    font-size: 13px !important;
+    text-decoration: none !important;
+}
+
+.seekerwrp .cartbx img {
+    width: 16px !important;
+    height: 16px !important;
+    opacity: 0.7 !important;
+}
+
+.seekerwrp .price-ad {
+    margin-top: auto !important;
+    padding-top: 14px !important;
+    border-top: 1px solid #f3f4f6 !important;
+}
+
+.seekerwrp .price-ad p {
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    color: #059669 !important;
+    margin: 0 !important;
+    text-align: left !important;
+}
+
+@media (max-width: 768px) {
+    .seekerwrp .jobs-ad-card {
+        padding: 16px !important;
+    }
+    
+    .seekerwrp .job-icons img {
+        width: 56px !important;
+        height: 56px !important;
+    }
+    
+    .seekerwrp .categery-name h3 {
+        font-size: 16px !important;
+    }
+    
+    .seekerwrp .add-title a {
+        font-size: 15px !important;
+    }
+    
+    .seekerwrp .carinfo {
+        gap: 10px !important;
+    }
+    
+    .seekerwrp .carinfo li {
+        font-size: 12px !important;
+    }
+    
+    .seekerwrp .price-ad p {
+        font-size: 14px !important;
+    }
+}
+
 /* Desktop Container Fix */
 @media (min-width: 769px) {
     .category-wrap {
