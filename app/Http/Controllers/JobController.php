@@ -14,19 +14,23 @@ class JobController extends Controller
         $baseQuery = JobPosting::where('status', 'published')
             ->with(['employer.employerProfile', 'category']);
 
-        // Handle header search - title
+        // Handle header search - title (combines title and description)
         if ($request->filled('title')) {
-            $baseQuery->where(function($q) use ($request) {
-                $q->where('title', 'like', '%' . $request->title . '%')
-                  ->orWhere('description', 'like', '%' . $request->title . '%');
+            $title = trim($request->title);
+            $baseQuery->where(function($q) use ($title) {
+                $q->where('title', 'like', '%' . $title . '%')
+                  ->orWhere('description', 'like', '%' . $title . '%')
+                  ->orWhere('requirements', 'like', '%' . $title . '%');
             });
         }
 
         // Handle sidebar search
         if ($request->filled('search')) {
-            $baseQuery->where(function($q) use ($request) {
-                $q->where('title', 'like', '%' . $request->search . '%')
-                  ->orWhere('description', 'like', '%' . $request->search . '%');
+            $search = trim($request->search);
+            $baseQuery->where(function($q) use ($search) {
+                $q->where('title', 'like', '%' . $search . '%')
+                  ->orWhere('description', 'like', '%' . $search . '%')
+                  ->orWhere('requirements', 'like', '%' . $search . '%');
             });
         }
 
@@ -34,18 +38,24 @@ class JobController extends Controller
             $baseQuery->where('category_id', $request->category);
         }
 
-        // Handle location from header or sidebar
-        if ($request->filled('location')) {
-            $baseQuery->where(function($q) use ($request) {
-                $q->where('location_city', 'like', '%' . $request->location . '%')
-                  ->orWhere('location_state', 'like', '%' . $request->location . '%')
-                  ->orWhere('location_country', 'like', '%' . $request->location . '%');
+        // Handle country from header - exact match first, then partial
+        if ($request->filled('country')) {
+            $country = trim($request->country);
+            $baseQuery->where(function($q) use ($country) {
+                $q->where('location_country', '=', $country)
+                  ->orWhere('location_country', 'like', '%' . $country . '%');
             });
         }
 
-        // Handle country from header
-        if ($request->filled('country')) {
-            $baseQuery->where('location_country', 'like', '%' . $request->country . '%');
+        // Handle location from header - check city, state, and country
+        if ($request->filled('location')) {
+            $location = trim($request->location);
+            $baseQuery->where(function($q) use ($location) {
+                $q->where('location_city', '=', $location)
+                  ->orWhere('location_city', 'like', '%' . $location . '%')
+                  ->orWhere('location_state', '=', $location)
+                  ->orWhere('location_state', 'like', '%' . $location . '%');
+            });
         }
 
         if ($request->filled('education')) {
@@ -72,12 +82,26 @@ class JobController extends Controller
             ->notFeatured()
             ->orderBy('created_at', 'desc')
             ->paginate(12);
+        
         $categories = JobCategory::where('is_active', true)->get();
+        
+        // Get countries and cities for search dropdowns
+        $countries = \App\Models\Country::where('is_active', true)->orderBy('name')->get();
+        $cities = \App\Models\City::where('is_active', true)
+            ->when($request->filled('country'), function($q) use ($request) {
+                $q->whereHas('country', function($cq) use ($request) {
+                    $cq->where('name', 'like', '%' . $request->country . '%');
+                });
+            })
+            ->orderBy('name')
+            ->get();
 
         return view('jobs.index', [
             'featuredJobs' => $featuredJobs,
             'recommendedJobs' => $recommendedJobs,
             'categories' => $categories,
+            'countries' => $countries,
+            'cities' => $cities,
         ]);
     }
 
