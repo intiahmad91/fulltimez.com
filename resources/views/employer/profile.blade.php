@@ -84,8 +84,30 @@ use Illuminate\Support\Facades\Storage;
                                             <div class="col-lg-6">
                                                 <div class="form-group">
                                                     <label>Phone Number <sup class="text-danger">*</sup></label>
-                                                    <input type="text" name="phone" class="form-control @error('phone') is-invalid @enderror" value="{{ old('phone', $user->phone) }}" placeholder="Your Phone" required>
+                                                    <div class="phone-input-group" style="display: flex; gap: 10px; align-items: center;">
+                                                        <div class="country-code-selector" style="flex: 0 0 200px;">
+                                                            <select name="phone_country_code" id="phone_country_code" class="form-control @error('phone_country_code') is-invalid @enderror" required style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif;">
+                                                                <option value="🇦🇪 +971" {{ old('phone_country_code', $phoneData['country_code'] ?? '🇦🇪 +971') == '🇦🇪 +971' ? 'selected' : '' }}>🇦🇪 +971 (UAE)</option>
+                                                                <option value="🇸🇦 +966" {{ old('phone_country_code', $phoneData['country_code'] ?? '') == '🇸🇦 +966' ? 'selected' : '' }}>🇸🇦 +966 (Saudi Arabia)</option>
+                                                                <option value="🇶🇦 +974" {{ old('phone_country_code', $phoneData['country_code'] ?? '') == '🇶🇦 +974' ? 'selected' : '' }}>🇶🇦 +974 (Qatar)</option>
+                                                                <option value="🇰🇼 +965" {{ old('phone_country_code', $phoneData['country_code'] ?? '') == '🇰🇼 +965' ? 'selected' : '' }}>🇰🇼 +965 (Kuwait)</option>
+                                                                <option value="🇧🇭 +973" {{ old('phone_country_code', $phoneData['country_code'] ?? '') == '🇧🇭 +973' ? 'selected' : '' }}>🇧🇭 +973 (Bahrain)</option>
+                                                                <option value="🇴🇲 +968" {{ old('phone_country_code', $phoneData['country_code'] ?? '') == '🇴🇲 +968' ? 'selected' : '' }}>🇴🇲 +968 (Oman)</option>
+                                                                <option value="🇺🇸 +1" {{ old('phone_country_code', $phoneData['country_code'] ?? '') == '🇺🇸 +1' ? 'selected' : '' }}>🇺🇸 +1 (USA)</option>
+                                                                <option value="🇬🇧 +44" {{ old('phone_country_code', $phoneData['country_code'] ?? '') == '🇬🇧 +44' ? 'selected' : '' }}>🇬🇧 +44 (UK)</option>
+                                                                <option value="🇮🇳 +91" {{ old('phone_country_code', $phoneData['country_code'] ?? '') == '🇮🇳 +91' ? 'selected' : '' }}>🇮🇳 +91 (India)</option>
+                                                                <option value="🇵🇰 +92" {{ old('phone_country_code', $phoneData['country_code'] ?? '') == '🇵🇰 +92' ? 'selected' : '' }}>🇵🇰 +92 (Pakistan)</option>
+                                                                <option value="🇪🇬 +20" {{ old('phone_country_code', $phoneData['country_code'] ?? '') == '🇪🇬 +20' ? 'selected' : '' }}>🇪🇬 +20 (Egypt)</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="phone-number-input" style="flex: 1;">
+                                                            <input type="tel" name="phone" id="phone" class="form-control @error('phone') is-invalid @enderror" value="{{ old('phone', $phoneData['number'] ?? $user->phone ?? '') }}" placeholder="50 123 4567" required minlength="7" maxlength="15">
+                                                        </div>
+                                                    </div>
                                                     @error('phone')
+                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                    @enderror
+                                                    @error('phone_country_code')
                                                         <div class="invalid-feedback">{{ $message }}</div>
                                                     @enderror
                                                 </div>
@@ -100,8 +122,30 @@ use Illuminate\Support\Facades\Storage;
                                             <div class="col-lg-6">
                                                 <div class="form-group">
                                                     <label>Mobile No <sup class="text-danger">*</sup></label>
-                                                    <input type="text" name="mobile_no" class="form-control @error('mobile_no') is-invalid @enderror" value="{{ old('mobile_no', $user->employerProfile->mobile_no ?? '') }}" placeholder="e.g., +971 50 123 4567" required>
+                                                    <div class="phone-input-group" style="display: flex; gap: 10px; align-items: center;">
+                                                        <div class="country-code-selector" style="flex: 0 0 200px;">
+                                                            <select name="mobile_country_code" id="mobile_country_code" class="form-control @error('mobile_country_code') is-invalid @enderror" required style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif;">
+                                                                <option value="🇦🇪 +971" {{ old('mobile_country_code', $mobileData['country_code'] ?? '🇦🇪 +971') == '🇦🇪 +971' ? 'selected' : '' }}>🇦🇪 +971 (UAE)</option>
+                                                                <option value="🇸🇦 +966" {{ old('mobile_country_code', $mobileData['country_code'] ?? '') == '🇸🇦 +966' ? 'selected' : '' }}>🇸🇦 +966 (Saudi Arabia)</option>
+                                                                <option value="🇶🇦 +974" {{ old('mobile_country_code', $mobileData['country_code'] ?? '') == '🇶🇦 +974' ? 'selected' : '' }}>🇶🇦 +974 (Qatar)</option>
+                                                                <option value="🇰🇼 +965" {{ old('mobile_country_code', $mobileData['country_code'] ?? '') == '🇰🇼 +965' ? 'selected' : '' }}>🇰🇼 +965 (Kuwait)</option>
+                                                                <option value="🇧🇭 +973" {{ old('mobile_country_code', $mobileData['country_code'] ?? '') == '🇧🇭 +973' ? 'selected' : '' }}>🇧🇭 +973 (Bahrain)</option>
+                                                                <option value="🇴🇲 +968" {{ old('mobile_country_code', $mobileData['country_code'] ?? '') == '🇴🇲 +968' ? 'selected' : '' }}>🇴🇲 +968 (Oman)</option>
+                                                                <option value="🇺🇸 +1" {{ old('mobile_country_code', $mobileData['country_code'] ?? '') == '🇺🇸 +1' ? 'selected' : '' }}>🇺🇸 +1 (USA)</option>
+                                                                <option value="🇬🇧 +44" {{ old('mobile_country_code', $mobileData['country_code'] ?? '') == '🇬🇧 +44' ? 'selected' : '' }}>🇬🇧 +44 (UK)</option>
+                                                                <option value="🇮🇳 +91" {{ old('mobile_country_code', $mobileData['country_code'] ?? '') == '🇮🇳 +91' ? 'selected' : '' }}>🇮🇳 +91 (India)</option>
+                                                                <option value="🇵🇰 +92" {{ old('mobile_country_code', $mobileData['country_code'] ?? '') == '🇵🇰 +92' ? 'selected' : '' }}>🇵🇰 +92 (Pakistan)</option>
+                                                                <option value="🇪🇬 +20" {{ old('mobile_country_code', $mobileData['country_code'] ?? '') == '🇪🇬 +20' ? 'selected' : '' }}>🇪🇬 +20 (Egypt)</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="phone-number-input" style="flex: 1;">
+                                                            <input type="tel" name="mobile_no" id="mobile_no" class="form-control @error('mobile_no') is-invalid @enderror" value="{{ old('mobile_no', $mobileData['number'] ?? '') }}" placeholder="50 123 4567" required minlength="7" maxlength="15">
+                                                        </div>
+                                                    </div>
                                                     @error('mobile_no')
+                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                    @enderror
+                                                    @error('mobile_country_code')
                                                         <div class="invalid-feedback">{{ $message }}</div>
                                                     @enderror
                                                 </div>
@@ -118,8 +162,30 @@ use Illuminate\Support\Facades\Storage;
                                             <div class="col-lg-6">
                                                 <div class="form-group">
                                                     <label>Landline No <sup class="text-danger">*</sup></label>
-                                                    <input type="text" name="landline_no" class="form-control @error('landline_no') is-invalid @enderror" value="{{ old('landline_no', $user->employerProfile->landline_no ?? '') }}" placeholder="e.g., +971 4 123 4567" required>
+                                                    <div class="phone-input-group" style="display: flex; gap: 10px; align-items: center;">
+                                                        <div class="country-code-selector" style="flex: 0 0 200px;">
+                                                            <select name="landline_country_code" id="landline_country_code" class="form-control @error('landline_country_code') is-invalid @enderror" required style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif;">
+                                                                <option value="🇦🇪 +971" {{ old('landline_country_code', $landlineData['country_code'] ?? '🇦🇪 +971') == '🇦🇪 +971' ? 'selected' : '' }}>🇦🇪 +971 (UAE)</option>
+                                                                <option value="🇸🇦 +966" {{ old('landline_country_code', $landlineData['country_code'] ?? '') == '🇸🇦 +966' ? 'selected' : '' }}>🇸🇦 +966 (Saudi Arabia)</option>
+                                                                <option value="🇶🇦 +974" {{ old('landline_country_code', $landlineData['country_code'] ?? '') == '🇶🇦 +974' ? 'selected' : '' }}>🇶🇦 +974 (Qatar)</option>
+                                                                <option value="🇰🇼 +965" {{ old('landline_country_code', $landlineData['country_code'] ?? '') == '🇰🇼 +965' ? 'selected' : '' }}>🇰🇼 +965 (Kuwait)</option>
+                                                                <option value="🇧🇭 +973" {{ old('landline_country_code', $landlineData['country_code'] ?? '') == '🇧🇭 +973' ? 'selected' : '' }}>🇧🇭 +973 (Bahrain)</option>
+                                                                <option value="🇴🇲 +968" {{ old('landline_country_code', $landlineData['country_code'] ?? '') == '🇴🇲 +968' ? 'selected' : '' }}>🇴🇲 +968 (Oman)</option>
+                                                                <option value="🇺🇸 +1" {{ old('landline_country_code', $landlineData['country_code'] ?? '') == '🇺🇸 +1' ? 'selected' : '' }}>🇺🇸 +1 (USA)</option>
+                                                                <option value="🇬🇧 +44" {{ old('landline_country_code', $landlineData['country_code'] ?? '') == '🇬🇧 +44' ? 'selected' : '' }}>🇬🇧 +44 (UK)</option>
+                                                                <option value="🇮🇳 +91" {{ old('landline_country_code', $landlineData['country_code'] ?? '') == '🇮🇳 +91' ? 'selected' : '' }}>🇮🇳 +91 (India)</option>
+                                                                <option value="🇵🇰 +92" {{ old('landline_country_code', $landlineData['country_code'] ?? '') == '🇵🇰 +92' ? 'selected' : '' }}>🇵🇰 +92 (Pakistan)</option>
+                                                                <option value="🇪🇬 +20" {{ old('landline_country_code', $landlineData['country_code'] ?? '') == '🇪🇬 +20' ? 'selected' : '' }}>🇪🇬 +20 (Egypt)</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="phone-number-input" style="flex: 1;">
+                                                            <input type="tel" name="landline_no" id="landline_no" class="form-control @error('landline_no') is-invalid @enderror" value="{{ old('landline_no', $landlineData['number'] ?? '') }}" placeholder="4 123 4567" required minlength="7" maxlength="15">
+                                                        </div>
+                                                    </div>
                                                     @error('landline_no')
+                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                    @enderror
+                                                    @error('landline_country_code')
                                                         <div class="invalid-feedback">{{ $message }}</div>
                                                     @enderror
                                                 </div>
@@ -617,6 +683,39 @@ document.addEventListener('DOMContentLoaded', function() {
     .document-status-card .card-body {
         padding: 1rem;
     }
+    
+    .phone-input-group {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .country-code-selector {
+        flex: none !important;
+        width: 100%;
+    }
+    
+    .phone-number-input {
+        flex: none !important;
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .phone-input-group {
+        gap: 8px;
+    }
+    
+    .country-code-selector select,
+    .phone-number-input input {
+        font-size: 16px; /* Prevents zoom on iOS */
+    }
+}
+
+.phone-input-group input[type="tel"]:focus,
+.country-code-selector select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
 }
 </style>
 @endpush

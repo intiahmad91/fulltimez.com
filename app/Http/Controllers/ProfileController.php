@@ -20,10 +20,19 @@ class ProfileController extends Controller
             'phone' => $user->phone,
         ];
         
+        // Combine phone country code and phone number
+        $phoneNumber = '';
+        if ($request->filled('phone_country_code') && $request->filled('phone')) {
+            $countryCode = explode(' ', $request->phone_country_code)[1]; // Get "+971" from "🇦🇪 +971"
+            $phoneNumber = $countryCode . ' ' . $request->phone;
+        } elseif ($request->filled('phone')) {
+            $phoneNumber = $request->phone; // Fallback to just phone if no country code
+        }
+        
         $newUserData = [
             'name' => $request->name,
             'email' => $request->email,
-            'phone' => $request->phone,
+            'phone' => $phoneNumber,
         ];
         
         if ($originalUserData !== $newUserData) {
@@ -141,11 +150,29 @@ class ProfileController extends Controller
         }
 
         if ($user->isEmployer()) {
+            // Combine mobile country code and mobile number
+            $mobileNumber = '';
+            if ($request->filled('mobile_country_code') && $request->filled('mobile_no')) {
+                $countryCode = explode(' ', $request->mobile_country_code)[1]; // Get "+971" from "🇦🇪 +971"
+                $mobileNumber = $countryCode . ' ' . $request->mobile_no;
+            } elseif ($request->filled('mobile_no')) {
+                $mobileNumber = $request->mobile_no; // Fallback to just mobile_no if no country code
+            }
+            
+            // Combine landline country code and landline number
+            $landlineNumber = '';
+            if ($request->filled('landline_country_code') && $request->filled('landline_no')) {
+                $countryCode = explode(' ', $request->landline_country_code)[1]; // Get "+971" from "🇦🇪 +971"
+                $landlineNumber = $countryCode . ' ' . $request->landline_no;
+            } elseif ($request->filled('landline_no')) {
+                $landlineNumber = $request->landline_no; // Fallback to just landline_no if no country code
+            }
+            
             $profileData = [
                 'company_name' => $request->company_name,
-                'mobile_no' => $request->mobile_no,
+                'mobile_no' => $mobileNumber,
                 'email_id' => $request->email_id,
-                'landline_no' => $request->landline_no,
+                'landline_no' => $landlineNumber,
                 'company_website' => $request->company_website,
                 'industry' => $request->industry,
                 'company_size' => $request->company_size,

@@ -72,7 +72,47 @@ class DocumentController extends Controller
             ->pluck('document_type')
             ->toArray();
         
-        return view('employer.documents.create', compact('existingDocuments', 'rejectedDocuments'));
+        // Parse contact person mobile if editing existing document
+        $contactMobileData = ['country_code' => '🇦🇪 +971', 'number' => ''];
+        // This will be handled per document if editing
+        
+        return view('employer.documents.create', compact('existingDocuments', 'rejectedDocuments', 'contactMobileData'));
+    }
+    
+    /**
+     * Parse phone number to extract country code and number
+     */
+    private function parsePhoneNumber($phoneNumber)
+    {
+        if (empty($phoneNumber)) {
+            return ['country_code' => '🇦🇪 +971', 'number' => ''];
+        }
+        
+        // Common country codes mapping
+        $countryCodeMap = [
+            '+971' => '🇦🇪 +971',
+            '+966' => '🇸🇦 +966',
+            '+974' => '🇶🇦 +974',
+            '+965' => '🇰🇼 +965',
+            '+973' => '🇧🇭 +973',
+            '+968' => '🇴🇲 +968',
+            '+1' => '🇺🇸 +1',
+            '+44' => '🇬🇧 +44',
+            '+91' => '🇮🇳 +91',
+            '+92' => '🇵🇰 +92',
+            '+20' => '🇪🇬 +20',
+        ];
+        
+        // Extract country code if it starts with +
+        if (preg_match('/^(\+\d{1,4})\s*(.+)$/', $phoneNumber, $matches)) {
+            $code = $matches[1];
+            $number = $matches[2];
+            $countryCode = $countryCodeMap[$code] ?? '🇦🇪 +971'; // Default to UAE
+            return ['country_code' => $countryCode, 'number' => $number];
+        }
+        
+        // If no country code found, assume UAE and treat entire as number
+        return ['country_code' => '🇦🇪 +971', 'number' => $phoneNumber];
     }
 
     public function store(Request $request)
@@ -94,6 +134,13 @@ class DocumentController extends Controller
 			}
 			
 			$request->merge(['company_website' => $website]);
+		}
+
+		// Combine contact person mobile country code and mobile number
+		if ($request->filled('contact_person_mobile_country_code') && $request->filled('contact_person_mobile')) {
+			$countryCode = explode(' ', $request->contact_person_mobile_country_code)[1]; // Get "+971" from "🇦🇪 +971"
+			$fullMobileNumber = $countryCode . ' ' . $request->contact_person_mobile;
+			$request->merge(['contact_person_mobile' => $fullMobileNumber]);
 		}
 
 		$request->validate([

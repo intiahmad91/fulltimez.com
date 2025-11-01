@@ -166,9 +166,30 @@
                                         <div class="col-md-6">
                                             <div class="form-group mb-4">
                                                 <label for="contact_person_mobile" class="form-label">Contact Person Mobile <span class="text-danger">*</span></label>
-                                                <input type="tel" name="contact_person_mobile" id="contact_person_mobile" class="form-control @error('contact_person_mobile') is-invalid @enderror" value="{{ old('contact_person_mobile') }}" placeholder="+971 50 123 4567">
-                                                <small class="form-text text-muted">Include country code (e.g., +971 50 123 4567)</small>
+                                                <div class="phone-input-group" style="display: flex; gap: 10px; align-items: center;">
+                                                    <div class="country-code-selector" style="flex: 0 0 200px;">
+                                                        <select name="contact_person_mobile_country_code" id="contact_person_mobile_country_code" class="form-control @error('contact_person_mobile_country_code') is-invalid @enderror" required style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif;">
+                                                            <option value="🇦🇪 +971" {{ old('contact_person_mobile_country_code', $contactMobileData['country_code'] ?? '🇦🇪 +971') == '🇦🇪 +971' ? 'selected' : '' }}>🇦🇪 +971 (UAE)</option>
+                                                            <option value="🇸🇦 +966" {{ old('contact_person_mobile_country_code', $contactMobileData['country_code'] ?? '') == '🇸🇦 +966' ? 'selected' : '' }}>🇸🇦 +966 (Saudi Arabia)</option>
+                                                            <option value="🇶🇦 +974" {{ old('contact_person_mobile_country_code', $contactMobileData['country_code'] ?? '') == '🇶🇦 +974' ? 'selected' : '' }}>🇶🇦 +974 (Qatar)</option>
+                                                            <option value="🇰🇼 +965" {{ old('contact_person_mobile_country_code', $contactMobileData['country_code'] ?? '') == '🇰🇼 +965' ? 'selected' : '' }}>🇰🇼 +965 (Kuwait)</option>
+                                                            <option value="🇧🇭 +973" {{ old('contact_person_mobile_country_code', $contactMobileData['country_code'] ?? '') == '🇧🇭 +973' ? 'selected' : '' }}>🇧🇭 +973 (Bahrain)</option>
+                                                            <option value="🇴🇲 +968" {{ old('contact_person_mobile_country_code', $contactMobileData['country_code'] ?? '') == '🇴🇲 +968' ? 'selected' : '' }}>🇴🇲 +968 (Oman)</option>
+                                                            <option value="🇺🇸 +1" {{ old('contact_person_mobile_country_code', $contactMobileData['country_code'] ?? '') == '🇺🇸 +1' ? 'selected' : '' }}>🇺🇸 +1 (USA)</option>
+                                                            <option value="🇬🇧 +44" {{ old('contact_person_mobile_country_code', $contactMobileData['country_code'] ?? '') == '🇬🇧 +44' ? 'selected' : '' }}>🇬🇧 +44 (UK)</option>
+                                                            <option value="🇮🇳 +91" {{ old('contact_person_mobile_country_code', $contactMobileData['country_code'] ?? '') == '🇮🇳 +91' ? 'selected' : '' }}>🇮🇳 +91 (India)</option>
+                                                            <option value="🇵🇰 +92" {{ old('contact_person_mobile_country_code', $contactMobileData['country_code'] ?? '') == '🇵🇰 +92' ? 'selected' : '' }}>🇵🇰 +92 (Pakistan)</option>
+                                                            <option value="🇪🇬 +20" {{ old('contact_person_mobile_country_code', $contactMobileData['country_code'] ?? '') == '🇪🇬 +20' ? 'selected' : '' }}>🇪🇬 +20 (Egypt)</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="phone-number-input" style="flex: 1;">
+                                                        <input type="tel" name="contact_person_mobile" id="contact_person_mobile" class="form-control @error('contact_person_mobile') is-invalid @enderror" value="{{ old('contact_person_mobile', $contactMobileData['number'] ?? '') }}" placeholder="50 123 4567" required minlength="7" maxlength="15">
+                                                    </div>
+                                                </div>
                                                 @error('contact_person_mobile')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                                @error('contact_person_mobile_country_code')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                             </div>
