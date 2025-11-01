@@ -64,8 +64,8 @@ body {
 }
 
 .company-logo {
-    width: 64px !important;
-    height: 64px !important;
+    width: 50px !important;
+    height: 50px !important;
     border-radius: 14px !important;
     background: #ffffff !important;
     border: 3px solid rgba(255, 255, 255, 0.3) !important;
@@ -89,7 +89,7 @@ body {
 }
 
 .company-name h3 {
-    font-size: 17px !important;
+    font-size: 14px !important;
     font-weight: 700 !important;
     color: #ffffff !important;
     margin: 0 !important;
