@@ -128,6 +128,10 @@ body {
     text-decoration: none !important;
 }
 
+button svg{
+    color: #ffff !important;
+}
+
 .job-meta {
     display: flex !important;
     flex-wrap: wrap !important;
