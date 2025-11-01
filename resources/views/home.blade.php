@@ -524,6 +524,12 @@ body {
 }
 
 /* Job Seekers Section Styling */
+.seekerwrp .add-exp {
+    height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
 .seekerwrp .jobs-ad-card {
     background: #ffffff !important;
     border: 1px solid #e5e7eb !important;
@@ -532,6 +538,7 @@ body {
     transition: all 0.3s ease !important;
     padding: 20px !important;
     height: 100% !important;
+    min-height: 300px !important;
     display: flex !important;
     flex-direction: column !important;
 }
@@ -553,16 +560,29 @@ body {
 }
 
 .seekerwrp .job-icons img {
+    display: none !important;
+}
+
+.seekerwrp .seeker-avatar {
     width: 64px !important;
     height: 64px !important;
     border-radius: 50% !important;
+    background: #667eea !important;
     border: 3px solid #e5e7eb !important;
-    object-fit: cover !important;
-    transition: border-color 0.3s ease !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 24px !important;
+    font-weight: 700 !important;
+    color: #ffffff !important;
+    transition: all 0.3s ease !important;
+    flex-shrink: 0 !important;
+    text-transform: uppercase !important;
 }
 
-.seekerwrp .jobs-ad-card:hover .job-icons img {
+.seekerwrp .jobs-ad-card:hover .seeker-avatar {
     border-color: #667eea !important;
+    transform: scale(1.05) !important;
 }
 
 .seekerwrp .categery-name h3 {
@@ -660,9 +680,10 @@ body {
         padding: 16px !important;
     }
     
-    .seekerwrp .job-icons img {
+    .seekerwrp .seeker-avatar {
         width: 56px !important;
         height: 56px !important;
+        font-size: 20px !important;
     }
     
     .seekerwrp .categery-name h3 {
@@ -1052,7 +1073,7 @@ JOBSEEKER</a></div>
                   <div class="jobs-ad-card ">
                      <div class="category-job d-flex align-items-center">
                         <div class="job-icons">
-                           <img src="{{ $seeker->seekerProfile && $seeker->seekerProfile->profile_picture ? asset($seeker->seekerProfile->profile_picture) : asset('images/avatar2.jpg') }}" alt="job-ico" class="img-fluid" style="width: 60px; height: 60px; object-fit: cover; border-radius: 50%;">
+                           <div class="seeker-avatar">{{ strtoupper(substr($seeker->seekerProfile->full_name ?? $seeker->name ?? 'U', 0, 1)) }}</div>
                         </div>
                         <div class="categery-name"> 
                            <h3>{{ $seeker->seekerProfile->full_name ?? $seeker->name }}
