@@ -127,8 +127,8 @@ body {
 }
 
 .job-title a {
-    font-size: 18px !important;
-    font-weight: 600 !important;
+    font-size: 19px !important;
+    font-weight: 700 !important;
     color: #111827 !important;
     text-decoration: none !important;
     line-height: 1.5 !important;
@@ -137,10 +137,13 @@ body {
     -webkit-box-orient: vertical !important;
     overflow: hidden !important;
     transition: color 0.2s ease !important;
+    letter-spacing: -0.2px !important;
+    margin-bottom: 0 !important;
 }
 
 .job-title a:hover {
     color: #2563eb !important;
+    text-decoration: none !important;
 }
 
 .job-meta {
@@ -189,7 +192,7 @@ body {
 }
 
 .job-card-footer {
-    padding: 16px 24px 24px !important;
+    padding: 18px 24px 24px !important;
     border-top: 1px solid #f3f4f6 !important;
     margin-top: auto !important;
     background: #ffffff !important;
@@ -197,30 +200,48 @@ body {
 }
 
 .price-ad {
-    text-align: left !important;
-    word-wrap: break-word !important;
-    overflow-wrap: break-word !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 6px !important;
+    flex-wrap: nowrap !important;
 }
 
 .price-ad p {
     margin: 0 !important;
     padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    flex-wrap: nowrap !important;
+    gap: 4px !important;
     font-size: 16px !important;
-    font-weight: 600 !important;
+    font-weight: 700 !important;
     color: #059669 !important;
-    word-wrap: break-word !important;
-    overflow-wrap: break-word !important;
-    white-space: normal !important;
-    line-height: 1.4 !important;
-    max-width: 100% !important;
-    display: block !important;
+    line-height: 1.2 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
 }
 
-.price-ad p span {
+.price-ad p span.price-amount {
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    color: #059669 !important;
+    white-space: nowrap !important;
+}
+
+.price-ad p span.price-period {
     font-size: 13px !important;
-    font-weight: 400 !important;
-    color: #9ca3af !important;
-    margin-left: 4px !important;
+    font-weight: 500 !important;
+    color: #6b7280 !important;
+    white-space: nowrap !important;
+}
+
+.price-ad p span.price-negotiable {
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    color: #059669 !important;
+    white-space: nowrap !important;
 }
 
 @media (max-width: 768px) {
@@ -257,6 +278,25 @@ body {
     .job-title a {
         text-align: center !important;
         font-size: 17px !important;
+        font-weight: 700 !important;
+    }
+    
+    .price-ad {
+        justify-content: center !important;
+    }
+    
+    .price-ad p {
+        font-size: 15px !important;
+        white-space: normal !important;
+        flex-wrap: wrap !important;
+    }
+    
+    .price-ad p span.price-amount {
+        font-size: 15px !important;
+    }
+    
+    .price-ad p span.price-period {
+        font-size: 12px !important;
     }
     
     .job-meta {
@@ -272,7 +312,20 @@ body {
     }
     
     .price-ad {
-        text-align: center !important;
+        justify-content: center !important;
+    }
+    
+    .price-ad p {
+        font-size: 14px !important;
+        justify-content: center !important;
+    }
+    
+    .price-ad p span.price-amount {
+        font-size: 14px !important;
+    }
+    
+    .price-ad p span.price-period {
+        font-size: 11px !important;
     }
 }
 
@@ -531,9 +584,10 @@ body {
                         <div class="price-ad">
                            <p>
                               @if(!empty($job->salary_min) && !empty($job->salary_max))
-                                  {{ $job->salary_currency ?? 'AED' }} {{ number_format((float)$job->salary_min) }} - {{ number_format((float)$job->salary_max) }} <span>/ {{ ucfirst($job->salary_period ?? 'monthly') }}</span>
+                                  <span class="price-amount">{{ $job->salary_currency ?? 'AED' }} {{ number_format((float)$job->salary_min) }} - {{ number_format((float)$job->salary_max) }}</span>
+                                  <span class="price-period">/ {{ ucfirst($job->salary_period ?? 'monthly') }}</span>
                               @else
-                                  Negotiable
+                                  <span class="price-negotiable">Negotiable</span>
                               @endif
                            </p>
                         </div>
