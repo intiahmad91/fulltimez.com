@@ -241,6 +241,8 @@ body {
             <li class="item wow fadeInUp">
               <div class="add-exp">
                   <div class="jobs-ad-card ">
+                     <span class="boosted-popular-premium">{{ optional($job->category)->name ?? 'N/A' }}</span>
+                     <br>
                      <div class="category-job d-flex align-items-center">
                         <div class="job-icons">
                            <img src="{{ asset('images/job.svg') }}" alt="job-ico" class="img-fluid">
@@ -250,8 +252,6 @@ body {
                            </h3>
                         </div>
                      </div>
-                     <span class="boosted-popular-premium">{{ optional($job->category)->name ?? 'N/A' }}</span>
-                     <br>
                   </div>
                   <div class="catebox">
                      <h3 class="mt-0 add-title"><a href="{{ route('jobs.show', $job->slug) }}">{{ $job->title }}</a></h3>
