@@ -126,7 +126,7 @@
     
     <style>
     .search-wrap {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: #007bff;
         padding: 25px 0;
         margin-top: 20px;
         border-radius: 8px;
@@ -179,7 +179,7 @@
     
     .search-barwrp .btn.primary {
         background: white;
-        color: #667eea;
+        color: #007bff;
         border: 2px solid white;
         padding: 12px 30px;
         border-radius: 6px;
@@ -194,7 +194,7 @@
     }
     
     .search-barwrp .btn.primary:hover {
-        background: rgba(255, 255, 255, 0.9);
+        background: #f8f9fa;
         transform: translateY(-2px);
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
