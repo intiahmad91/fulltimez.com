@@ -113,8 +113,8 @@
                     <div class="row mb-4">
                         <div class="col-md-12">
                             <form method="GET" action="{{ route('admin.jobs.index') }}" class="row g-3">
-                                <div class="col-md-4">
-                                    <input type="text" class="form-control" name="search" 
+                <div class="col-md-4">
+                    <input type="text" class="form-control" name="search" 
                                            placeholder="Search jobs by title, location..." value="{{ request('search') }}">
                 </div>
                 <div class="col-md-3">

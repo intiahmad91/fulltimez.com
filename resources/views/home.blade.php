@@ -96,21 +96,6 @@ body {
         clear: both !important;
     }
     
-    /* Responsive Card Header */
-    .job-card-header {
-        padding: 12px !important;
-        margin: -15px -15px 10px -15px !important;
-    }
-    
-    .category-badge {
-        font-size: 11px !important;
-        margin-bottom: 6px !important;
-    }
-    
-    .company-name-header h3 {
-        font-size: 14px !important;
-    }
-    
     .job-icons {
         margin-bottom: 10px;
     }
@@ -123,35 +108,6 @@ body {
     .categery-name h3 {
         font-size: 18px;
         margin: 5px 0;
-    }
-    
-    /* Simple Card Header */
-    .job-card-header {
-        padding: 15px;
-        margin: -15px -15px 15px -15px;
-        border-bottom: 1px solid #e9ecef;
-    }
-    
-    .category-badge {
-        display: block;
-        font-size: 12px;
-        font-weight: 600;
-        color: #007bff;
-        margin-bottom: 8px;
-        text-transform: uppercase;
-    }
-    
-    .company-name-header {
-        margin-top: 5px;
-    }
-    
-    .company-name-header h3 {
-        font-size: 15px;
-        font-weight: 500;
-        color: #333;
-        margin: 0;
-        line-height: 1.4;
-        word-wrap: break-word;
     }
     
     .add-title {
@@ -226,23 +182,21 @@ body {
     }
     
     .price-ad {
-        text-align: center !important;
-        width: 100%;
-        margin-top: 10px;
-        padding-top: 10px;
-        border-top: 1px solid #f3f4f6;
+        text-align: center;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
     }
     
     .price-ad p {
-        font-size: 16px !important;
-        font-weight: 600 !important;
-        color: #007bff !important;
-        word-wrap: break-word !important;
-        white-space: normal !important;
-        line-height: 1.4 !important;
-        overflow-wrap: break-word !important;
-        margin: 0 !important;
-        padding: 0 !important;
+        font-size: 16px;
+        font-weight: 600;
+        color: #007bff;
+        margin: 0;
+        padding: 0;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        white-space: normal;
+        line-height: 1.4;
         max-width: 100%;
         display: block;
     }
@@ -284,13 +238,17 @@ body {
             @foreach($featuredJobs as $job)
             <li class="item wow fadeInUp">
               <div class="add-exp">
-                  <div class="jobs-ad-card">
-                     <div class="job-card-header">
-                        <span class="category-badge">{{ optional($job->category)->name ?? 'N/A' }}</span>
-                        <div class="company-name-header">
-                           <h3>{{ optional($job->employer->employerProfile)->company_name ?? 'Company' }}</h3>
+                  <div class="jobs-ad-card ">
+                     <div class="category-job d-flex align-items-center">
+                        <div class="job-icons">
+                           <img src="{{ asset('images/job.svg') }}" alt="job-ico" class="img-fluid">
+                        </div>
+                        <div class="categery-name">
+                           <h3>{{ optional($job->employer->employerProfile)->company_name ?? 'Company' }}
+                           </h3>
                         </div>
                      </div>
+                     <span class="boosted-popular-premium">{{ optional($job->category)->name ?? 'N/A' }}</span>
                   </div>
                   <div class="catebox">
                      <h3 class="mt-0 add-title"><a href="{{ route('jobs.show', $job->slug) }}">{{ $job->title }}</a></h3>
