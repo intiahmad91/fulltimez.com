@@ -90,7 +90,6 @@ body {
 
 .company-name h3 {
     font-size: 16px !important;
-    font-weight: 700 !important;
     color: #ffffff !important;
     margin: 0 !important;
     line-height: 1.4 !important;
@@ -112,7 +111,6 @@ body {
 
 .job-title a {
     font-size: 16px !important;
-    font-weight: 700 !important;
     color: #111827 !important;
     text-decoration: none !important;
     line-height: 1.4 !important;
@@ -141,7 +139,6 @@ body {
     background: #667eea !important;
     color: #ffffff !important;
     font-size: 11px !important;
-    font-weight: 700 !important;
     padding: 6px 14px !important;
     border-radius: 6px !important;
     text-transform: uppercase !important;
@@ -212,7 +209,6 @@ body {
     flex-wrap: nowrap !important;
     gap: 4px !important;
     font-size: 16px !important;
-    font-weight: 700 !important;
     color: #059669 !important;
     line-height: 1.2 !important;
     white-space: nowrap !important;
@@ -222,7 +218,6 @@ body {
 
 .price-ad p span.price-amount {
     font-size: 16px !important;
-    font-weight: 700 !important;
     color: #059669 !important;
     white-space: nowrap !important;
 }
@@ -236,7 +231,6 @@ body {
 
 .price-ad p span.price-negotiable {
     font-size: 16px !important;
-    font-weight: 700 !important;
     color: #059669 !important;
     white-space: nowrap !important;
 }
@@ -408,7 +402,6 @@ body {
 
 .jobs-wrap .job-content h3 a {
     font-size: 18px !important;
-    font-weight: 700 !important;
     color: #111827 !important;
     text-decoration: none !important;
     line-height: 1.5 !important;
@@ -464,7 +457,6 @@ body {
 
 .jobs-wrap .job_price {
     font-size: 15px !important;
-    font-weight: 700 !important;
     color: #059669 !important;
 }
 
@@ -573,7 +565,6 @@ body {
     align-items: center !important;
     justify-content: center !important;
     font-size: 24px !important;
-    font-weight: 700 !important;
     color: #ffffff !important;
     transition: all 0.3s ease !important;
     flex-shrink: 0 !important;
@@ -587,7 +578,6 @@ body {
 
 .seekerwrp .categery-name h3 {
     font-size: 18px !important;
-    font-weight: 700 !important;
     color: #111827 !important;
     margin: 0 !important;
     line-height: 1.4 !important;
@@ -637,7 +627,6 @@ body {
 }
 
 .seekerwrp .carinfo li span {
-    font-weight: 700 !important;
     color: #374151 !important;
     margin-left: 4px !important;
 }
@@ -669,7 +658,6 @@ body {
 
 .seekerwrp .price-ad p {
     font-size: 15px !important;
-    font-weight: 700 !important;
     color: #059669 !important;
     margin: 0 !important;
     text-align: left !important;
