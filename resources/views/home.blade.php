@@ -182,13 +182,25 @@ body {
     }
     
     .price-ad {
-        text-align: center;
+        text-align: center !important;
+        width: 100%;
+        margin-top: 10px;
+        padding-top: 10px;
+        border-top: 1px solid #f3f4f6;
     }
     
     .price-ad p {
-        font-size: 16px;
-        font-weight: 600;
-        color: #007bff;
+        font-size: 16px !important;
+        font-weight: 600 !important;
+        color: #007bff !important;
+        word-wrap: break-word !important;
+        white-space: normal !important;
+        line-height: 1.4 !important;
+        overflow-wrap: break-word !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        max-width: 100%;
+        display: block;
     }
 }
 
@@ -234,7 +246,6 @@ body {
                            <img src="{{ asset('images/job.svg') }}" alt="job-ico" class="img-fluid">
                         </div>
                         <div class="categery-name">
-                           <span>Company</span>
                            <h3>{{ optional($job->employer->employerProfile)->company_name ?? 'Company' }}
                            </h3>
                         </div>
@@ -252,8 +263,6 @@ body {
                      <ul class="carinfo ad-features-parent">
                         <li>Type <span>{{ ucfirst(str_replace('_', ' ', $job->employment_type)) }}</span></li>
                         <li>Experience <span>{{ $job->experience_years ?? 'N/A' }}</span></li>
-                        <li>EDucation <span>{{ $job->education_level ?? 'N/A' }}</span>
-                        </li>
                      </ul>
                      <div class="cartbx d-flex"><a href="#"><img src="{{ asset('images/location.svg') }}" alt="logo"> {{ $job->location_city }}</a>
                      </div>
