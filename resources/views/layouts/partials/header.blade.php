@@ -126,11 +126,9 @@
     
     <style>
     .search-wrap {
-        background: #007bff;
         padding: 25px 0;
         margin-top: 20px;
         border-radius: 8px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
     
     .search-barwrp {
@@ -150,7 +148,7 @@
     
     .search-barwrp .field .label {
         display: block;
-        color: white;
+        color: #333;
         font-weight: 600;
         margin-bottom: 8px;
         font-size: 14px;
@@ -159,18 +157,18 @@
     .search-barwrp .field .form-control {
         width: 100%;
         padding: 12px 15px;
-        border: 2px solid rgba(255, 255, 255, 0.3);
+        border: 2px solid #ddd;
         border-radius: 6px;
-        background: rgba(255, 255, 255, 0.95);
+        background: white;
         font-size: 14px;
         transition: all 0.3s ease;
     }
     
     .search-barwrp .field .form-control:focus {
         outline: none;
-        border-color: white;
+        border-color: #007bff;
         background: white;
-        box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2);
+        box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
     }
     
     .search-barwrp .actions {
@@ -178,9 +176,9 @@
     }
     
     .search-barwrp .btn.primary {
-        background: white;
-        color: #007bff;
-        border: 2px solid white;
+        background: #007bff;
+        color: white;
+        border: 2px solid #007bff;
         padding: 12px 30px;
         border-radius: 6px;
         font-weight: 600;
@@ -194,9 +192,10 @@
     }
     
     .search-barwrp .btn.primary:hover {
-        background: #f8f9fa;
+        background: #0056b3;
+        border-color: #0056b3;
         transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
     }
     
     .search-barwrp .btn.primary .icon {
@@ -210,7 +209,7 @@
         left: 0;
         right: 0;
         background: white;
-        border: 2px solid rgba(255, 255, 255, 0.3);
+        border: 2px solid #ddd;
         border-top: none;
         border-radius: 0 0 6px 6px;
         max-height: 200px;
