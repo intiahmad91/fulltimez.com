@@ -304,7 +304,11 @@ body {
     }
     
     .job-card-header {
-        padding: 20px 18px 18px !important;
+        padding: 18px 16px 16px !important;
+    }
+    
+    .header-top {
+        margin-bottom: 12px !important;
     }
     
     .company-header {
@@ -314,21 +318,19 @@ body {
     }
     
     .company-logo {
-        width: 46px !important;
-        height: 46px !important;
+        width: 44px !important;
+        height: 44px !important;
         margin: 0 auto !important;
     }
     
     .company-name h3 {
-        font-size: 16px !important;
+        font-size: 15px !important;
         text-align: center !important;
     }
     
     .category-badge-top {
-        font-size: 9px !important;
-        padding: 4px 10px !important;
-        top: 14px !important;
-        right: 14px !important;
+        font-size: 10px !important;
+        padding: 5px 12px !important;
     }
     
     .job-card-body {
@@ -374,24 +376,33 @@ body {
     }
     
     .job-card-header {
-        padding: 18px 16px 16px !important;
+        padding: 16px 14px 14px !important;
+    }
+    
+    .header-top {
+        margin-bottom: 10px !important;
     }
     
     .job-card-body {
-        padding: 18px 16px !important;
+        padding: 16px 14px !important;
     }
     
     .job-card-footer {
-        padding: 14px 16px !important;
+        padding: 12px 14px !important;
     }
     
     .company-logo {
-        width: 42px !important;
-        height: 42px !important;
+        width: 40px !important;
+        height: 40px !important;
     }
     
     .company-name h3 {
-        font-size: 15px !important;
+        font-size: 14px !important;
+    }
+    
+    .category-badge-top {
+        font-size: 9px !important;
+        padding: 4px 10px !important;
     }
     
     .job-title a {
