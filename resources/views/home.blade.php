@@ -34,8 +34,6 @@ body {
 
 .jobs-ad-card {
     background: #ffffff !important;
-    border: 1px solid #e5e7eb !important;
-    border-radius: 12px !important;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08) !important;
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
     position: relative !important;
