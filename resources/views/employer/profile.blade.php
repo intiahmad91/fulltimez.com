@@ -56,16 +56,20 @@ use Illuminate\Support\Facades\Storage;
                                             <div class="col-lg-6">
                                                 <div class="form-group">
                                                     <label>Profile Picture</label>
-                                                    <input type="file" name="profile_picture" class="form-control @error('profile_picture') is-invalid @enderror" accept="image/*">
+                                                    <input type="file" name="profile_picture" id="profile_picture" class="form-control @error('profile_picture') is-invalid @enderror" accept="image/*">
                                                     @error('profile_picture')
                                                         <div class="invalid-feedback">{{ $message }}</div>
                                                     @enderror
                                                     @if($user->employerProfile && $user->employerProfile->profile_picture)
-                                                        <div class="mt-2">
+                                                        <div class="mt-2" id="current_profile_preview">
                                                             <img src="{{ asset($user->employerProfile->profile_picture) }}" alt="Current Profile Picture" class="img-thumbnail" style="max-width: 100px; max-height: 100px;">
                                                             <small class="text-muted d-block">Current profile picture</small>
                                                         </div>
                                                     @endif
+                                                    <div id="profile_picture_preview" class="file-preview" style="display: none; margin-top: 8px; padding: 8px; background: #f8f9fa; border-radius: 4px;">
+                                                        <img id="profile_picture_img" src="" alt="Profile Picture Preview" style="max-width: 100px; max-height: 100px; border-radius: 4px; display: block;">
+                                                        <div id="profile_picture_info" class="file-info" style="margin-top: 6px; font-size: 12px;"></div>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
@@ -244,10 +248,17 @@ use Illuminate\Support\Facades\Storage;
                                             <div class="col-lg-6">
                                                 <div class="form-group">
                                                     <label>Company Logo (Max 2MB)</label>
-                                                    <input type="file" name="company_logo" class="form-control @error('company_logo') is-invalid @enderror" accept="image/*">
+                                                    <input type="file" name="company_logo" id="company_logo" class="form-control @error('company_logo') is-invalid @enderror" accept="image/*">
                                                     @if($user->employerProfile && $user->employerProfile->company_logo)
-                                                        <small class="text-muted d-block mt-1">Current: <a href="{{ asset($user->employerProfile->company_logo) }}" target="_blank">View Logo</a></small>
+                                                        <div class="mt-2" id="current_logo_preview">
+                                                            <img src="{{ asset($user->employerProfile->company_logo) }}" alt="Current Company Logo" class="img-thumbnail" style="max-width: 100px; max-height: 100px;">
+                                                            <small class="text-muted d-block">Current logo</small>
+                                                        </div>
                                                     @endif
+                                                    <div id="company_logo_preview" class="file-preview" style="display: none; margin-top: 8px; padding: 8px; background: #f8f9fa; border-radius: 4px;">
+                                                        <img id="company_logo_img" src="" alt="Logo Preview" style="max-width: 100px; max-height: 100px; border-radius: 4px; display: block;">
+                                                        <div id="company_logo_info" class="file-info" style="margin-top: 6px; font-size: 12px;"></div>
+                                                    </div>
                                                     @error('company_logo')
                                                         <div class="invalid-feedback">{{ $message }}</div>
                                                     @enderror
@@ -336,6 +347,54 @@ document.addEventListener('DOMContentLoaded', function() {
         countrySelect.dispatchEvent(new Event('change'));
     }
     
+    // Profile picture preview
+    const profilePictureInput = document.getElementById('profile_picture');
+    if (profilePictureInput) {
+        profilePictureInput.addEventListener('change', function() {
+            const file = this.files[0];
+            const preview = document.getElementById('profile_picture_preview');
+            const img = document.getElementById('profile_picture_img');
+            const info = document.getElementById('profile_picture_info');
+            const currentProfilePreview = document.getElementById('current_profile_preview');
+            
+            if (file) {
+                const fileSize = file.size / 1024 / 1024; // in MB
+                const validTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+                
+                if (!validTypes.includes(file.type)) {
+                    alert('Please select a JPG, JPEG, or PNG image');
+                    this.value = '';
+                    if (preview) preview.style.display = 'none';
+                    return;
+                }
+                
+                if (fileSize > 2) {
+                    alert('Profile picture must not exceed 2MB');
+                    this.value = '';
+                    if (preview) preview.style.display = 'none';
+                    return;
+                }
+                
+                // Hide current profile preview if exists
+                if (currentProfilePreview) {
+                    currentProfilePreview.style.display = 'none';
+                }
+                
+                // Show preview
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    if (img) img.src = e.target.result;
+                    if (info) info.innerHTML = `<strong>${file.name}</strong><br>Size: ${fileSize.toFixed(2)} MB`;
+                    if (preview) preview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            } else {
+                if (preview) preview.style.display = 'none';
+                if (currentProfilePreview) currentProfilePreview.style.display = 'block';
+            }
+        });
+    }
+    
     form.addEventListener('submit', function(e) {
         let isValid = true;
         const requiredFields = form.querySelectorAll('[required]');
@@ -374,25 +433,49 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    const logoInput = document.querySelector('[name="company_logo"]');
+    const logoInput = document.getElementById('company_logo');
     if (logoInput) {
         logoInput.addEventListener('change', function() {
             const file = this.files[0];
+            const preview = document.getElementById('company_logo_preview');
+            const img = document.getElementById('company_logo_img');
+            const info = document.getElementById('company_logo_info');
+            const currentLogoPreview = document.getElementById('current_logo_preview');
+            
             if (file) {
-                const fileSize = file.size / 1024 / 1024;
+                const fileSize = file.size / 1024 / 1024; // in MB
                 const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
-                
-                if (fileSize > 2) {
-                    alert('Logo file size must not exceed 2MB');
-                    this.value = '';
-                    return false;
-                }
                 
                 if (!allowedTypes.includes(file.type)) {
                     alert('Please upload JPG or PNG image only');
                     this.value = '';
+                    if (preview) preview.style.display = 'none';
                     return false;
                 }
+                
+                if (fileSize > 2) {
+                    alert('Logo file size must not exceed 2MB');
+                    this.value = '';
+                    if (preview) preview.style.display = 'none';
+                    return false;
+                }
+                
+                // Hide current logo preview if exists
+                if (currentLogoPreview) {
+                    currentLogoPreview.style.display = 'none';
+                }
+                
+                // Show new preview
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    if (img) img.src = e.target.result;
+                    if (info) info.innerHTML = `<strong>${file.name}</strong><br>Size: ${fileSize.toFixed(2)} MB`;
+                    if (preview) preview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            } else {
+                if (preview) preview.style.display = 'none';
+                if (currentLogoPreview) currentLogoPreview.style.display = 'block';
             }
         });
     }
