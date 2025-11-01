@@ -96,6 +96,46 @@ body {
         clear: both !important;
     }
     
+    /* Responsive Card Header */
+    .job-card-header {
+        padding: 15px !important;
+        margin: -15px -15px 10px -15px !important;
+    }
+    
+    .category-badge-header {
+        margin-bottom: 12px !important;
+    }
+    
+    .category-badge {
+        font-size: 10px !important;
+        padding: 5px 12px !important;
+    }
+    
+    .company-info-header {
+        flex-direction: column !important;
+        gap: 8px !important;
+        padding-top: 8px !important;
+    }
+    
+    .company-icon {
+        width: 40px !important;
+        height: 40px !important;
+    }
+    
+    .company-icon img {
+        width: 24px !important;
+        height: 24px !important;
+    }
+    
+    .company-name-header {
+        text-align: center !important;
+        width: 100% !important;
+    }
+    
+    .company-name-header h3 {
+        font-size: 14px !important;
+    }
+    
     .job-icons {
         margin-bottom: 10px;
     }
@@ -108,6 +148,73 @@ body {
     .categery-name h3 {
         font-size: 18px;
         margin: 5px 0;
+    }
+    
+    /* Redesigned Card Header */
+    .job-card-header {
+        background: #f8f9fa;
+        border-radius: 12px 12px 0 0;
+        padding: 20px;
+        margin: -15px -15px 15px -15px;
+        border-bottom: 2px solid #e9ecef;
+    }
+    
+    .category-badge-header {
+        text-align: center;
+        margin-bottom: 15px;
+    }
+    
+    .category-badge {
+        display: inline-block;
+        background: #007bff;
+        color: #fff;
+        font-size: 11px;
+        font-weight: 600;
+        padding: 6px 14px;
+        border-radius: 20px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        box-shadow: 0 2px 8px rgba(0, 123, 255, 0.2);
+    }
+    
+    .company-info-header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        padding-top: 10px;
+    }
+    
+    .company-icon {
+        width: 45px;
+        height: 45px;
+        background: #ffffff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        flex-shrink: 0;
+    }
+    
+    .company-icon img {
+        width: 28px;
+        height: 28px;
+        object-fit: contain;
+    }
+    
+    .company-name-header {
+        flex: 1;
+        text-align: left;
+    }
+    
+    .company-name-header h3 {
+        font-size: 16px;
+        font-weight: 600;
+        color: #2c3e50;
+        margin: 0;
+        line-height: 1.3;
+        word-wrap: break-word;
     }
     
     .add-title {
@@ -240,16 +347,18 @@ body {
             @foreach($featuredJobs as $job)
             <li class="item wow fadeInUp">
               <div class="add-exp">
-                  <div class="jobs-ad-card ">
-                     <span class="boosted-popular-premium">{{ optional($job->category)->name ?? 'N/A' }}</span>
-                     <br>
-                     <div class="category-job d-flex align-items-center">
-                        <div class="job-icons">
-                           <img src="{{ asset('images/job.svg') }}" alt="job-ico" class="img-fluid">
+                  <div class="jobs-ad-card">
+                     <div class="job-card-header">
+                        <div class="category-badge-header">
+                           <span class="category-badge">{{ optional($job->category)->name ?? 'N/A' }}</span>
                         </div>
-                        <div class="categery-name">
-                           <h3>{{ optional($job->employer->employerProfile)->company_name ?? 'Company' }}
-                           </h3>
+                        <div class="company-info-header">
+                           <div class="company-icon">
+                              <img src="{{ asset('images/job.svg') }}" alt="company-icon" class="img-fluid">
+                           </div>
+                           <div class="company-name-header">
+                              <h3>{{ optional($job->employer->employerProfile)->company_name ?? 'Company' }}</h3>
+                           </div>
                         </div>
                      </div>
                   </div>
