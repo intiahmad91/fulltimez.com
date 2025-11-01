@@ -44,25 +44,29 @@ $('[data-toggle="offcanvas"]').on('click', function () {
             nav: false,
             margin:20,
             dots:false,
-    autoplay:true,
-    autoplayTimeout:3000,
+            autoplay:true,
+            autoplayTimeout:3000,
             responsiveClass: true,
             responsive: {
                 0: {
                     items: 1,
-                    nav: true
+                    nav: true,
+                    margin: 10
                 },
-                700: {
+                600: {
                     items: 2,
-                    nav: false
+                    nav: false,
+                    margin: 15
                 },
                 900: {
                     items: 3,
-                    nav: false
+                    nav: false,
+                    margin: 20
                 },
-                1170: {
-                    items: 6,
-                    nav: true
+                1200: {
+                    items: 4,
+                    nav: true,
+                    margin: 20
                 }
             }
         });

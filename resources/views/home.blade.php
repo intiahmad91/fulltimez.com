@@ -13,18 +13,21 @@ body {
     overflow-x: hidden !important;
 }
 
-/* Modern Professional Job Card Design */
+/* Modern Professional Job Card Design with Owl Carousel */
 .featured-jobs-grid {
-    display: grid !important;
-    grid-template-columns: repeat(4, 1fr) !important;
-    gap: 20px !important;
     padding: 20px 0 !important;
 }
 
-@media (max-width: 1200px) {
-    .featured-jobs-grid {
-        grid-template-columns: repeat(3, 1fr) !important;
-    }
+.featured-jobs-grid .owl-carousel {
+    padding: 0 !important;
+}
+
+.featured-jobs-grid .owl-stage-outer {
+    padding: 0 !important;
+}
+
+.featured-jobs-grid .owl-item {
+    padding: 0 10px !important;
 }
 
 .featured-job-card {
@@ -238,17 +241,9 @@ body {
     white-space: nowrap !important;
 }
 
-@media (max-width: 992px) {
-    .featured-jobs-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 18px !important;
-    }
-}
-
 @media (max-width: 768px) {
-    .featured-jobs-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 16px !important;
+    .featured-jobs-grid .owl-item {
+        padding: 0 8px !important;
     }
     
     .job-card-header {
@@ -580,50 +575,54 @@ body {
       <div class="container">
          <div class="main_title">Featured Jobs</div>
          <div class="featured-jobs-grid">
-            @foreach($featuredJobs as $job)
-            <div class="featured-job-card wow fadeInUp">
-               <div class="job-card-header">
-                  <div class="company-header">
-                     <div class="company-logo">
-                        <img src="{{ asset('images/job.svg') }}" alt="company-logo">
+            <ul class="owl-carousel jobs_list featured-jobs-carousel">
+               @foreach($featuredJobs as $job)
+               <li class="item wow fadeInUp">
+                  <div class="featured-job-card">
+                     <div class="job-card-header">
+                        <div class="company-header">
+                           <div class="company-logo">
+                              <img src="{{ asset('images/job.svg') }}" alt="company-logo">
+                           </div>
+                           <div class="company-name">
+                              <h3>{{ optional($job->employer->employerProfile)->company_name ?? 'Company' }}</h3>
+                           </div>
+                        </div>
                      </div>
-                     <div class="company-name">
-                        <h3>{{ optional($job->employer->employerProfile)->company_name ?? 'Company' }}</h3>
+                     <div class="job-card-body">
+                        <div class="job-title">
+                           <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->title }}</a>
+                        </div>
+                        <div class="job-meta">
+                           <div class="category-badge-top">{{ optional($job->category)->name ?? 'N/A' }}</div>
+                           <div class="meta-badge">
+                              Type: <span>{{ ucfirst(str_replace('_', ' ', $job->employment_type)) }}</span>
+                           </div>
+                           <div class="meta-badge">
+                              Experience: <span>{{ $job->experience_years ?? 'N/A' }}</span>
+                           </div>
+                        </div>
+                        <div class="location-info">
+                           <img src="{{ asset('images/location.svg') }}" alt="location">
+                           <span>{{ $job->location_city }}</span>
+                        </div>
+                     </div>
+                     <div class="job-card-footer">
+                        <div class="price-ad">
+                           <p>
+                              @if(!empty($job->salary_min) && !empty($job->salary_max))
+                                  <span class="price-amount">{{ $job->salary_currency ?? 'AED' }} {{ number_format((float)$job->salary_min) }} - {{ number_format((float)$job->salary_max) }}</span>
+                                  <span class="price-period">/ {{ ucfirst($job->salary_period ?? 'monthly') }}</span>
+                              @else
+                                  <span class="price-negotiable">Negotiable</span>
+                              @endif
+                           </p>
+                        </div>
                      </div>
                   </div>
-               </div>
-               <div class="job-card-body">
-                  <div class="job-title">
-                     <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->title }}</a>
-                  </div>
-                  <div class="job-meta">
-                     <div class="category-badge-top">{{ optional($job->category)->name ?? 'N/A' }}</div>
-                     <div class="meta-badge">
-                        Type: <span>{{ ucfirst(str_replace('_', ' ', $job->employment_type)) }}</span>
-                     </div>
-                     <div class="meta-badge">
-                        Experience: <span>{{ $job->experience_years ?? 'N/A' }}</span>
-                     </div>
-                  </div>
-                  <div class="location-info">
-                     <img src="{{ asset('images/location.svg') }}" alt="location">
-                     <span>{{ $job->location_city }}</span>
-                  </div>
-               </div>
-               <div class="job-card-footer">
-                  <div class="price-ad">
-                     <p>
-                        @if(!empty($job->salary_min) && !empty($job->salary_max))
-                            <span class="price-amount">{{ $job->salary_currency ?? 'AED' }} {{ number_format((float)$job->salary_min) }} - {{ number_format((float)$job->salary_max) }}</span>
-                            <span class="price-period">/ {{ ucfirst($job->salary_period ?? 'monthly') }}</span>
-                        @else
-                            <span class="price-negotiable">Negotiable</span>
-                        @endif
-                     </p>
-                  </div>
-               </div>
-            </div>
-            @endforeach
+               </li>
+               @endforeach
+            </ul>
          </div>
       </div> 
    </section>
