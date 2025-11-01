@@ -717,6 +717,11 @@ document.addEventListener('DOMContentLoaded', function() {
     border-color: #007bff;
     box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
 }
+
+.phone-input-group input[type="tel"] {
+    position: relative;
+    top: 10px;
+}
 </style>
 @endpush
 @endsection

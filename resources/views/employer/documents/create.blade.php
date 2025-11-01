@@ -494,6 +494,33 @@ document.addEventListener('DOMContentLoaded', function() {
         width: 100%;
         margin-bottom: 10px;
     }
+    
+    .phone-input-group {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .country-code-selector {
+        flex: none !important;
+        width: 100%;
+    }
+    
+    .phone-number-input {
+        flex: none !important;
+        width: 100%;
+    }
+}
+
+.phone-input-group input[type="tel"] {
+    position: relative;
+    top: 10px;
+}
+
+.phone-input-group input[type="tel"]:focus,
+.country-code-selector select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
 }
 </style>
 @endsection
