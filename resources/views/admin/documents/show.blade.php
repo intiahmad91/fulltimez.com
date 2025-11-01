@@ -111,9 +111,20 @@ use Illuminate\Support\Facades\Storage;
                                     <strong>Document File:</strong>
                                 </div>
                                 <div class="col-sm-9">
-                                    <a href="{{ route('admin.documents.file', $document) }}" target="_blank" class="btn btn-outline-primary">
-                                        <i class="fas fa-download"></i> View Document
-                                    </a>
+                                    @php 
+                                        $documentUrl = asset($document->document_path);
+                                    @endphp
+                                    <div class="btn-group" role="group">
+                                        <a href="{{ $documentUrl }}" target="_blank" class="btn btn-outline-primary">
+                                            <i class="fas fa-eye"></i> View Document
+                                        </a>
+                                        <a href="{{ $documentUrl }}" download class="btn btn-primary">
+                                            <i class="fas fa-download"></i> Download
+                                        </a>
+                                    </div>
+                                    <small class="d-block text-muted mt-2">
+                                        <strong>File Path:</strong> {{ $document->document_path }}
+                                    </small>
                                 </div>
                             </div>
                         @endif
@@ -318,7 +329,7 @@ use Illuminate\Support\Facades\Storage;
                                                     <div><strong>License #:</strong> {{ $doc->document_number }}</div>
                                                 @endif
                                                 @if($doc->document_path)
-                                                    <a href="{{ route('admin.documents.file', $doc) }}" target="_blank" class="btn btn-xs btn-outline-primary mt-1">
+                                                    <a href="{{ asset($doc->document_path) }}" target="_blank" class="btn btn-xs btn-outline-primary mt-1">
                                                         <i class="fas fa-eye"></i> View File
                                                     </a>
                                                 @endif
