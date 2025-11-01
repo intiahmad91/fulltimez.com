@@ -120,14 +120,13 @@ use Illuminate\Support\Facades\Storage;
                                                             </div>
                                                             <div class="col-sm-8">
                                                                 @php 
-                                                                    $token = hash_hmac('sha256', $document->document_path, config('app.key'));
-                                                                    $downloadUrl = asset($document->document_path);
+                                                                    $documentUrl = asset($document->document_path);
                                                                 @endphp
                                                                 <div class="btn-group" role="group">
-                                                                    <a href="{{ route('documents.stream', ['document' => $document->id, 't' => $token]) }}" target="_blank" class="btn btn-sm btn-outline-primary">
+                                                                    <a href="{{ $documentUrl }}" target="_blank" class="btn btn-sm btn-outline-primary">
                                                                         <i class="fas fa-eye"></i> View Document
                                                                     </a>
-                                                                    <a href="{{ $downloadUrl }}" download class="btn btn-sm btn-primary">
+                                                                    <a href="{{ $documentUrl }}" download class="btn btn-sm btn-primary">
                                                                         <i class="fas fa-download"></i> Download
                                                                     </a>
                                                                 </div>
