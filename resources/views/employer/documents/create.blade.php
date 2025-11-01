@@ -145,8 +145,8 @@
                                         <div class="col-md-6">
                                             <div class="form-group mb-4">
                                                 <label for="company_website" class="form-label">Company Website <span class="text-danger">*</span></label>
-                                                <input type="url" name="company_website" id="company_website" class="form-control @error('company_website') is-invalid @enderror" value="{{ old('company_website') }}" placeholder="https://www.company.com">
-                                                <small class="form-text text-muted">Enter your official company website URL</small>
+                                                <input type="text" name="company_website" id="company_website" class="form-control @error('company_website') is-invalid @enderror" value="{{ old('company_website') }}" placeholder="www.company.com or https://www.company.com">
+                                                <small class="form-text text-muted">Enter your website URL (e.g., www.company.com or https://www.company.com). https:// will be added automatically if not provided.</small>
                                                 @error('company_website')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror

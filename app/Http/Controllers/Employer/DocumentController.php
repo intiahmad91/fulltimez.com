@@ -86,9 +86,13 @@ class DocumentController extends Controller
 		// Normalize company website: add https:// if missing scheme
 		if ($request->filled('company_website')) {
 			$website = trim($request->input('company_website'));
+			
+			// If it doesn't start with http:// or https://, add https://
 			if (!preg_match('/^https?:\/\//i', $website)) {
+				// Add https:// before the website (handles both www.abc.com and abc.com)
 				$website = 'https://' . ltrim($website);
 			}
+			
 			$request->merge(['company_website' => $website]);
 		}
 
@@ -97,13 +101,23 @@ class DocumentController extends Controller
             'trade_license_number' => 'nullable|string|max:255',
             'landline_number' => 'nullable|string|max:20',
             'company_email' => 'nullable|email|max:255',
-            'company_website' => 'nullable|url|max:255',
+            'company_website' => [
+                'nullable',
+                'string',
+                'max:255',
+                function ($attribute, $value, $fail) {
+                    if (!empty($value)) {
+                        // After normalization, check if it's a valid URL
+                        if (!filter_var($value, FILTER_VALIDATE_URL)) {
+                            $fail('Please enter a valid website URL. If you entered without https://, please add https:// at the beginning (e.g., https://www.example.com).');
+                        }
+                    }
+                },
+            ],
             'contact_person_name' => 'nullable|string|min:3|max:100',
             'contact_person_mobile' => 'nullable|string|min:10|max:20',
             'contact_person_position' => 'nullable|string|min:2|max:100',
             'contact_person_email' => 'nullable|email|max:255',
-        ], [
-            'company_website.url' => 'Please enter a valid website URL (e.g., https://www.example.com).',
         ]);
         $submittedDocuments = [];
 
