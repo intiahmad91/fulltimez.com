@@ -519,6 +519,48 @@ button svg{
     }
 }
 
+/* Browse Buttons Styling */
+.btn-browse-jobs,
+.btn-browse-seekers {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 32px;
+    background: #667eea;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
+}
+
+.btn-browse-jobs:hover,
+.btn-browse-seekers:hover {
+    background: #5568d3;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    text-decoration: none;
+}
+
+.btn-browse-jobs i,
+.btn-browse-seekers i {
+    font-size: 16px;
+}
+
+@media (max-width: 768px) {
+    .btn-browse-jobs,
+    .btn-browse-seekers {
+        padding: 12px 24px;
+        font-size: 15px;
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
 /* Job Seekers Section Styling */
 .seekerwrp .add-exp {
     height: 100% !important;
@@ -1016,7 +1058,11 @@ JOBSEEKER</a></div>
 @endforeach
 </div>
 </div>
-
+<div class="text-center mt-4 mb-4">
+   <a href="{{ route('jobs.index') }}" class="btn-browse-jobs">
+      <i class="fas fa-search"></i> Browse All Jobs
+   </a>
+</div>
 
 </div>
 
@@ -1092,7 +1138,12 @@ JOBSEEKER</a></div>
             @endforeach
 
          </ul>
-      </div> 
+      </div>
+      <div class="text-center mt-4 mb-4">
+         <a href="{{ route('candidates.index') }}" class="btn-browse-seekers">
+            <i class="fas fa-users"></i> Browse All Job Seekers
+         </a>
+      </div>
       </div> 
    </section>
  
