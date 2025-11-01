@@ -548,6 +548,12 @@ class DocumentController extends Controller
         $token = $request->query('t');
         $expected = hash_hmac('sha256', $document->document_path, config('app.key'));
         if (!$token || !hash_equals($expected, $token)) {
+            \Log::error('Invalid HMAC token for document stream', [
+                'document_id' => $document->id,
+                'provided_token' => $token,
+                'expected_token' => $expected,
+                'document_path' => $document->document_path,
+            ]);
             abort(403, 'Invalid or missing token.');
         }
 
@@ -571,11 +577,26 @@ class DocumentController extends Controller
         }
 
         if (!$fullPath || !file_exists($fullPath)) {
+            \Log::error('Document file not found in streamSigned', [
+                'document_id' => $document->id,
+                'document_path' => $document->document_path,
+                'attempted_paths' => $possiblePaths,
+            ]);
             abort(404, 'File not found. Please re-upload the document.');
         }
 
+        // Get the original filename from the path or generate one
+        $filename = basename($documentPath);
+        if (empty($filename) || $filename === $documentPath) {
+            // Generate filename based on document type
+            $extension = pathinfo($documentPath, PATHINFO_EXTENSION);
+            $filename = 'document_' . $document->id . '.' . ($extension ?: 'pdf');
+        }
+
         $mime = mime_content_type($fullPath) ?: 'application/octet-stream';
-        return response()->file($fullPath, [
+        
+        // Force download instead of inline viewing
+        return response()->download($fullPath, $filename, [
             'Content-Type' => $mime,
             'Cache-Control' => 'private, max-age=0, must-revalidate',
         ]);
