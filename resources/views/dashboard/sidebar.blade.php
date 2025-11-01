@@ -5,35 +5,34 @@
 <style>
 /* Modern Professional Sidebar Styles */
 .modern-sidebar {
-    background: #2c3e50;
+    background: #eceff8 !important;
     border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     overflow: hidden;
     position: sticky;
     top: 20px;
+    border: 1px solid #e0e0e0;
 }
 
 .sidebar-header {
-    background: rgba(255,255,255,0.1);
-    backdrop-filter: blur(10px);
+    background: #eceff8 !important;
     padding: 25px 20px;
     text-align: center;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
+    border-bottom: 1px solid #d0d0d0;
 }
 
 .sidebar-title {
-    color: #ffffff;
+    color: #333;
     font-size: 20px;
     font-weight: 600;
     margin: 0;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .profile-section {
     padding: 25px 20px;
     text-align: center;
-    background: rgba(255,255,255,0.05);
-    border-bottom: 1px solid rgba(255,255,255,0.1);
+    background: #eceff8 !important;
+    border-bottom: 1px solid #d0d0d0;
 }
 
 .profile-image-container {
@@ -47,21 +46,21 @@
     height: 80px;
     border-radius: 50%;
     object-fit: cover;
-    border: 3px solid rgba(255,255,255,0.3);
+    border: 3px solid #d0d0d0;
     transition: all 0.3s ease;
 }
 
 .profile-image:hover {
     transform: scale(1.05);
-    border-color: rgba(255,255,255,0.6);
+    border-color: #007bff;
 }
 
 .default-user-icon {
     width: 80px;
     height: 80px;
     border-radius: 50%;
-    background: rgba(255,255,255,0.1);
-    border: 3px solid rgba(255,255,255,0.3);
+    background: #d0d0d0;
+    border: 3px solid #d0d0d0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -70,13 +69,13 @@
 
 .default-user-icon:hover {
     transform: scale(1.05);
-    border-color: rgba(255,255,255,0.6);
-    background: rgba(255,255,255,0.15);
+    border-color: #007bff;
+    background: #d0d0d0;
 }
 
 .default-user-icon i {
     font-size: 32px;
-    color: rgba(255,255,255,0.8);
+    color: #666;
 }
 
 .online-indicator {
@@ -98,15 +97,14 @@
 }
 
 .profile-name {
-    color: #ffffff;
+    color: #333;
     font-size: 18px;
     font-weight: 600;
     margin: 0;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .profile-role {
-    color: rgba(255,255,255,0.8);
+    color: #666;
     font-size: 14px;
     margin-top: 5px;
     text-transform: uppercase;
@@ -117,11 +115,12 @@
     padding: 0;
     margin: 0;
     list-style: none;
+    background: #eceff8 !important;
 }
 
 .nav-item {
     margin: 0;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
+    border-bottom: 1px solid #d0d0d0;
 }
 
 .nav-item:last-child {
@@ -132,23 +131,25 @@
     display: flex;
     align-items: center;
     padding: 15px 20px;
-    color: rgba(255,255,255,0.9);
+    color: #333;
     text-decoration: none;
     transition: all 0.3s ease;
     position: relative;
     font-weight: 500;
+    background: #eceff8 !important;
 }
 
 .nav-link:hover {
-    background: rgba(255,255,255,0.1);
-    color: #ffffff;
+    background: #d0d5e5 !important;
+    color: #007bff;
     transform: translateX(5px);
 }
 
 .nav-link.active {
-    background: rgba(255,255,255,0.15);
-    color: #ffffff;
-    border-left: 4px solid #ffffff;
+    background: #d0d5e5 !important;
+    color: #007bff;
+    border-left: 4px solid #007bff;
+    font-weight: 600;
 }
 
 .nav-link.active::before {
@@ -158,7 +159,7 @@
     top: 0;
     bottom: 0;
     width: 4px;
-    background: #3498db;
+    background: #007bff;
 }
 
 .nav-icon {
@@ -168,6 +169,12 @@
     font-size: 16px;
     text-align: center;
     flex-shrink: 0;
+    color: #666;
+}
+
+.nav-link:hover .nav-icon,
+.nav-link.active .nav-icon {
+    color: #007bff;
 }
 
 .nav-text {
@@ -176,7 +183,7 @@
 }
 
 .notification-badge {
-    background: #ff4757;
+    background: #dc3545;
     color: #ffffff;
     font-size: 11px;
     font-weight: 600;
@@ -202,7 +209,8 @@
 
 .disabled-link:hover {
     transform: none;
-    background: rgba(255,255,255,0.05);
+    background: #eceff8 !important;
+    color: #999;
 }
 
 .disabled-link::after {
@@ -217,17 +225,18 @@
 .logout-section {
     margin-top: 20px;
     padding-top: 20px;
-    border-top: 1px solid rgba(255,255,255,0.1);
+    border-top: 1px solid #d0d0d0;
 }
 
 .logout-link {
-    color: #e74c3c !important;
+    color: #dc3545 !important;
     font-weight: 600;
+    background: #eceff8 !important;
 }
 
 .logout-link:hover {
-    background: rgba(231, 76, 60, 0.1) !important;
-    color: #c0392b !important;
+    background: #f8d7da !important;
+    color: #c82333 !important;
 }
 
 /* Responsive Design */
