@@ -1422,58 +1422,6 @@ button svg{
     </div>
 </section>
 
-
-
-<div class="jobs-wrap">
-   <div class="container">
-       <div class="title title_center">
-         <h1>Recommended Jobs</h1>
-      </div>
-      <div class="row">
-         
-
-         <div class="col-lg-12">
-<div class="row">
-@foreach($recommendedJobs as $job)
-<div class="col-lg-4 col-md-6">
-<div class="jobs" style="height: 100%; display: flex; flex-direction: column;">
-   <div class="job-content" style="flex: 1;">
-      <div class="jobdate">{{ $job->created_at->format('d/m/y') }}</div>
-      <p class="m-0">{{ optional($job->employer->employerProfile)->company_name ?? 'Company' }}</p>
-   <h3><a href="{{ route('jobs.show', $job->slug) }}">{{ $job->title }}</a></h3>
-   <ul class="tags">
-              @php
-                  $skills = is_array($job->skills_required) ? $job->skills_required : json_decode($job->skills_required, true);
-              @endphp
-              @if($skills && is_array($skills))
-                  @foreach(array_slice($skills, 0, 4) as $skill)
-                      <li><a href="#">{{ $skill }}</a></li>
-                  @endforeach
-              @endif
-            </ul>
-         </div>
-
-         <div class="d-flex align-items-center justify-content-between">
-         <div class="job_price">AED {{ number_format((float)($job->salary_min ?? 250)) }}/{{ $job->salary_period ?? 'hr' }} <span>{{ $job->location_city }}</span></div>
-         <div class="readmore m-0"><a href="{{ route('jobs.show', $job->slug) }}">Details</a></div>
-      </div>
-
-</div>
-</div>
-@endforeach
-</div>
-</div>
-<div class="text-center mt-4 mb-4">
-   <a href="{{ route('jobs.index') }}" class="btn-browse-jobs">
-      <i class="fas fa-search"></i> Browse All Jobs
-   </a>
-</div>
-
-</div>
-
-   </div>
-</div>
-
 <!-- Featured Candidates Section -->
 <section class="featured-candidates-section mt-5 mb-5">
     <div class="container">
@@ -1581,6 +1529,56 @@ button svg{
         </div>
     </div>
 </section>
+
+<div class="jobs-wrap">
+   <div class="container">
+       <div class="title title_center">
+         <h1>Recommended Jobs</h1>
+      </div>
+      <div class="row">
+         
+
+         <div class="col-lg-12">
+<div class="row">
+@foreach($recommendedJobs as $job)
+<div class="col-lg-4 col-md-6">
+<div class="jobs" style="height: 100%; display: flex; flex-direction: column;">
+   <div class="job-content" style="flex: 1;">
+      <div class="jobdate">{{ $job->created_at->format('d/m/y') }}</div>
+      <p class="m-0">{{ optional($job->employer->employerProfile)->company_name ?? 'Company' }}</p>
+   <h3><a href="{{ route('jobs.show', $job->slug) }}">{{ $job->title }}</a></h3>
+   <ul class="tags">
+              @php
+                  $skills = is_array($job->skills_required) ? $job->skills_required : json_decode($job->skills_required, true);
+              @endphp
+              @if($skills && is_array($skills))
+                  @foreach(array_slice($skills, 0, 4) as $skill)
+                      <li><a href="#">{{ $skill }}</a></li>
+                  @endforeach
+              @endif
+            </ul>
+         </div>
+
+         <div class="d-flex align-items-center justify-content-between">
+         <div class="job_price">AED {{ number_format((float)($job->salary_min ?? 250)) }}/{{ $job->salary_period ?? 'hr' }} <span>{{ $job->location_city }}</span></div>
+         <div class="readmore m-0"><a href="{{ route('jobs.show', $job->slug) }}">Details</a></div>
+      </div>
+
+</div>
+</div>
+@endforeach
+</div>
+</div>
+<div class="text-center mt-4 mb-4">
+   <a href="{{ route('jobs.index') }}" class="btn-browse-jobs">
+      <i class="fas fa-search"></i> Browse All Jobs
+   </a>
+</div>
+
+</div>
+
+   </div>
+</div>
 
    <!-- <section class="category-wrap seekerwrp popular-items mt-5">
       <div class="container">
