@@ -699,7 +699,7 @@ button svg{
 .candidate-name {
     font-size: 18px;
     color: #2d3748;
-    margin: 14 0 10px 0;
+    margin: 14px 0 10px 0 !important;
 }
 
 .candidate-rate {
