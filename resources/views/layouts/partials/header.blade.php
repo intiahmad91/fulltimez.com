@@ -8,10 +8,9 @@
     <nav class="top-nav">
       <ul class="tabs">
         <li class="tab"><a href="{{ route('home') }}">Home</a></li>
-        <li class="tab"><a href="{{ route('jobs.index') }}">Jobs</a></li>
-        <li class="tab"><a href="{{ route('employer.login') }}">Employer</a></li> 
-        <li class="tab"><a href="#">Packages</a></li>
-        <li class="tab"><a href="#">Book Meeting</a></li>
+        <li class="tab"><a href="{{ route('jobs.index') }}">Browse Jobs</a></li>
+        <li class="tab"><a href="{{ route('candidates.index') }}">Browse Resumes</a></li>
+        <li class="tab"><a href="{{ route('contact') }}">Contact Us</a></li>
       </ul>
     </nav>
 </div>
@@ -26,10 +25,9 @@
        </button>
        <div class="mobile-nav-menu" id="mobileNavMenu">
            <a href="{{ route('home') }}">Home</a>
-           <a href="{{ route('jobs.index') }}">Jobs</a>
-           <a href="{{ route('employer.login') }}">Employer</a>
-           <a href="#">Packages</a>
-           <a href="#">Book Meeting</a>
+           <a href="{{ route('jobs.index') }}">Browse Jobs</a>
+           <a href="{{ route('candidates.index') }}">Browse Resumes</a>
+           <a href="{{ route('contact') }}">Contact Us</a>
            <hr>
            @auth
            <a href="{{ route('dashboard') }}" class="mobile-auth-btn dashboard-btn">Dashboard</a>
