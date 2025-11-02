@@ -593,6 +593,18 @@ button svg{
     border-radius: 2px;
 }
 
+.featured-candidates-carousel-wrapper {
+    padding: 20px 0;
+}
+
+.featured-candidates-carousel-wrapper .owl-carousel {
+    padding: 0;
+}
+
+.featured-candidates-carousel-wrapper .owl-item {
+    padding: 0 10px;
+}
+
 .featured-candidate-card {
     background: #ffffff;
     border-radius: 12px;
@@ -1431,101 +1443,103 @@ button svg{
             <div class="featured-candidates-separator"></div>
         </div>
         
-        <div class="row g-4 featured-candidates-grid">
-            @forelse($featuredCandidates as $candidate)
-            <div class="col-lg-3 col-md-6">
-                <div class="featured-candidate-card">
-                    <!-- Featured Badge -->
-                    <div class="featured-badge">
-                        <i class="fas fa-star"></i>
-                    </div>
-                    
-                    <!-- Favorite Icon -->
-                    <div class="favorite-icon">
-                        <i class="far fa-heart"></i>
-                    </div>
-                    
-                    <!-- Profile Picture -->
-                    <div class="candidate-profile-picture">
-                        @if($candidate->seekerProfile && $candidate->seekerProfile->profile_picture)
-                            <img src="{{ asset($candidate->seekerProfile->profile_picture) }}" alt="{{ $candidate->seekerProfile->full_name ?? $candidate->name }}">
-                        @else
-                            <div class="candidate-avatar-default">
-                                {{ strtoupper(substr($candidate->seekerProfile->full_name ?? $candidate->name ?? 'U', 0, 1)) }}
-                            </div>
-                        @endif
-                    </div>
-                    
-                    <!-- Candidate Info -->
-                    <div class="candidate-card-body">
-                        <h5 class="candidate-name">{{ $candidate->seekerProfile->full_name ?? $candidate->name }}</h5>
+        <div class="featured-candidates-carousel-wrapper">
+            <ul class="owl-carousel jobs_list featured-candidates-carousel">
+                @forelse($featuredCandidates as $candidate)
+                <li class="item wow fadeInUp">
+                    <div class="featured-candidate-card">
+                        <!-- Featured Badge -->
+                        <div class="featured-badge">
+                            <i class="fas fa-star"></i>
+                        </div>
                         
-                        <!-- Rate -->
-                        <div class="candidate-rate">
-                            @php
-                                $salary = $candidate->seekerProfile->expected_salary ?? 'Negotiable';
-                                // Try to extract number from salary string
-                                if (preg_match('/(\d+[\d,]+)/', $salary, $matches)) {
-                                    $amount = str_replace(',', '', $matches[1]);
-                                    // Format as currency
-                                    echo 'AED ' . number_format((float)$amount);
-                                    // Check if it's hourly, weekly, or monthly
-                                    if (strpos(strtolower($salary), 'hr') !== false || $amount < 1000) {
-                                        echo '/Hr';
-                                    } elseif (strpos(strtolower($salary), 'we') !== false || ($amount >= 1000 && $amount < 10000)) {
-                                        echo '/We';
+                        <!-- Favorite Icon -->
+                        <div class="favorite-icon">
+                            <i class="far fa-heart"></i>
+                        </div>
+                        
+                        <!-- Profile Picture -->
+                        <div class="candidate-profile-picture">
+                            @if($candidate->seekerProfile && $candidate->seekerProfile->profile_picture)
+                                <img src="{{ asset($candidate->seekerProfile->profile_picture) }}" alt="{{ $candidate->seekerProfile->full_name ?? $candidate->name }}">
+                            @else
+                                <div class="candidate-avatar-default">
+                                    {{ strtoupper(substr($candidate->seekerProfile->full_name ?? $candidate->name ?? 'U', 0, 1)) }}
+                                </div>
+                            @endif
+                        </div>
+                        
+                        <!-- Candidate Info -->
+                        <div class="candidate-card-body">
+                            <h5 class="candidate-name">{{ $candidate->seekerProfile->full_name ?? $candidate->name }}</h5>
+                            
+                            <!-- Rate -->
+                            <div class="candidate-rate">
+                                @php
+                                    $salary = $candidate->seekerProfile->expected_salary ?? 'Negotiable';
+                                    // Try to extract number from salary string
+                                    if (preg_match('/(\d+[\d,]+)/', $salary, $matches)) {
+                                        $amount = str_replace(',', '', $matches[1]);
+                                        // Format as currency
+                                        echo 'AED ' . number_format((float)$amount);
+                                        // Check if it's hourly, weekly, or monthly
+                                        if (strpos(strtolower($salary), 'hr') !== false || $amount < 1000) {
+                                            echo '/Hr';
+                                        } elseif (strpos(strtolower($salary), 'we') !== false || ($amount >= 1000 && $amount < 10000)) {
+                                            echo '/We';
+                                        } else {
+                                            echo '/Mo';
+                                        }
                                     } else {
-                                        echo '/Mo';
+                                        echo $salary;
                                     }
-                                } else {
-                                    echo $salary;
-                                }
-                            @endphp
-                        </div>
-                        
-                        <!-- Profession -->
-                        <p class="candidate-profession">{{ $candidate->seekerProfile->current_position ?? 'Job Seeker' }}</p>
-                        
-                        <!-- Location -->
-                        <div class="candidate-location">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>{{ $candidate->seekerProfile->city ?? 'UAE' }}, {{ $candidate->seekerProfile->country ?? 'UAE' }}</span>
-                        </div>
-                        
-                        <!-- Rating -->
-                        <div class="candidate-rating">
-                            @php
-                                $rating = 4.5; // Default rating, you can calculate this based on reviews if you have them
-                            @endphp
-                            <div class="rating-stars">
-                                @for($i = 1; $i <= 5; $i++)
-                                    @if($i <= floor($rating))
-                                        <i class="fas fa-star"></i>
-                                    @elseif($i - 0.5 <= $rating)
-                                        <i class="fas fa-star-half-alt"></i>
-                                    @else
-                                        <i class="far fa-star"></i>
-                                    @endif
-                                @endfor
+                                @endphp
                             </div>
-                            <span class="rating-number">{{ number_format($rating, 1) }}</span>
+                            
+                            <!-- Profession -->
+                            <p class="candidate-profession">{{ $candidate->seekerProfile->current_position ?? 'Job Seeker' }}</p>
+                            
+                            <!-- Location -->
+                            <div class="candidate-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>{{ $candidate->seekerProfile->city ?? 'UAE' }}, {{ $candidate->seekerProfile->country ?? 'UAE' }}</span>
+                            </div>
+                            
+                            <!-- Rating -->
+                            <div class="candidate-rating">
+                                @php
+                                    $rating = 4.5; // Default rating, you can calculate this based on reviews if you have them
+                                @endphp
+                                <div class="rating-stars">
+                                    @for($i = 1; $i <= 5; $i++)
+                                        @if($i <= floor($rating))
+                                            <i class="fas fa-star"></i>
+                                        @elseif($i - 0.5 <= $rating)
+                                            <i class="fas fa-star-half-alt"></i>
+                                        @else
+                                            <i class="far fa-star"></i>
+                                        @endif
+                                    @endfor
+                                </div>
+                                <span class="rating-number">{{ number_format($rating, 1) }}</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Action Buttons -->
+                        <div class="candidate-card-footer">
+                            <a href="{{ route('candidates.show', $candidate->id) }}" class="btn-view-profile">View Profile</a>
+                            <a href="#" class="btn-hire-me">Hire Me</a>
                         </div>
                     </div>
-                    
-                    <!-- Action Buttons -->
-                    <div class="candidate-card-footer">
-                        <a href="{{ route('candidates.show', $candidate->id) }}" class="btn-view-profile">View Profile</a>
-                        <a href="#" class="btn-hire-me">Hire Me</a>
+                </li>
+                @empty
+                <li class="item">
+                    <div class="text-center py-5">
+                        <p class="text-muted">No featured candidates available at the moment.</p>
                     </div>
-                </div>
-            </div>
-            @empty
-            <div class="col-12">
-                <div class="text-center py-5">
-                    <p class="text-muted">No featured candidates available at the moment.</p>
-                </div>
-            </div>
-            @endforelse
+                </li>
+                @endforelse
+            </ul>
         </div>
     </div>
 </section>
