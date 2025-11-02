@@ -529,7 +529,6 @@ button svg{
     background: #2773e8;
     color: #ffffff;
     font-size: 16px;
-    font-weight: 700;
     border-radius: 8px;
     text-decoration: none;
     transition: all 0.3s ease;
@@ -574,7 +573,6 @@ button svg{
 
 .featured-candidates-title {
     font-size: 42px;
-    font-weight: 700;
     color: #2d3748;
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -687,7 +685,6 @@ button svg{
     align-items: center;
     justify-content: center;
     font-size: 48px;
-    font-weight: 700;
     color: #ffffff;
     border: 4px solid #ffffff;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -701,14 +698,12 @@ button svg{
 
 .candidate-name {
     font-size: 18px;
-    font-weight: 700;
     color: #2d3748;
     margin: 0 0 8px 0;
 }
 
 .candidate-rate {
     font-size: 16px;
-    font-weight: 700;
     color: #22c55e;
     margin: 0 0 8px 0;
 }
@@ -878,7 +873,6 @@ button svg{
 
 .split-banner-title {
     font-size: 48px;
-    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 2px;
     margin: 0 0 24px 0;
