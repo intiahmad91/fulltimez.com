@@ -1,7 +1,7 @@
 <style>
 /* Top Navigation Menu Styling - Simple */
 .top-nav {
-    padding: 8px 6px 10px;
+    padding: 8px 6px 10px; !implements
 }
 
 .top-nav .tabs {
@@ -21,7 +21,7 @@
 
 .top-nav .tab a {
     display: inline-block;
-    padding: 8px 16px;
+    padding: 8px 10px;
     color: #4a5568;
     text-decoration: none;
     font-size: 15px;
