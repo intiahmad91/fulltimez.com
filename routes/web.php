@@ -45,7 +45,9 @@ Route::post('/admin/logout', [App\Http\Controllers\Auth\AdminAuthController::cla
 // API routes for dynamic dropdowns
 Route::get('/api/cities/{country}', [App\Http\Controllers\Api\LocationController::class, 'getCitiesByCountry'])->name('api.cities.by-country');
 
-Route::get('/login', [JobseekerAuthController::class, 'showLogin'])->name('login');
+Route::get('/login', function () {
+    return view('auth.choose-login-role');
+})->name('login');
 Route::post('/logout', function () {
     $user = auth()->user();
     
