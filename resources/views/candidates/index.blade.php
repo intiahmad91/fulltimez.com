@@ -37,69 +37,6 @@
     margin-bottom: 15px;
 }
 
-.candidate-item {
-    background: white;
-    border: 1px solid #e9ecef;
-    border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 20px;
-    transition: border-color 0.2s ease;
-}
-
-.candidate-item:hover {
-    border-color: #007bff;
-}
-
-.candidate-avatar {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid #e9ecef;
-}
-
-.candidate-name {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: #2c3e50;
-    margin-bottom: 5px;
-}
-
-.candidate-position {
-    color: #007bff;
-    font-weight: 500;
-    margin-bottom: 10px;
-}
-
-.candidate-details {
-    color: #6c757d;
-    font-size: 0.9rem;
-    margin-bottom: 5px;
-}
-
-.view-btn {
-    background: #007bff;
-    color: white;
-    padding: 8px 20px;
-    border-radius: 4px;
-    text-decoration: none;
-    font-size: 0.9rem;
-    border: none;
-    transition: background-color 0.2s ease;
-}
-
-.view-btn:hover {
-    background: #0056b3;
-    color: white;
-    text-decoration: none;
-}
-
-.no-candidates {
-    text-align: center;
-    padding: 60px 20px;
-    color: #6c757d;
-}
-
 .search-form {
     display: flex;
     gap: 15px;
@@ -122,10 +59,239 @@
     border-radius: 4px;
 }
 
+/* Featured Candidate Card Styles */
+.candidates-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+    padding: 20px 0;
+}
+
+.featured-candidate-card {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.featured-candidate-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.featured-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 32px;
+    height: 32px;
+    background: #fbbf24;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    box-shadow: 0 2px 8px rgba(251, 191, 36, 0.3);
+}
+
+.featured-badge i {
+    color: #ffffff;
+    font-size: 14px;
+}
+
+.favorite-icon {
+    position: absolute;
+    top: 16px;
+    right: 50px;
+    width: 32px;
+    height: 32px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.favorite-icon:hover {
+    background: #fff;
+    transform: scale(1.1);
+}
+
+.favorite-icon i {
+    color: #9ca3af;
+    font-size: 16px;
+}
+
+.favorite-icon:hover i {
+    color: #ef4444;
+}
+
+.candidate-profile-picture {
+    padding: 30px 20px 20px;
+    display: flex;
+    justify-content: center;
+    background: #f8f9fa;
+}
+
+.candidate-profile-picture img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.candidate-avatar-default {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    color: #ffffff;
+    border: 4px solid #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.candidate-card-body {
+    padding: 0 20px 20px;
+    text-align: center;
+    flex: 1;
+}
+
+.candidate-name {
+    font-size: 18px;
+    color: #2d3748;
+    margin: 14px 0 10px 0 !important;
+    font-weight: 600;
+}
+
+.candidate-rate {
+    font-size: 16px;
+    color: #22c55e;
+    margin: 0 0 8px 0;
+    font-weight: 600;
+}
+
+.candidate-profession {
+    font-size: 14px;
+    color: #4a5568;
+    margin: 0 0 12px 0;
+}
+
+.candidate-location {
+    font-size: 14px;
+    color: #22c55e;
+    margin: 0 0 16px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.candidate-location i {
+    font-size: 14px;
+}
+
+.candidate-rating {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 0 0 20px 0;
+}
+
+.rating-stars {
+    display: flex;
+    gap: 2px;
+}
+
+.rating-stars i {
+    font-size: 14px;
+    color: #fbbf24;
+}
+
+.rating-number {
+    background: #22c55e;
+    color: #ffffff;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.candidate-card-footer {
+    padding: 16px 20px;
+    background: #f8f9fa;
+    border-top: 1px solid #e9ecef;
+    display: flex;
+    gap: 8px;
+}
+
+.btn-view-profile {
+    flex: 1;
+    background: #2d3748;
+    color: #ffffff;
+    text-align: center;
+    padding: 10px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-view-profile:hover {
+    background: #1a202c;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(45, 55, 72, 0.2);
+    text-decoration: none;
+}
+
+.btn-hire-me {
+    flex: 1;
+    background: #e5e7eb;
+    color: #4a5568;
+    text-align: center;
+    padding: 10px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-hire-me:hover {
+    background: #d1d5db;
+    color: #2d3748;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+}
+
+.no-candidates {
+    text-align: center;
+    padding: 60px 20px;
+    color: #6c757d;
+    grid-column: 1 / -1;
+}
+
 .simple-pagination {
     display: flex;
     justify-content: center;
-    margin-top: 30px;
+    margin-top: 40px;
 }
 
 .simple-pagination .pagination {
@@ -170,6 +336,12 @@
     cursor: not-allowed;
 }
 
+@media (max-width: 1200px) {
+    .candidates-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+    }
+}
 
 @media (max-width: 768px) {
     .search-form {
@@ -177,15 +349,27 @@
         gap: 10px;
     }
     
-    .candidate-item {
-        padding: 15px;
+    .candidates-grid {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 16px;
     }
     
-    .candidate-avatar {
-        width: 50px;
-        height: 50px;
+    .candidate-profile-picture img,
+    .candidate-avatar-default {
+        width: 100px;
+        height: 100px;
+        font-size: 40px;
     }
     
+    .candidate-name {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .candidates-grid {
+        grid-template-columns: 1fr;
+    }
 }
 </style>
 
@@ -223,46 +407,96 @@
         </form>
     </div>
 
-    <div class="row">
+    <div class="candidates-grid">
         @forelse($candidates as $candidate)
-        <div class="col-lg-6 col-md-12">
-            <div class="candidate-item">
-                <div class="d-flex align-items-start">
-                    <div class="me-3">
-                        <img src="{{ $candidate->seekerProfile && $candidate->seekerProfile->profile_picture ? asset($candidate->seekerProfile->profile_picture) : asset('images/avatar.jpg') }}" 
-                             alt="Candidate" class="candidate-avatar">
+        <div class="featured-candidate-card">
+            <!-- Featured Badge -->
+            <div class="featured-badge">
+                <i class="fas fa-star"></i>
+            </div>
+            
+            <!-- Favorite Icon -->
+            <div class="favorite-icon">
+                <i class="far fa-heart"></i>
+            </div>
+            
+            <!-- Profile Picture -->
+            <div class="candidate-profile-picture">
+                @if($candidate->seekerProfile && $candidate->seekerProfile->profile_picture)
+                    <img src="{{ asset($candidate->seekerProfile->profile_picture) }}" alt="{{ $candidate->seekerProfile->full_name ?? $candidate->name }}">
+                @else
+                    <div class="candidate-avatar-default">
+                        {{ strtoupper(substr($candidate->seekerProfile->full_name ?? $candidate->name ?? 'U', 0, 1)) }}
                     </div>
-                    <div class="flex-grow-1">
-                        <h4 class="candidate-name">{{ $candidate->seekerProfile->full_name ?? $candidate->name }}</h4>
-                        <p class="candidate-position">{{ $candidate->seekerProfile->current_position ?? 'Job Seeker' }}</p>
-                        
-                        <div class="candidate-details">
-                            <strong>Location:</strong> {{ $candidate->seekerProfile->city ?? 'N/A' }}, {{ $candidate->seekerProfile->country ?? 'UAE' }}
-                        </div>
-                        
-                        <div class="candidate-details">
-                            <strong>Experience:</strong> {{ $candidate->seekerProfile->experience_years ?? 'Not specified' }}
-                        </div>
-                        
-                        @if($candidate->seekerProfile && $candidate->seekerProfile->expected_salary)
-                        <div class="candidate-details">
-                            <strong>Expected Salary:</strong> {{ $candidate->seekerProfile->expected_salary }}
-                        </div>
-                        @endif
-                        
-                        <div class="mt-3">
-                            <a href="{{ route('candidates.show', $candidate->id) }}" class="view-btn">View Profile</a>
-                        </div>
-                    </div>
+                @endif
+            </div>
+            
+            <!-- Candidate Info -->
+            <div class="candidate-card-body">
+                <h5 class="candidate-name">{{ $candidate->seekerProfile->full_name ?? $candidate->name }}</h5>
+                
+                <!-- Rate -->
+                <div class="candidate-rate">
+                    @php
+                        $salary = $candidate->seekerProfile->expected_salary ?? 'Negotiable';
+                        // Try to extract number from salary string
+                        if (preg_match('/(\d+[\d,]+)/', $salary, $matches)) {
+                            $amount = str_replace(',', '', $matches[1]);
+                            // Format as currency
+                            echo 'AED ' . number_format((float)$amount);
+                            // Check if it's hourly, weekly, or monthly
+                            if (strpos(strtolower($salary), 'hr') !== false || $amount < 1000) {
+                                echo '/Hr';
+                            } elseif (strpos(strtolower($salary), 'we') !== false || ($amount >= 1000 && $amount < 10000)) {
+                                echo '/We';
+                            } else {
+                                echo '/Mo';
+                            }
+                        } else {
+                            echo $salary;
+                        }
+                    @endphp
                 </div>
+                
+                <!-- Profession -->
+                <p class="candidate-profession">{{ $candidate->seekerProfile->current_position ?? 'Job Seeker' }}</p>
+                
+                <!-- Location -->
+                <div class="candidate-location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>{{ $candidate->seekerProfile->city ?? 'UAE' }}, {{ $candidate->seekerProfile->country ?? 'UAE' }}</span>
+                </div>
+                
+                <!-- Rating -->
+                <div class="candidate-rating">
+                    @php
+                        $rating = 4.5; // Default rating, you can calculate this based on reviews if you have them
+                    @endphp
+                    <div class="rating-stars">
+                        @for($i = 1; $i <= 5; $i++)
+                            @if($i <= floor($rating))
+                                <i class="fas fa-star"></i>
+                            @elseif($i - 0.5 <= $rating)
+                                <i class="fas fa-star-half-alt"></i>
+                            @else
+                                <i class="far fa-star"></i>
+                            @endif
+                        @endfor
+                    </div>
+                    <span class="rating-number">{{ number_format($rating, 1) }}</span>
+                </div>
+            </div>
+            
+            <!-- Action Buttons -->
+            <div class="candidate-card-footer">
+                <a href="{{ route('candidates.show', $candidate->id) }}" class="btn-view-profile">Profile</a>
+                <a href="#" class="btn-hire-me">Hire Me</a>
             </div>
         </div>
         @empty
-        <div class="col-12">
-            <div class="no-candidates">
-                <h4>No candidates found</h4>
-                <p>No candidates match your search criteria. Try adjusting your filters.</p>
-            </div>
+        <div class="no-candidates">
+            <h4>No candidates found</h4>
+            <p>No candidates match your search criteria. Try adjusting your filters.</p>
         </div>
         @endforelse
     </div>
