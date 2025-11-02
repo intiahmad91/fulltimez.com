@@ -55,30 +55,30 @@
 
     <!-- Filters -->
     <div class="admin-card mb-4">
-        <div class="admin-card-body">
-            <form method="GET" action="{{ route('admin.users.index') }}" class="row g-3">
-                <div class="col-md-4">
+    <div class="admin-card-body">
+                                <form method="GET" action="{{ route('admin.users.index') }}" class="row g-3">
+                                    <div class="col-md-4">
                     <label class="form-label">Search</label>
-                    <input type="text" name="search" class="form-control" placeholder="Search by name or email..." value="{{ request('search') }}">
-                </div>
+                                        <input type="text" name="search" class="form-control" placeholder="Search by name or email..." value="{{ request('search') }}">
+                                    </div>
                 <div class="col-md-2">
                     <label class="form-label">Role</label>
-                    <select name="role" class="form-control">
-                        <option value="">All Roles</option>
-                        <option value="seeker" {{ request('role') == 'seeker' ? 'selected' : '' }}>Seekers</option>
-                        <option value="employer" {{ request('role') == 'employer' ? 'selected' : '' }}>Employers</option>
-                        <option value="admin" {{ request('role') == 'admin' ? 'selected' : '' }}>Admins</option>
-                    </select>
-                </div>
+                                        <select name="role" class="form-control">
+                                            <option value="">All Roles</option>
+                                            <option value="seeker" {{ request('role') == 'seeker' ? 'selected' : '' }}>Seekers</option>
+                                            <option value="employer" {{ request('role') == 'employer' ? 'selected' : '' }}>Employers</option>
+                                            <option value="admin" {{ request('role') == 'admin' ? 'selected' : '' }}>Admins</option>
+                                        </select>
+                                    </div>
                 <div class="col-md-2">
                     <label class="form-label">Status</label>
-                    <select name="status" class="form-control">
-                        <option value="">All Status</option>
-                        <option value="active" {{ request('status') == 'active' ? 'selected' : '' }}>Active</option>
-                        <option value="inactive" {{ request('status') == 'inactive' ? 'selected' : '' }}>Inactive</option>
-                        <option value="banned" {{ request('status') == 'banned' ? 'selected' : '' }}>Banned</option>
-                    </select>
-                </div>
+                                        <select name="status" class="form-control">
+                                            <option value="">All Status</option>
+                                            <option value="active" {{ request('status') == 'active' ? 'selected' : '' }}>Active</option>
+                                            <option value="inactive" {{ request('status') == 'inactive' ? 'selected' : '' }}>Inactive</option>
+                                            <option value="banned" {{ request('status') == 'banned' ? 'selected' : '' }}>Banned</option>
+                                        </select>
+                                    </div>
                 <div class="col-md-2">
                     <label class="form-label">Per Page</label>
                     <select name="per_page" class="form-control" onchange="this.form.submit()">
@@ -86,7 +86,7 @@
                         <option value="24" {{ request('per_page', 20) == 24 ? 'selected' : '' }}>24</option>
                         <option value="48" {{ request('per_page', 20) == 48 ? 'selected' : '' }}>48</option>
                     </select>
-                </div>
+                                    </div>
                 <div class="col-md-2 d-flex align-items-end gap-2">
                     <button type="submit" class="btn btn-primary flex-fill">
                         <i class="fas fa-filter"></i> Filter
@@ -94,14 +94,14 @@
                     <a href="{{ route('admin.users.index') }}" class="btn btn-outline-secondary">
                         <i class="fas fa-times"></i>
                     </a>
-                </div>
-            </form>
-        </div>
-    </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
 
     <!-- Users Grid -->
     <div class="row g-4">
-        @forelse($users as $user)
+                                    @forelse($users as $user)
         <div class="col-xl-3 col-lg-4 col-md-6">
             <div class="user-card">
                 <div class="user-card-header">
@@ -128,7 +128,7 @@
                         <i class="fas fa-envelope"></i> {{ $user->email }}
                     </p>
                     
-                    @if($user->isSeeker() && $user->seekerProfile)
+                                            @if($user->isSeeker() && $user->seekerProfile)
                         <div class="user-info">
                             <i class="fas fa-briefcase"></i>
                             <span>{{ $user->seekerProfile->current_position ?? 'Job Seeker' }}</span>
@@ -139,7 +139,7 @@
                             <span>{{ $user->seekerProfile->city }}</span>
                         </div>
                         @endif
-                    @elseif($user->isEmployer() && $user->employerProfile)
+                                            @elseif($user->isEmployer() && $user->employerProfile)
                         <div class="user-info">
                             <i class="fas fa-building"></i>
                             <span>{{ $user->employerProfile->company_name ?? 'Company' }}</span>
@@ -150,14 +150,14 @@
                             <span>{{ $user->employerProfile->city }}</span>
                         </div>
                         @endif
-                    @endif
+                                            @endif
                     
                     <div class="user-status-badges mt-3">
-                        @if($user->status == 'active')
+                                            @if($user->status == 'active')
                             <span class="status-badge status-active">
                                 <i class="fas fa-check-circle"></i> Active
                             </span>
-                        @elseif($user->status == 'inactive')
+                                            @elseif($user->status == 'inactive')
                             <span class="status-badge status-inactive">
                                 <i class="fas fa-pause-circle"></i> Inactive
                             </span>
@@ -181,11 +181,11 @@
                             <span class="status-badge status-verified">
                                 <i class="fas fa-envelope-check"></i> Verified
                             </span>
-                        @else
+                                            @else
                             <span class="status-badge status-unverified">
                                 <i class="fas fa-envelope-open"></i> Unverified
                             </span>
-                        @endif
+                                            @endif
                     </div>
                     
                     <div class="user-meta mt-3">
@@ -196,7 +196,7 @@
                     </div>
                 </div>
                 
-                @if(!$user->isAdmin())
+                                            @if(!$user->isAdmin())
                 <div class="user-card-footer">
                     <div class="btn-group w-100" role="group">
                         <a href="{{ route('admin.users.show', $user) }}" class="btn btn-sm btn-outline-primary">
@@ -204,86 +204,86 @@
                         </a>
                         
                         <div class="btn-group" role="group">
-                            <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown">
+                                                <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown">
                                 <i class="fas fa-cog"></i>
-                            </button>
+                                                </button>
                             <ul class="dropdown-menu dropdown-menu-end">
-                                @if($user->isEmployer() && $user->employerProfile && $user->employerProfile->verification_status !== 'verified')
-                                <li>
+                                                    @if($user->isEmployer() && $user->employerProfile && $user->employerProfile->verification_status !== 'verified')
+                                                    <li>
                                     <form action="{{ route('admin.users.approve-employer', $user) }}" method="POST" onsubmit="return confirm('Approve this employer?');">
-                                        @csrf
-                                        <button type="submit" class="dropdown-item text-success">
-                                            <i class="fas fa-check-circle"></i> Approve Employer
-                                        </button>
-                                    </form>
-                                </li>
-                                @endif
-                                
-                                @if($user->isSeeker() && $user->seekerProfile && $user->seekerProfile->verification_status !== 'verified')
-                                <li>
+                                                            @csrf
+                                                            <button type="submit" class="dropdown-item text-success">
+                                                                <i class="fas fa-check-circle"></i> Approve Employer
+                                                            </button>
+                                                        </form>
+                                                    </li>
+                                                    @endif
+                                                    
+                                                    @if($user->isSeeker() && $user->seekerProfile && $user->seekerProfile->verification_status !== 'verified')
+                                                    <li>
                                     <form action="{{ route('admin.users.approve-seeker', $user) }}" method="POST" onsubmit="return confirm('Approve this jobseeker?');">
-                                        @csrf
-                                        <button type="submit" class="dropdown-item text-success">
-                                            <i class="fas fa-check-circle"></i> Approve Jobseeker
-                                        </button>
-                                    </form>
-                                </li>
-                                @endif
-                                
+                                                            @csrf
+                                                            <button type="submit" class="dropdown-item text-success">
+                                                                <i class="fas fa-check-circle"></i> Approve Jobseeker
+                                                            </button>
+                                                        </form>
+                                                    </li>
+                                                    @endif
+                                                    
                                 @if($user->status != 'active')
-                                <li>
-                                    <form action="{{ route('admin.users.update-status', $user) }}" method="POST">
+                                                    <li>
+                                                        <form action="{{ route('admin.users.update-status', $user) }}" method="POST">
                                         @csrf @method('PUT')
-                                        <input type="hidden" name="status" value="active">
-                                        <button type="submit" class="dropdown-item text-success">
-                                            <i class="fas fa-toggle-on"></i> Activate
-                                        </button>
-                                    </form>
-                                </li>
+                                                            <input type="hidden" name="status" value="active">
+                                                            <button type="submit" class="dropdown-item text-success">
+                                                                <i class="fas fa-toggle-on"></i> Activate
+                                                            </button>
+                                                        </form>
+                                                    </li>
                                 @endif
                                 
                                 @if($user->status != 'inactive')
-                                <li>
-                                    <form action="{{ route('admin.users.update-status', $user) }}" method="POST">
+                                                    <li>
+                                                        <form action="{{ route('admin.users.update-status', $user) }}" method="POST">
                                         @csrf @method('PUT')
-                                        <input type="hidden" name="status" value="inactive">
-                                        <button type="submit" class="dropdown-item text-warning">
-                                            <i class="fas fa-toggle-off"></i> Deactivate
-                                        </button>
-                                    </form>
-                                </li>
+                                                            <input type="hidden" name="status" value="inactive">
+                                                            <button type="submit" class="dropdown-item text-warning">
+                                                                <i class="fas fa-toggle-off"></i> Deactivate
+                                                            </button>
+                                                        </form>
+                                                    </li>
                                 @endif
                                 
                                 @if($user->status != 'banned')
-                                <li>
-                                    <form action="{{ route('admin.users.update-status', $user) }}" method="POST">
+                                                    <li>
+                                                        <form action="{{ route('admin.users.update-status', $user) }}" method="POST">
                                         @csrf @method('PUT')
-                                        <input type="hidden" name="status" value="banned">
-                                        <button type="submit" class="dropdown-item text-danger">
-                                            <i class="fas fa-ban"></i> Ban
-                                        </button>
-                                    </form>
-                                </li>
+                                                            <input type="hidden" name="status" value="banned">
+                                                            <button type="submit" class="dropdown-item text-danger">
+                                                                <i class="fas fa-ban"></i> Ban
+                                                            </button>
+                                                        </form>
+                                                    </li>
                                 @endif
                                 
-                                <li><hr class="dropdown-divider"></li>
+                                                    <li><hr class="dropdown-divider"></li>
                                 
-                                <li>
+                                                    <li>
                                     <form action="{{ route('admin.users.destroy', $user) }}" method="POST" onsubmit="return confirm('Delete this user?');">
                                         @csrf @method('DELETE')
-                                        <button type="submit" class="dropdown-item text-danger">
-                                            <i class="fas fa-trash"></i> Delete
-                                        </button>
-                                    </form>
-                                </li>
-                            </ul>
-                        </div>
+                                                            <button type="submit" class="dropdown-item text-danger">
+                                                                <i class="fas fa-trash"></i> Delete
+                                                            </button>
+                                                        </form>
+                                                    </li>
+                                                </ul>
+                                            </div>
                     </div>
                 </div>
-                @endif
+                                            @endif
             </div>
         </div>
-        @empty
+                                    @empty
         <div class="col-12">
             <div class="empty-state">
                 <i class="fas fa-users fa-4x text-muted mb-3"></i>
@@ -291,11 +291,11 @@
                 <p class="text-muted">Try adjusting your filters to find users.</p>
             </div>
         </div>
-        @endforelse
-    </div>
+                                    @endforelse
+                        </div>
 
     <!-- Pagination -->
-    <div class="row mt-4">
+        <div class="row mt-4">
         <div class="col-12">
             <div class="d-flex justify-content-between align-items-center">
                 <div>

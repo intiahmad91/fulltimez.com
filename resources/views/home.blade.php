@@ -1582,35 +1582,6 @@ button svg{
     </div>
 </section>
 
-<div class="container">
-        <div class="row profile-card align-items-center">
-            <div class="col-md-6">
-                <div class="flex-column">
-                    <div class="text-center"><img src="{{ asset('images/women2.png') }}" alt=""></div>
-                    <div class="profile-info">
-                        <div class="d-flex align-items-center gap-3 mb-3">
-                            <h2 class="profile-name">{{ $featuredJobSeeker->seekerProfile->full_name ?? $featuredJobSeeker->name ?? 'Job Seeker' }}</h2>
-                            <button class="open-work-btn">Open to Work</button>
-                        </div>
-                        <div class="stats d-flex gap-4 mb-3">
-                            <span>{{ rand(500, 2000) }}+</span>
-                            <span>{{ $featuredJobSeeker->seekerProfile->experience_years ?? rand(1, 5) }}+ years</span>
-                        </div>
-                        <span class="status-badge">Active</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-5">
-                <h1 class="heading-text mb-3">Expand your connections so people know you</h1>
-                <p class="subtext mb-4">With connections, you will get job information, and don't forget to show off your work too.</p>
-                <a href="{{ route('candidates.index') }}" class="show-featured-btn">Show All Featured</a>
-            </div>
-        </div>
-    </div>
-
-
-
-
    <!-- <section class="category-wrap seekerwrp popular-items mt-5">
       <div class="container">
          <div class="main_title">Job Seekers</div>
