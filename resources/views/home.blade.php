@@ -1527,7 +1527,7 @@ button svg{
                         
                         <!-- Action Buttons -->
                         <div class="candidate-card-footer">
-                            <a href="{{ route('candidates.show', $candidate->id) }}" class="btn-view-profile">View Profile</a>
+                            <a href="{{ route('candidates.show', $candidate->id) }}" class="btn-view-profile">Profile</a>
                             <a href="#" class="btn-hire-me">Hire Me</a>
                         </div>
                     </div>
