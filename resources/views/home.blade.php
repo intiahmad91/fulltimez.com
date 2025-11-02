@@ -1611,7 +1611,7 @@ button svg{
 
 
 
-   <section class="category-wrap seekerwrp popular-items mt-5">
+   <!-- <section class="category-wrap seekerwrp popular-items mt-5">
       <div class="container">
          <div class="main_title">Job Seekers</div>
          <div class="cate_list">
@@ -1656,6 +1656,6 @@ button svg{
          </a>
       </div>
       </div> 
-   </section>
+   </section> -->
  
 @endsection
