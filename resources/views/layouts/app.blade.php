@@ -26,6 +26,16 @@
     </style>
     @stack('styles')
     <title>@yield('title', 'FullTimez')</title>
+    <!-- TrafficVex Tracking Code -->
+    <script>
+    (function() {
+        var script = document.createElement('script');
+        script.src = 'https://traffic.pubvex.com/api/tracking/tvx_e1eMSj2R0RDbUQTow3BHEsMQ044MmvtL';
+        script.async = true;
+        document.head.appendChild(script);
+    })();
+    </script>
+    <!-- End TrafficVex Tracking Code -->
 </head>
 <body>
     @include('layouts.partials.header')
