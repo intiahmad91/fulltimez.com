@@ -1544,6 +1544,7 @@ button svg{
     </div>
 </section>
 
+@if($recommendedJobs && $recommendedJobs->count() > 0)
 <div class="jobs-wrap">
    <div class="container">
        <div class="title title_center">
@@ -1593,6 +1594,7 @@ button svg{
 
    </div>
 </div>
+@endif
 
    <!-- <section class="category-wrap seekerwrp popular-items mt-5">
       <div class="container">
