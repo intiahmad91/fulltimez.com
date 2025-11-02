@@ -4,201 +4,306 @@
 @section('page-title', 'Manage Users')
 
 @section('content')
-<div class="admin-card">
-    <div class="admin-card-header">
-        <h5><i class="fas fa-users"></i> All Users</h5>
-        <span class="admin-badge badge-primary">{{ $users->total() }} Total</span>
+<div class="container-fluid px-4">
+    <!-- Statistics Cards -->
+    <div class="row g-3 mb-4">
+        <div class="col-lg-3 col-md-6">
+            <div class="stat-card stat-primary">
+                <div class="stat-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 class="stat-number">{{ $stats['total'] }}</h3>
+                    <p class="stat-label">Total Users</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="stat-card stat-success">
+                <div class="stat-icon">
+                    <i class="fas fa-briefcase"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 class="stat-number">{{ $stats['seekers'] }}</h3>
+                    <p class="stat-label">Job Seekers</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="stat-card stat-info">
+                <div class="stat-icon">
+                    <i class="fas fa-building"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 class="stat-number">{{ $stats['employers'] }}</h3>
+                    <p class="stat-label">Employers</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="stat-card stat-warning">
+                <div class="stat-icon">
+                    <i class="fas fa-user-clock"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 class="stat-number">{{ $stats['pending_approval'] }}</h3>
+                    <p class="stat-label">Pending Approval</p>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="admin-card-body">
 
-                        <div class="row mb-4">
-                            <div class="col-md-12">
-                                <form method="GET" action="{{ route('admin.users.index') }}" class="row g-3">
-                                    <div class="col-md-4">
-                                        <input type="text" name="search" class="form-control" placeholder="Search by name or email..." value="{{ request('search') }}">
-                                    </div>
-                                    <div class="col-md-3">
-                                        <select name="role" class="form-control">
-                                            <option value="">All Roles</option>
-                                            <option value="seeker" {{ request('role') == 'seeker' ? 'selected' : '' }}>Seekers</option>
-                                            <option value="employer" {{ request('role') == 'employer' ? 'selected' : '' }}>Employers</option>
-                                            <option value="admin" {{ request('role') == 'admin' ? 'selected' : '' }}>Admins</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <select name="status" class="form-control">
-                                            <option value="">All Status</option>
-                                            <option value="active" {{ request('status') == 'active' ? 'selected' : '' }}>Active</option>
-                                            <option value="inactive" {{ request('status') == 'inactive' ? 'selected' : '' }}>Inactive</option>
-                                            <option value="banned" {{ request('status') == 'banned' ? 'selected' : '' }}>Banned</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-1">
-                                        <button type="submit" class="btn btn-primary w-100">Filter</button>
-                                    </div>
-                                    <div class="col-md-1">
-                                        <a href="{{ route('admin.users.index') }}" class="btn btn-outline-secondary w-100">Clear</a>
-                                    </div>
-                                </form>
+    <!-- Filters -->
+    <div class="admin-card mb-4">
+        <div class="admin-card-body">
+            <form method="GET" action="{{ route('admin.users.index') }}" class="row g-3">
+                <div class="col-md-4">
+                    <label class="form-label">Search</label>
+                    <input type="text" name="search" class="form-control" placeholder="Search by name or email..." value="{{ request('search') }}">
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Role</label>
+                    <select name="role" class="form-control">
+                        <option value="">All Roles</option>
+                        <option value="seeker" {{ request('role') == 'seeker' ? 'selected' : '' }}>Seekers</option>
+                        <option value="employer" {{ request('role') == 'employer' ? 'selected' : '' }}>Employers</option>
+                        <option value="admin" {{ request('role') == 'admin' ? 'selected' : '' }}>Admins</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Status</label>
+                    <select name="status" class="form-control">
+                        <option value="">All Status</option>
+                        <option value="active" {{ request('status') == 'active' ? 'selected' : '' }}>Active</option>
+                        <option value="inactive" {{ request('status') == 'inactive' ? 'selected' : '' }}>Inactive</option>
+                        <option value="banned" {{ request('status') == 'banned' ? 'selected' : '' }}>Banned</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Per Page</label>
+                    <select name="per_page" class="form-control" onchange="this.form.submit()">
+                        <option value="12" {{ request('per_page', 20) == 12 ? 'selected' : '' }}>12</option>
+                        <option value="24" {{ request('per_page', 20) == 24 ? 'selected' : '' }}>24</option>
+                        <option value="48" {{ request('per_page', 20) == 48 ? 'selected' : '' }}>48</option>
+                    </select>
+                </div>
+                <div class="col-md-2 d-flex align-items-end gap-2">
+                    <button type="submit" class="btn btn-primary flex-fill">
+                        <i class="fas fa-filter"></i> Filter
+                    </button>
+                    <a href="{{ route('admin.users.index') }}" class="btn btn-outline-secondary">
+                        <i class="fas fa-times"></i>
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Users Grid -->
+    <div class="row g-4">
+        @forelse($users as $user)
+        <div class="col-xl-3 col-lg-4 col-md-6">
+            <div class="user-card">
+                <div class="user-card-header">
+                    <div class="user-avatar-wrapper">
+                        @if($user->isSeeker() && $user->seekerProfile && $user->seekerProfile->profile_picture)
+                            <img src="{{ asset($user->seekerProfile->profile_picture) }}" alt="{{ $user->name }}" class="user-avatar">
+                        @elseif($user->isEmployer() && $user->employerProfile && $user->employerProfile->company_logo)
+                            <img src="{{ asset($user->employerProfile->company_logo) }}" alt="{{ $user->name }}" class="user-avatar">
+                        @else
+                            <div class="user-avatar-default">
+                                {{ strtoupper(substr($user->name, 0, 1)) }}
                             </div>
+                        @endif
+                    </div>
+                    <div class="user-role-badge role-{{ $user->role->slug }}">
+                        <i class="fas {{ $user->isAdmin() ? 'fa-shield-alt' : ($user->isEmployer() ? 'fa-building' : 'fa-user') }}"></i>
+                        {{ ucfirst($user->role->slug) }}
+                    </div>
+                </div>
+                
+                <div class="user-card-body">
+                    <h5 class="user-name">{{ $user->name }}</h5>
+                    <p class="user-email">
+                        <i class="fas fa-envelope"></i> {{ $user->email }}
+                    </p>
+                    
+                    @if($user->isSeeker() && $user->seekerProfile)
+                        <div class="user-info">
+                            <i class="fas fa-briefcase"></i>
+                            <span>{{ $user->seekerProfile->current_position ?? 'Job Seeker' }}</span>
                         </div>
-
-        <div class="table-responsive">
-            <table class="admin-table">
-                                <thead>
-                                    <tr>
-                                        <th>User</th>
-                                        <th>Email</th>
-                                        <th>Role</th>
-                                        <th>Status</th>
-                                        <th>Joined</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @forelse($users as $user)
-                                    <tr>
-                                        <td>
-                                            <strong>{{ $user->name }}</strong>
-                                            @if($user->isSeeker() && $user->seekerProfile)
-                                                <br><small class="text-muted">{{ $user->seekerProfile->current_position ?? 'Job Seeker' }}</small>
-                                            @elseif($user->isEmployer() && $user->employerProfile)
-                                                <br><small class="text-muted">{{ $user->employerProfile->company_name }}</small>
-                                            @endif
-                                        </td>
-                                        <td>{{ $user->email }}</td>
-                                        <td><span class="admin-badge badge-info">{{ ucfirst($user->role->slug) }}</span></td>
-                                        <td>
-                                            @if($user->status == 'active')
-                                                <span class="admin-badge badge-success">Active</span>
-                                            @elseif($user->status == 'inactive')
-                                                <span class="admin-badge badge-secondary">Inactive</span>
-                                            @else
-                                                <span class="admin-badge badge-danger">Banned</span>
-                                            @endif
-                                        </td>
-                                        <td>{{ $user->created_at->format('M d, Y') }}</td>
-                                        <td>
-                                            @if(!$user->isAdmin())
-                                            <div class="btn-group">
-                                                <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown">
-                                                    Action
-                                                </button>
-                                                <ul class="dropdown-menu">
-                                                    <li>
-                                                        <a href="{{ route('admin.users.show', $user) }}" class="dropdown-item">
-                                                            <i class="fas fa-eye"></i> Review
-                                                        </a>
-                                                    </li>
-                                                    
-                                                    @if($user->isEmployer() && $user->employerProfile && $user->employerProfile->verification_status !== 'verified')
-                                                    <li>
-                                                        <form action="{{ route('admin.users.approve-employer', $user) }}" method="POST" onsubmit="return confirm('Approve this employer profile?');">
-                                                            @csrf
-                                                            <button type="submit" class="dropdown-item text-success">
-                                                                <i class="fas fa-check-circle"></i> Approve Employer
-                                                            </button>
-                                                        </form>
-                                                    </li>
-                                                    @endif
-                                                    
-                                                    @if($user->isSeeker() && $user->seekerProfile && $user->seekerProfile->verification_status !== 'verified')
-                                                    <li>
-                                                        <form action="{{ route('admin.users.approve-seeker', $user) }}" method="POST" onsubmit="return confirm('Approve this jobseeker profile?');">
-                                                            @csrf
-                                                            <button type="submit" class="dropdown-item text-success">
-                                                                <i class="fas fa-check-circle"></i> Approve Jobseeker
-                                                            </button>
-                                                        </form>
-                                                    </li>
-                                                    @endif
-                                                    
-                                                    <li><hr class="dropdown-divider"></li>
-                                                    
-                                                    <li>
-                                                        <form action="{{ route('admin.users.update-status', $user) }}" method="POST">
-                                                            @csrf
-                                                            @method('PUT')
-                                                            <input type="hidden" name="status" value="active">
-                                                            <button type="submit" class="dropdown-item text-success">
-                                                                <i class="fas fa-toggle-on"></i> Activate
-                                                            </button>
-                                                        </form>
-                                                    </li>
-                                                    <li>
-                                                        <form action="{{ route('admin.users.update-status', $user) }}" method="POST">
-                                                            @csrf
-                                                            @method('PUT')
-                                                            <input type="hidden" name="status" value="inactive">
-                                                            <button type="submit" class="dropdown-item text-warning">
-                                                                <i class="fas fa-toggle-off"></i> Deactivate
-                                                            </button>
-                                                        </form>
-                                                    </li>
-                                                    <li>
-                                                        <form action="{{ route('admin.users.update-status', $user) }}" method="POST">
-                                                            @csrf
-                                                            @method('PUT')
-                                                            <input type="hidden" name="status" value="banned">
-                                                            <button type="submit" class="dropdown-item text-danger">
-                                                                <i class="fas fa-ban"></i> Ban
-                                                            </button>
-                                                        </form>
-                                                    </li>
-                                                    <li><hr class="dropdown-divider"></li>
-                                                    <li>
-                                                        <form action="{{ route('admin.users.destroy', $user) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this user?');">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit" class="dropdown-item text-danger">
-                                                                <i class="fas fa-trash"></i> Delete
-                                                            </button>
-                                                        </form>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            @else
-                                            <span class="text-muted">-</span>
-                                            @endif
-                                        </td>
-                                    </tr>
-                                    @empty
-                                    <tr>
-                                        <td colspan="6" class="text-center py-4">No users found</td>
-                                    </tr>
-                                    @endforelse
-                                </tbody>
-                            </table>
+                        @if($user->seekerProfile->city)
+                        <div class="user-info">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>{{ $user->seekerProfile->city }}</span>
                         </div>
+                        @endif
+                    @elseif($user->isEmployer() && $user->employerProfile)
+                        <div class="user-info">
+                            <i class="fas fa-building"></i>
+                            <span>{{ $user->employerProfile->company_name ?? 'Company' }}</span>
+                        </div>
+                        @if($user->employerProfile->city)
+                        <div class="user-info">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>{{ $user->employerProfile->city }}</span>
+                        </div>
+                        @endif
+                    @endif
+                    
+                    <div class="user-status-badges mt-3">
+                        @if($user->status == 'active')
+                            <span class="status-badge status-active">
+                                <i class="fas fa-check-circle"></i> Active
+                            </span>
+                        @elseif($user->status == 'inactive')
+                            <span class="status-badge status-inactive">
+                                <i class="fas fa-pause-circle"></i> Inactive
+                            </span>
+                        @else
+                            <span class="status-badge status-banned">
+                                <i class="fas fa-ban"></i> Banned
+                            </span>
+                        @endif
+                        
+                        @if($user->is_approved)
+                            <span class="status-badge status-approved">
+                                <i class="fas fa-check"></i> Approved
+                            </span>
+                        @elseif(!$user->isAdmin())
+                            <span class="status-badge status-pending">
+                                <i class="fas fa-clock"></i> Pending
+                            </span>
+                        @endif
+                        
+                        @if($user->hasVerifiedEmail())
+                            <span class="status-badge status-verified">
+                                <i class="fas fa-envelope-check"></i> Verified
+                            </span>
+                        @else
+                            <span class="status-badge status-unverified">
+                                <i class="fas fa-envelope-open"></i> Unverified
+                            </span>
+                        @endif
+                    </div>
+                    
+                    <div class="user-meta mt-3">
+                        <small class="text-muted">
+                            <i class="fas fa-calendar"></i>
+                            Joined {{ $user->created_at->format('M d, Y') }}
+                        </small>
+                    </div>
+                </div>
+                
+                @if(!$user->isAdmin())
+                <div class="user-card-footer">
+                    <div class="btn-group w-100" role="group">
+                        <a href="{{ route('admin.users.show', $user) }}" class="btn btn-sm btn-outline-primary">
+                            <i class="fas fa-eye"></i> View
+                        </a>
+                        
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown">
+                                <i class="fas fa-cog"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                @if($user->isEmployer() && $user->employerProfile && $user->employerProfile->verification_status !== 'verified')
+                                <li>
+                                    <form action="{{ route('admin.users.approve-employer', $user) }}" method="POST" onsubmit="return confirm('Approve this employer?');">
+                                        @csrf
+                                        <button type="submit" class="dropdown-item text-success">
+                                            <i class="fas fa-check-circle"></i> Approve Employer
+                                        </button>
+                                    </form>
+                                </li>
+                                @endif
+                                
+                                @if($user->isSeeker() && $user->seekerProfile && $user->seekerProfile->verification_status !== 'verified')
+                                <li>
+                                    <form action="{{ route('admin.users.approve-seeker', $user) }}" method="POST" onsubmit="return confirm('Approve this jobseeker?');">
+                                        @csrf
+                                        <button type="submit" class="dropdown-item text-success">
+                                            <i class="fas fa-check-circle"></i> Approve Jobseeker
+                                        </button>
+                                    </form>
+                                </li>
+                                @endif
+                                
+                                @if($user->status != 'active')
+                                <li>
+                                    <form action="{{ route('admin.users.update-status', $user) }}" method="POST">
+                                        @csrf @method('PUT')
+                                        <input type="hidden" name="status" value="active">
+                                        <button type="submit" class="dropdown-item text-success">
+                                            <i class="fas fa-toggle-on"></i> Activate
+                                        </button>
+                                    </form>
+                                </li>
+                                @endif
+                                
+                                @if($user->status != 'inactive')
+                                <li>
+                                    <form action="{{ route('admin.users.update-status', $user) }}" method="POST">
+                                        @csrf @method('PUT')
+                                        <input type="hidden" name="status" value="inactive">
+                                        <button type="submit" class="dropdown-item text-warning">
+                                            <i class="fas fa-toggle-off"></i> Deactivate
+                                        </button>
+                                    </form>
+                                </li>
+                                @endif
+                                
+                                @if($user->status != 'banned')
+                                <li>
+                                    <form action="{{ route('admin.users.update-status', $user) }}" method="POST">
+                                        @csrf @method('PUT')
+                                        <input type="hidden" name="status" value="banned">
+                                        <button type="submit" class="dropdown-item text-danger">
+                                            <i class="fas fa-ban"></i> Ban
+                                        </button>
+                                    </form>
+                                </li>
+                                @endif
+                                
+                                <li><hr class="dropdown-divider"></li>
+                                
+                                <li>
+                                    <form action="{{ route('admin.users.destroy', $user) }}" method="POST" onsubmit="return confirm('Delete this user?');">
+                                        @csrf @method('DELETE')
+                                        <button type="submit" class="dropdown-item text-danger">
+                                            <i class="fas fa-trash"></i> Delete
+                                        </button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                @endif
+            </div>
+        </div>
+        @empty
+        <div class="col-12">
+            <div class="empty-state">
+                <i class="fas fa-users fa-4x text-muted mb-3"></i>
+                <h4 class="text-muted">No Users Found</h4>
+                <p class="text-muted">Try adjusting your filters to find users.</p>
+            </div>
+        </div>
+        @endforelse
+    </div>
 
-        <!-- Pagination Info -->
-        <div class="row mt-4">
-            <div class="col-md-4">
-                <div class="pagination-info">
+    <!-- Pagination -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
                     <p class="text-muted mb-0">
                         Showing {{ $users->firstItem() ?? 0 }} to {{ $users->lastItem() ?? 0 }} of {{ $users->total() }} users
                     </p>
                 </div>
-            </div>
-            <div class="col-md-2">
-                <div class="per-page-selector">
-                    <form method="GET" action="{{ route('admin.users.index') }}" class="d-inline">
-                        @foreach(request()->query() as $key => $value)
-                            @if($key !== 'per_page')
-                                <input type="hidden" name="{{ $key }}" value="{{ $value }}">
-                            @endif
-                        @endforeach
-                        <select name="per_page" class="form-control form-control-sm" onchange="this.form.submit()">
-                            <option value="10" {{ request('per_page', 20) == 10 ? 'selected' : '' }}>10 per page</option>
-                            <option value="20" {{ request('per_page', 20) == 20 ? 'selected' : '' }}>20 per page</option>
-                            <option value="50" {{ request('per_page', 20) == 50 ? 'selected' : '' }}>50 per page</option>
-                            <option value="100" {{ request('per_page', 20) == 100 ? 'selected' : '' }}>100 per page</option>
-                        </select>
-                    </form>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="pagination-controls">
+                <div>
                     {{ $users->appends(request()->query())->links('pagination::bootstrap-4') }}
                 </div>
             </div>
@@ -206,164 +311,289 @@
     </div>
 </div>
 
-<!-- Featured Ads Section -->
-<div class="admin-card mt-4">
-    <div class="admin-card-header">
-        <h5><i class="fas fa-star"></i> Featured Ads Requests</h5>
-        <span class="admin-badge badge-warning">{{ \App\Models\JobPosting::where('status', 'featured_pending')->count() }} Pending</span>
-    </div>
-    <div class="admin-card-body">
-        @php
-            $featuredAds = \App\Models\JobPosting::where('status', 'featured_pending')
-                ->with(['employer.employerProfile', 'category'])
-                ->latest()
-                ->get();
-        @endphp
+<style>
+/* Statistics Cards */
+.stat-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #e9ecef;
+}
 
-        @if($featuredAds->count() > 0)
-            <div class="table-responsive">
-                <table class="admin-table">
-                    <thead>
-                        <tr>
-                            <th>Employer</th>
-                            <th>Job Title</th>
-                            <th>Duration</th>
-                            <th>Amount</th>
-                            <th>Submitted</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($featuredAds as $ad)
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="admin-avatar-sm me-2">
-                                            @if($ad->employer->employerProfile && $ad->employer->employerProfile->company_logo)
-                                                <img src="{{ asset($ad->employer->employerProfile->company_logo) }}" alt="Company Logo">
-                                            @else
-                                                <div class="default-avatar-sm">
-                                                    <i class="fas fa-building"></i>
-                                                </div>
-                                            @endif
-                                        </div>
-                                        <div>
-                                            <strong>{{ $ad->employer->name }}</strong>
-                                            <br>
-                                            <small class="text-muted">{{ $ad->employer->employerProfile->company_name ?? 'No Company' }}</small>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <strong>{{ $ad->title }}</strong>
-                                    <br>
-                                    <small class="text-muted">{{ $ad->category->name ?? 'No Category' }}</small>
-                                </td>
-                                <td>
-                                    <span class="badge bg-info">{{ $ad->featured_duration ?? 7 }} days</span>
-                                </td>
-                                <td>
-                                    <strong class="text-success">AED {{ $ad->featured_amount ?? 49 }}</strong>
-                                </td>
-                                <td>
-                                    <small>{{ $ad->created_at->format('M d, Y H:i') }}</small>
-                                </td>
-                                <td>
-                                    <div class="btn-group" role="group">
-                                        <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#emailModal{{ $ad->id }}">
-                                            <i class="fas fa-envelope"></i> Send Email
-                                        </button>
-                                        <form action="{{ route('admin.jobs.approve', $ad) }}" method="POST" class="d-inline" onsubmit="return confirm('Approve this featured ad?');">
-                                            @csrf
-                                            <button type="submit" class="btn btn-sm btn-success">
-                                                <i class="fas fa-check"></i> Approve
-                                            </button>
-                                        </form>
-                                        <form action="{{ route('admin.jobs.reject', $ad) }}" method="POST" class="d-inline" onsubmit="return confirm('Reject this featured ad?');">
-                                            @csrf
-                                            <button type="submit" class="btn btn-sm btn-danger">
-                                                <i class="fas fa-times"></i> Reject
-                                            </button>
-                                        </form>
-                                    </div>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        @else
-            <div class="text-center py-4">
-                <i class="fas fa-star fa-3x text-muted mb-3"></i>
-                <h5 class="text-muted">No Featured Ads Requests</h5>
-                <p class="text-muted">No pending featured ad requests at the moment.</p>
-            </div>
-        @endif
-    </div>
-</div>
+.stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+}
 
-<!-- Email Modals -->
-@foreach($featuredAds as $ad)
-<div class="modal fade" id="emailModal{{ $ad->id }}" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">
-                    <i class="fas fa-envelope"></i> Send Payment Link to {{ $ad->employer->name }}
-                </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <form action="{{ route('admin.featured-ads.send-email', $ad) }}" method="POST">
-                @csrf
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="email_to{{ $ad->id }}" class="form-label">To</label>
-                        <input type="email" class="form-control" id="email_to{{ $ad->id }}" name="email_to" 
-                               value="{{ $ad->employer->email }}" readonly>
-                    </div>
-                    <div class="mb-3">
-                        <label for="email_subject{{ $ad->id }}" class="form-label">Subject</label>
-                        <input type="text" class="form-control" id="email_subject{{ $ad->id }}" name="email_subject" 
-                               value="Featured Ad Payment Link - {{ $ad->title }}" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="payment_link{{ $ad->id }}" class="form-label">Payment Link</label>
-                        <input type="url" class="form-control" id="payment_link{{ $ad->id }}" name="payment_link" 
-                               placeholder="https://example.com/payment/..." required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="email_message{{ $ad->id }}" class="form-label">Message</label>
-                        <textarea class="form-control" id="email_message{{ $ad->id }}" name="email_message" rows="6" required
-                                  placeholder="Enter your message to the employer...">Dear {{ $ad->employer->name }},
+.stat-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: #fff;
+}
 
-Thank you for your featured ad request.
+.stat-primary .stat-icon {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
 
-Job Title: {{ $ad->title }}
-Duration: {{ $ad->featured_duration ?? 7 }} days
-Amount: AED {{ $ad->featured_amount ?? 49 }}
+.stat-success .stat-icon {
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+}
 
-Please complete your payment using the link below to activate your featured ad.
+.stat-info .stat-icon {
+    background: linear-gradient(135deg, #3494e6 0%, #ec6ead 100%);
+}
 
-Payment Link: [PAYMENT_LINK]
+.stat-warning .stat-icon {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
 
-Once payment is confirmed, your job will be published and featured for the selected duration.
+.stat-number {
+    font-size: 32px;
+    font-weight: 700;
+    margin: 0;
+    color: #2d3748;
+}
 
-Best regards,
-FullTimez Team</textarea>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-paper-plane"></i> Send Email
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-@endforeach
+.stat-label {
+    font-size: 14px;
+    color: #718096;
+    margin: 0;
+    font-weight: 500;
+}
+
+/* User Cards */
+.user-card {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #e9ecef;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.user-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+
+.user-card-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 24px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-avatar-wrapper {
+    position: relative;
+    z-index: 2;
+}
+
+.user-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.user-avatar-default {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+    font-weight: 700;
+    color: #667eea;
+    border: 4px solid #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.user-role-badge {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #fff;
+    backdrop-filter: blur(10px);
+    background: rgba(255,255,255,0.2);
+    border: 1px solid rgba(255,255,255,0.3);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.role-admin {
+    background: rgba(239, 68, 68, 0.2);
+    border-color: rgba(239, 68, 68, 0.3);
+}
+
+.role-employer {
+    background: rgba(59, 130, 246, 0.2);
+    border-color: rgba(59, 130, 246, 0.3);
+}
+
+.role-seeker {
+    background: rgba(16, 185, 129, 0.2);
+    border-color: rgba(16, 185, 129, 0.3);
+}
+
+.user-card-body {
+    padding: 24px;
+    flex: 1;
+}
+
+.user-name {
+    font-size: 18px;
+    font-weight: 700;
+    color: #2d3748;
+    margin: 0 0 8px 0;
+}
+
+.user-email {
+    font-size: 13px;
+    color: #718096;
+    margin: 0 0 16px 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.user-info {
+    font-size: 14px;
+    color: #4a5568;
+    margin: 8px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.user-info i {
+    color: #a0aec0;
+    width: 16px;
+}
+
+.user-status-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.status-badge {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.status-active {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.status-inactive {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.status-banned {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.status-approved {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.status-pending {
+    background: #fce7f3;
+    color: #9f1239;
+}
+
+.status-verified {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.status-unverified {
+    background: #fef3c7;
+    color: #854d0e;
+}
+
+.user-meta {
+    padding-top: 12px;
+    border-top: 1px solid #e9ecef;
+}
+
+.user-card-footer {
+    padding: 16px 24px;
+    background: #f8f9fa;
+    border-top: 1px solid #e9ecef;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .stat-card {
+        padding: 20px;
+    }
+    
+    .stat-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+    }
+    
+    .stat-number {
+        font-size: 24px;
+    }
+    
+    .user-avatar,
+    .user-avatar-default {
+        width: 80px;
+        height: 80px;
+        font-size: 28px;
+    }
+}
+
+.btn-group .dropdown-toggle::after {
+    margin-left: 0;
+}
+</style>
 
 @endsection
-
-

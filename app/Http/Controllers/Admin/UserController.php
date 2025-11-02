@@ -32,12 +32,27 @@ class UserController extends Controller
             });
         }
 
-        $perPage = $request->get('per_page', 20);
-        $perPage = in_array($perPage, [10, 20, 50, 100]) ? $perPage : 20;
+        $perPage = $request->get('per_page', 24);
+        $perPage = in_array($perPage, [12, 24, 48]) ? $perPage : 24;
         
         $users = $query->latest()->paginate($perPage);
 
-        return view('admin.users.index', compact('users'));
+        // Calculate statistics
+        $stats = [
+            'total' => User::count(),
+            'seekers' => User::whereHas('role', function($q) { $q->where('slug', 'seeker'); })->count(),
+            'employers' => User::whereHas('role', function($q) { $q->where('slug', 'employer'); })->count(),
+            'admins' => User::whereHas('role', function($q) { $q->where('slug', 'admin'); })->count(),
+            'active' => User::where('status', 'active')->count(),
+            'inactive' => User::where('status', 'inactive')->count(),
+            'banned' => User::where('status', 'banned')->count(),
+            'approved' => User::where('is_approved', true)->count(),
+            'pending_approval' => User::where('is_approved', false)->whereHas('role', function($q) {
+                $q->whereIn('slug', ['seeker', 'employer']);
+            })->count(),
+        ];
+
+        return view('admin.users.index', compact('users', 'stats'));
     }
 
     public function show(User $user)
