@@ -12,6 +12,7 @@ use App\Notifications\UserActionNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
 
 class JobseekerAuthController extends Controller
@@ -124,10 +125,17 @@ class JobseekerAuthController extends Controller
             $profileData['cv_file'] = 'cvs/' . $filename;
         }
 
-        // Create profile with pending verification by default
+        // Create profile with pending verification by default (if column exists)
+        // Note: Migration 2025_10_28_001000_add_verification_status_to_seeker_profiles must be run
+        try {
+            if (\Schema::hasColumn('seeker_profiles', 'verification_status')) {
+                $profileData['verification_status'] = 'pending';
+            }
+        } catch (\Exception $e) {
+            // Column doesn't exist yet, skip setting it
+        }
+        
         $profile = SeekerProfile::create($profileData);
-        $profile->verification_status = 'pending';
-        $profile->save();
 
         $user->sendEmailVerificationNotification();
 

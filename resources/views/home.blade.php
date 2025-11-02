@@ -827,6 +827,136 @@ button svg{
     }
 }
 
+/* Split Banner Section */
+.split-banner-section {
+    margin: 60px 0;
+}
+
+.split-banner-jobseeker,
+.split-banner-employer {
+    position: relative;
+    min-height: 450px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.split-banner-jobseeker {
+    /* Background set via inline style for dynamic image loading */
+}
+
+.split-banner-employer {
+    /* Background set via inline style for dynamic image loading */
+}
+
+.split-banner-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    backdrop-filter: blur(2px);
+}
+
+.split-banner-jobseeker .split-banner-overlay {
+    background: rgba(0, 123, 255, 0.85);
+}
+
+.split-banner-employer .split-banner-overlay {
+    background: rgba(40, 167, 69, 0.85);
+}
+
+.split-banner-content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding: 40px 30px;
+    max-width: 500px;
+    color: #ffffff;
+}
+
+.split-banner-title {
+    font-size: 48px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 0 0 24px 0;
+    color: #ffffff;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.split-banner-description {
+    font-size: 18px;
+    line-height: 1.6;
+    margin: 0 0 32px 0;
+    color: #ffffff;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+.split-banner-btn {
+    display: inline-block;
+    background: #ffffff;
+    color: #2d3748;
+    padding: 14px 40px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(45, 55, 72, 0.1);
+}
+
+.split-banner-btn:hover {
+    background: #f8f9fa;
+    color: #1a202c;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+}
+
+@media (max-width: 992px) {
+    .split-banner-jobseeker,
+    .split-banner-employer {
+        min-height: 400px;
+    }
+    
+    .split-banner-title {
+        font-size: 36px;
+    }
+    
+    .split-banner-description {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    .split-banner-jobseeker,
+    .split-banner-employer {
+        min-height: 350px;
+    }
+    
+    .split-banner-title {
+        font-size: 28px;
+        letter-spacing: 1px;
+    }
+    
+    .split-banner-description {
+        font-size: 14px;
+        margin-bottom: 24px;
+    }
+    
+    .split-banner-btn {
+        padding: 12px 32px;
+        font-size: 14px;
+    }
+    
+    .split-banner-content {
+        padding: 30px 20px;
+    }
+}
+
 /* Job Seekers Section Styling */
 .seekerwrp .add-exp {
     height: 100% !important;
@@ -1271,17 +1401,32 @@ button svg{
    </section>
  
 
-<div class="container">
-      <div class="zoom_wrap text-center">
-        <div class="row profile-card align-items-center">
-        <div class="zoom"><img src="{{ asset('images/zoomm.jpeg') }}" alt=""></div> 
-                <p class="subtext mb-4">With connections, you will get job information, <span>and don't forget to show off your work too.</span></p>
-                <div class="readmore"><a href="#">BOOK MEETING WITH
-JOBSEEKER</a></div>
+<!-- Split Banner Section: Jobseeker & Employer -->
+<section class="split-banner-section">
+    <div class="container-fluid p-0">
+        <div class="row g-0">
+            <!-- Jobseeker Section -->
+            <div class="col-lg-6 col-md-6 split-banner-jobseeker" style="background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);{{ file_exists(public_path('images/jobseeker-bg.jpg')) ? ' background-image: url(' . asset('images/jobseeker-bg.jpg') . '); background-size: cover; background-position: center; background-blend-mode: overlay;' : '' }}">
+                <div class="split-banner-content">
+                    <h2 class="split-banner-title">I AM A JOBSEEKER</h2>
+                    <p class="split-banner-description">Create your professional resume with online resume builder and start applying for best jobs.</p>
+                    <a href="{{ route('jobseeker.register') }}" class="split-banner-btn">Get Started</a>
+                </div>
+                <div class="split-banner-overlay"></div>
+            </div>
             
+            <!-- Employer Section -->
+            <div class="col-lg-6 col-md-6 split-banner-employer" style="background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);{{ file_exists(public_path('images/employer-bg.jpg')) ? ' background-image: url(' . asset('images/employer-bg.jpg') . '); background-size: cover; background-position: center; background-blend-mode: overlay;' : '' }}">
+                <div class="split-banner-content">
+                    <h2 class="split-banner-title">I AM AN EMPLOYER</h2>
+                    <p class="split-banner-description">Job posting and online resume database search service that helps you find best talent</p>
+                    <a href="{{ route('employer.register') }}" class="split-banner-btn">Get Started</a>
+                </div>
+                <div class="split-banner-overlay"></div>
+            </div>
         </div>
     </div>
-</div>
+</section>
 
 
 
