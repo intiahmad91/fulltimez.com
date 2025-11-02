@@ -30,15 +30,8 @@ class VerificationController extends Controller
             return redirect()->route('home')->with('error', 'Invalid verification link.');
         }
 
-        // Auto-login the user if not already logged in
-        if (!Auth::check()) {
-            Auth::login($user);
-        }
-
+        // Check if email is already verified
         if ($user->hasVerifiedEmail()) {
-            // Logout user if not approved
-            Auth::logout();
-            
             // Check if user is employer and show message
             if ($user->isEmployer()) {
                 return redirect()->route('employer.login')
@@ -50,21 +43,17 @@ class VerificationController extends Controller
                 ->with('info', 'Email already verified. Your account is pending admin approval. You will receive an email notification once your account is approved.');
         }
 
+        // Mark email as verified
         if ($user->markEmailAsVerified()) {
-            // Logout user after verification as they need admin approval
-            Auth::logout();
-            
             // Check if user is employer and show message
             if ($user->isEmployer()) {
                 return redirect()->route('employer.login')
-                    ->with('success', 'Email verified successfully! Your account is pending admin approval. You will receive an email notification once your account is approved.')
-                    ->with('info', 'Please wait for admin approval before logging in.');
+                    ->with('success', 'Email verified successfully! Your account is pending admin approval. You will receive an email notification once your account is approved.');
             }
             
             // For job seekers
             return redirect()->route('jobseeker.login')
-                ->with('success', 'Email verified successfully! Your account is pending admin approval. You will receive an email notification once your account is approved.')
-                ->with('info', 'Please wait for admin approval before logging in.');
+                ->with('success', 'Email verified successfully! Your account is pending admin approval. You will receive an email notification once your account is approved.');
         }
 
         return redirect()->route('home')->with('error', 'Verification failed.');
