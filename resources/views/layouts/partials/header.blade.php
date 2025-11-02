@@ -1,3 +1,261 @@
+<style>
+/* Top Navigation Menu Styling */
+.top-nav {
+    padding: 6px 6px 10px;
+}
+
+.top-nav .tabs {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.top-nav .tab {
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+
+.top-nav .tab a {
+    display: inline-block;
+    padding: 10px 18px;
+    color: #4a5568;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    border-radius: 8px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.top-nav .tab a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    transition: left 0.3s ease;
+    z-index: -1;
+    border-radius: 8px;
+}
+
+.top-nav .tab a:hover::before {
+    left: 0;
+}
+
+.top-nav .tab a:hover {
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+/* Active state */
+.top-nav .tab a.active,
+.top-nav .tab a:focus {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    transform: translateY(-2px);
+}
+
+/* Current page highlight */
+.top-nav .tab a[href="{{ url()->current() }}"] {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+/* Auth Buttons Styling */
+.auth-buttons {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.auth-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 2px solid transparent;
+    white-space: nowrap;
+}
+
+.auth-btn.login-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #ffffff;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+.auth-btn.login-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(102, 126, 234, 0.4);
+    color: #ffffff;
+}
+
+.auth-btn.register-btn {
+    background: #ffffff;
+    color: #667eea;
+    border: 2px solid #667eea;
+}
+
+.auth-btn.register-btn:hover {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(102, 126, 234, 0.4);
+    border-color: transparent;
+}
+
+.auth-btn.dashboard-btn {
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+    color: #ffffff;
+    box-shadow: 0 2px 8px rgba(34, 197, 94, 0.3);
+}
+
+.auth-btn.dashboard-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(34, 197, 94, 0.4);
+    color: #ffffff;
+}
+
+.auth-btn.logout-btn {
+    background: #ffffff;
+    color: #ef4444;
+    border: 2px solid #ef4444;
+}
+
+.auth-btn.logout-btn:hover {
+    background: #ef4444;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(239, 68, 68, 0.4);
+}
+
+/* Mobile Navigation Toggle */
+.mobile-nav-toggle {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #ffffff;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+.mobile-nav-toggle:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(102, 126, 234, 0.4);
+}
+
+.mobile-nav-menu {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    padding: 20px;
+    margin-top: 10px;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    min-width: 200px;
+    z-index: 1000;
+    display: none;
+}
+
+.mobile-nav-menu.show {
+    display: block;
+}
+
+.mobile-nav-menu a {
+    display: block;
+    padding: 12px 16px;
+    color: #4a5568;
+    text-decoration: none;
+    border-radius: 8px;
+    margin-bottom: 4px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.mobile-nav-menu a:hover {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #ffffff;
+    transform: translateX(4px);
+}
+
+.mobile-auth-btn {
+    display: block;
+    padding: 10px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    margin-top: 8px;
+    transition: all 0.3s ease;
+}
+
+.mobile-auth-btn.login-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #ffffff;
+}
+
+.mobile-auth-btn.register-btn {
+    background: #ffffff;
+    color: #667eea;
+    border: 2px solid #667eea;
+}
+
+.mobile-auth-btn.dashboard-btn {
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+    color: #ffffff;
+}
+
+.mobile-auth-btn.logout-btn {
+    background: #ffffff;
+    color: #ef4444;
+    border: 2px solid #ef4444;
+}
+
+@media (max-width: 991px) {
+    .top-nav .tabs {
+        gap: 4px;
+    }
+    
+    .top-nav .tab a {
+        padding: 8px 14px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 768px) {
+    .auth-buttons {
+        gap: 8px;
+    }
+    
+    .auth-btn {
+        padding: 8px 16px;
+        font-size: 13px;
+    }
+}
+</style>
+
 <div class="container">
    <div class="app">
         <div class="row align-items-center"> 
@@ -7,10 +265,10 @@
                 <div class="col-lg-6 d-mobile-none">
     <nav class="top-nav">
       <ul class="tabs">
-        <li class="tab"><a href="{{ route('home') }}">Home</a></li>
-        <li class="tab"><a href="{{ route('jobs.index') }}">Browse Jobs</a></li>
-        <li class="tab"><a href="{{ route('candidates.index') }}">Browse Resumes</a></li>
-        <li class="tab"><a href="{{ route('contact') }}">Contact Us</a></li>
+        <li class="tab"><a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'active' : '' }}">Home</a></li>
+        <li class="tab"><a href="{{ route('jobs.index') }}" class="{{ request()->routeIs('jobs.*') ? 'active' : '' }}">Browse Jobs</a></li>
+        <li class="tab"><a href="{{ route('candidates.index') }}" class="{{ request()->routeIs('candidates.*') ? 'active' : '' }}">Browse Resumes</a></li>
+        <li class="tab"><a href="{{ route('contact') }}" class="{{ request()->routeIs('contact') ? 'active' : '' }}">Contact Us</a></li>
       </ul>
     </nav>
 </div>
@@ -18,7 +276,7 @@
 <div class="col-lg-3 col-md-6 col-6">
 <div class="d-flex gap-2 justify-content-end"> 
    <!-- Mobile Navigation Dropdown -->
-   <div class="mobile-nav-dropdown d-mobile-only" style="margin-left: auto;">
+   <div class="mobile-nav-dropdown d-mobile-only" style="margin-left: auto; position: relative;">
        <button class="mobile-nav-toggle" id="mobileNavToggle">
            <i class="fas fa-bars"></i>
            <span>Menu</span>
