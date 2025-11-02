@@ -73,7 +73,24 @@ class HomeController extends Controller
             ->latest()
             ->first();
 
-        return view('home', compact('featuredJobs', 'recommendedJobs', 'jobSeekers', 'featuredJobSeeker'));
+        // Get featured candidates (approved and verified seekers with complete profiles)
+        $featuredCandidates = User::whereHas('role', function($q) {
+                $q->where('slug', 'seeker');
+            })
+            ->with('seekerProfile')
+            ->where('status', 'active')
+            ->where('is_approved', true)
+            ->whereNotNull('email_verified_at')
+            ->whereHas('seekerProfile', function($q) {
+                $q->whereNotNull('full_name')
+                  ->whereNotNull('current_position')
+                  ->whereNotNull('expected_salary');
+            })
+            ->latest()
+            ->take(4)
+            ->get();
+
+        return view('home', compact('featuredJobs', 'recommendedJobs', 'jobSeekers', 'featuredJobSeeker', 'featuredCandidates'));
     }
 }
 
