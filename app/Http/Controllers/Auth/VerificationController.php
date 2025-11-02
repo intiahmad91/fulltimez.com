@@ -36,19 +36,35 @@ class VerificationController extends Controller
         }
 
         if ($user->hasVerifiedEmail()) {
-            // Check if user is employer and redirect to documents page
+            // Logout user if not approved
+            Auth::logout();
+            
+            // Check if user is employer and show message
             if ($user->isEmployer()) {
-                return redirect()->route('employer.documents.create')->with('info', 'Email already verified. Please upload your documents.');
+                return redirect()->route('employer.login')
+                    ->with('info', 'Email already verified. Your account is pending admin approval. You will receive an email notification once your account is approved.');
             }
-            return redirect()->route('dashboard')->with('info', 'Email already verified.');
+            
+            // For job seekers
+            return redirect()->route('jobseeker.login')
+                ->with('info', 'Email already verified. Your account is pending admin approval. You will receive an email notification once your account is approved.');
         }
 
         if ($user->markEmailAsVerified()) {
-            // Check if user is employer and redirect to documents page
+            // Logout user after verification as they need admin approval
+            Auth::logout();
+            
+            // Check if user is employer and show message
             if ($user->isEmployer()) {
-                return redirect()->route('employer.documents.create')->with('success', 'Email verified successfully! Please upload your documents to complete your registration.');
+                return redirect()->route('employer.login')
+                    ->with('success', 'Email verified successfully! Your account is pending admin approval. You will receive an email notification once your account is approved.')
+                    ->with('info', 'Please wait for admin approval before logging in.');
             }
-            return redirect()->route('dashboard')->with('success', 'Email verified successfully! You can now access all features.');
+            
+            // For job seekers
+            return redirect()->route('jobseeker.login')
+                ->with('success', 'Email verified successfully! Your account is pending admin approval. You will receive an email notification once your account is approved.')
+                ->with('info', 'Please wait for admin approval before logging in.');
         }
 
         return redirect()->route('home')->with('error', 'Verification failed.');

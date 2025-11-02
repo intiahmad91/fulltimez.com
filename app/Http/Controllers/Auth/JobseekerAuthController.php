@@ -42,6 +42,12 @@ class JobseekerAuthController extends Controller
                     ->with('error', 'Please verify your email address before logging in. Check your inbox for verification link.');
             }
 
+            // Admin users don't need approval
+            if (!$user->isAdmin() && !$user->is_approved) {
+                Auth::logout();
+                return back()->withErrors(['email' => 'Your account is pending admin approval. You will receive an email notification once your account is approved.']);
+            }
+
             // Reset failed login attempts on successful login
             \App\Models\FailedLoginAttempt::resetAttempts($credentials['email']);
 

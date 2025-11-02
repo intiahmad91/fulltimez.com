@@ -64,6 +64,15 @@ class UserController extends Controller
         }
 
         $user->employerProfile->update(['verification_status' => 'verified']);
+        $user->update(['is_approved' => true]);
+
+        // Send approval email notification
+        try {
+            $user->notify(new \App\Notifications\AccountApproved('employer'));
+        } catch (\Exception $e) {
+            // Log error but continue with approval
+            \Log::error('Failed to send approval email to employer: ' . $e->getMessage());
+        }
 
         // Remove related "new employer pending approval" notifications for all admins
         $adminRole = Role::where('slug', 'admin')->first();
@@ -73,7 +82,7 @@ class UserController extends Controller
             });
         }
 
-        return redirect()->back()->with('success', 'Employer profile approved successfully.');
+        return redirect()->back()->with('success', 'Employer account approved successfully. Approval email has been sent.');
     }
 
     public function approveSeeker(User $user)
@@ -83,8 +92,17 @@ class UserController extends Controller
         }
 
         $user->seekerProfile->update(['verification_status' => 'verified']);
+        $user->update(['is_approved' => true]);
 
-        return redirect()->back()->with('success', 'Jobseeker profile approved successfully.');
+        // Send approval email notification
+        try {
+            $user->notify(new \App\Notifications\AccountApproved('seeker'));
+        } catch (\Exception $e) {
+            // Log error but continue with approval
+            \Log::error('Failed to send approval email to seeker: ' . $e->getMessage());
+        }
+
+        return redirect()->back()->with('success', 'Jobseeker account approved successfully. Approval email has been sent.');
     }
 
     /**

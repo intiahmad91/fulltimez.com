@@ -25,6 +25,7 @@ class UserSeeder extends Seeder
             'phone' => '+971 50 123 4567',
             'status' => 'active',
             'email_verified_at' => now(),
+            'is_approved' => true, // Admin users are automatically approved
         ]);
 
         $employers = [
