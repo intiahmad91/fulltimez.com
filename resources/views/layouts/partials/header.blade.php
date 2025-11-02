@@ -63,7 +63,7 @@
  
 </div>
 
-    @if(!(auth()->check() && auth()->user()->isEmployer() && request()->routeIs('dashboard')))
+    @if(!(auth()->check() && auth()->user()->isEmployer() && request()->routeIs('dashboard')) && !request()->routeIs('candidates.index'))
     <section class="search-wrap">
       <form action="{{ route('jobs.index') }}" method="GET" id="headerSearchForm">
       <div class="search-barwrp">
