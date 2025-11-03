@@ -17,7 +17,10 @@ class CandidateController extends Controller
             ->with('seekerProfile')
             ->where('status', 'active')
             ->where('is_approved', true)
-            ->whereNotNull('email_verified_at');
+            ->whereNotNull('email_verified_at')
+            ->whereHas('seekerProfile', function($q) {
+                $q->where('approval_status', 'approved'); // Only show approved resumes
+            });
 
         // Search filter - name or position
         if ($request->filled('search')) {

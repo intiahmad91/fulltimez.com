@@ -142,9 +142,16 @@ class ProfileController extends Controller
                 }
             }
 
+            // If profile was changed, CV uploaded, or picture uploaded, set approval_status to pending
+            if ($profileDataChanged || $request->hasFile('cv_file') || $request->hasFile('profile_picture')) {
+                $profileData['approval_status'] = 'pending';
+            }
+
             if ($user->seekerProfile) {
                 $user->seekerProfile()->update($profileData);
             } else {
+                // New profile - default to pending
+                $profileData['approval_status'] = 'pending';
                 $user->seekerProfile()->create($profileData);
             }
         }

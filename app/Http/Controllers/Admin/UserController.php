@@ -106,8 +106,11 @@ class UserController extends Controller
             return redirect()->back()->with('error', 'Seeker profile not found for this user.');
         }
 
-        $user->seekerProfile->update(['verification_status' => 'verified']);
-        $user->update(['is_approved' => true]);
+        $user->seekerProfile->update([
+            'verification_status' => 'verified',
+            'approval_status' => 'approved' // Resume approval
+        ]);
+        $user->update(['is_approved' => true]); // Account approval
 
         // Send approval email notification
         try {
@@ -117,7 +120,80 @@ class UserController extends Controller
             \Log::error('Failed to send approval email to seeker: ' . $e->getMessage());
         }
 
-        return redirect()->back()->with('success', 'Jobseeker account approved successfully. Approval email has been sent.');
+        return redirect()->back()->with('success', 'Jobseeker account and resume approved successfully. Approval email has been sent.');
+    }
+
+    /**
+     * Approve a seeker resume (for Browse Resume page)
+     */
+    public function approveResume(User $user)
+    {
+        if (!$user->isSeeker() || !$user->seekerProfile) {
+            return redirect()->back()->with('error', 'Seeker profile not found for this user.');
+        }
+
+        $user->seekerProfile->update(['approval_status' => 'approved']);
+
+        return redirect()->back()->with('success', 'Resume approved successfully. It will now appear on Browse Resume page.');
+    }
+
+    /**
+     * Reject a seeker resume
+     */
+    public function rejectResume(User $user)
+    {
+        if (!$user->isSeeker() || !$user->seekerProfile) {
+            return redirect()->back()->with('error', 'Seeker profile not found for this user.');
+        }
+
+        $user->seekerProfile->update(['approval_status' => 'rejected']);
+
+        return redirect()->back()->with('success', 'Resume rejected successfully.');
+    }
+
+    /**
+     * Feature a seeker resume (for homepage)
+     */
+    public function featureResume(Request $request, User $user)
+    {
+        if (!$user->isSeeker() || !$user->seekerProfile) {
+            return redirect()->back()->with('error', 'Seeker profile not found for this user.');
+        }
+
+        $request->validate([
+            'featured_duration' => 'required|integer|min:1|max:365', // days
+        ]);
+
+        // First approve if not already approved
+        if ($user->seekerProfile->approval_status !== 'approved') {
+            $user->seekerProfile->update(['approval_status' => 'approved']);
+        }
+
+        // Set featured
+        $featuredExpiresAt = now()->addDays($request->featured_duration);
+        $user->seekerProfile->update([
+            'is_featured' => true,
+            'featured_expires_at' => $featuredExpiresAt,
+        ]);
+
+        return redirect()->back()->with('success', 'Resume featured successfully for ' . $request->featured_duration . ' days. It will appear on homepage.');
+    }
+
+    /**
+     * Unfeature a seeker resume
+     */
+    public function unfeatureResume(User $user)
+    {
+        if (!$user->isSeeker() || !$user->seekerProfile) {
+            return redirect()->back()->with('error', 'Seeker profile not found for this user.');
+        }
+
+        $user->seekerProfile->update([
+            'is_featured' => false,
+            'featured_expires_at' => null,
+        ]);
+
+        return redirect()->back()->with('success', 'Resume unfeatured successfully.');
     }
 
     /**

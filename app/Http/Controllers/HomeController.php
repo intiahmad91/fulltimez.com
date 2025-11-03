@@ -73,7 +73,7 @@ class HomeController extends Controller
             ->latest()
             ->first();
 
-        // Get featured candidates (approved and verified seekers with complete profiles)
+        // Get featured candidates (featured, approved, and verified seekers with complete profiles)
         $featuredCandidates = User::whereHas('role', function($q) {
                 $q->where('slug', 'seeker');
             })
@@ -82,7 +82,10 @@ class HomeController extends Controller
             ->where('is_approved', true)
             ->whereNotNull('email_verified_at')
             ->whereHas('seekerProfile', function($q) {
-                $q->whereNotNull('full_name')
+                $q->where('approval_status', 'approved') // Only approved resumes
+                  ->where('is_featured', true) // Must be featured
+                  ->where('featured_expires_at', '>', now()) // Featured must not be expired
+                  ->whereNotNull('full_name')
                   ->whereNotNull('current_position')
                   ->whereNotNull('expected_salary');
             })

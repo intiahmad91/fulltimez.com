@@ -58,6 +58,9 @@ class CVController extends Controller
                 $profileData['skills'] = json_encode(array_values($skillsArray));
             }
 
+            // Set approval_status to pending when CV is updated
+            $profileData['approval_status'] = 'pending';
+            
             $user->seekerProfile()->update($profileData);
         }
 

@@ -379,6 +379,10 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->name('ad
     Route::post('/users/{user}/reset-password', [App\Http\Controllers\Admin\UserController::class, 'resetPassword'])->name('users.reset-password');
     Route::post('/users/{user}/approve-employer', [App\Http\Controllers\Admin\UserController::class, 'approveEmployer'])->name('users.approve-employer');
     Route::post('/users/{user}/approve-seeker', [App\Http\Controllers\Admin\UserController::class, 'approveSeeker'])->name('users.approve-seeker');
+    Route::post('/users/{user}/approve-resume', [App\Http\Controllers\Admin\UserController::class, 'approveResume'])->name('users.approve-resume');
+    Route::post('/users/{user}/reject-resume', [App\Http\Controllers\Admin\UserController::class, 'rejectResume'])->name('users.reject-resume');
+    Route::post('/users/{user}/feature-resume', [App\Http\Controllers\Admin\UserController::class, 'featureResume'])->name('users.feature-resume');
+    Route::post('/users/{user}/unfeature-resume', [App\Http\Controllers\Admin\UserController::class, 'unfeatureResume'])->name('users.unfeature-resume');
     Route::get('/users/{user}/download-cv', [App\Http\Controllers\Admin\UserController::class, 'downloadCv'])->name('users.download-cv');
     Route::delete('/users/{user}', [App\Http\Controllers\Admin\UserController::class, 'destroy'])->name('users.destroy');
     
