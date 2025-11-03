@@ -1355,19 +1355,19 @@ button svg{
          <div class="main_title">Featured Jobs</div>
          <div class="featured-jobs-grid">
             <ul class="owl-carousel jobs_list featured-jobs-carousel">
-               @foreach($featuredJobs as $job)
-               <li class="item wow fadeInUp">
+            @foreach($featuredJobs as $job)
+            <li class="item wow fadeInUp">
                   <div class="featured-job-card">
                      <div class="job-card-header">
                         <div class="company-header">
                            <div class="company-logo">
                               <img src="{{ asset('images/job.svg') }}" alt="company-logo">
-                           </div>
+                        </div>
                            <div class="company-name">
                               <h3>{{ optional($job->employer->employerProfile)->company_name ?? 'Company' }}</h3>
-                           </div>
                         </div>
                      </div>
+                  </div>
                      <div class="job-card-body">
                         <div class="job-title">
                            <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->title }}</a>
@@ -1376,10 +1376,10 @@ button svg{
                            <div class="category-badge-top">{{ optional($job->category)->name ?? 'N/A' }}</div>
                            <div class="meta-badge">
                               Type: <span>{{ ucfirst(str_replace('_', ' ', $job->employment_type)) }}</span>
-                           </div>
+                     </div>
                            <div class="meta-badge">
                               Experience: <span>{{ $job->experience_years ?? 'N/A' }}</span>
-                           </div>
+                     </div>
                         </div>
                         <div class="location-info">
                            <img src="{{ asset('images/location.svg') }}" alt="location">
@@ -1387,22 +1387,22 @@ button svg{
                         </div>
                      </div>
                      <div class="job-card-footer">
-                        <div class="price-ad">
-                           <p>
-                              @if(!empty($job->salary_min) && !empty($job->salary_max))
+                     <div class="price-ad">
+                        <p>
+                            @if(!empty($job->salary_min) && !empty($job->salary_max))
                                   <span class="price-amount">{{ $job->salary_currency ?? 'AED' }} {{ number_format((float)$job->salary_min) }} - {{ number_format((float)$job->salary_max) }}</span>
                                   <span class="price-period">/ {{ ucfirst($job->salary_period ?? 'monthly') }}</span>
-                              @else
+                            @else
                                   <span class="price-negotiable">Negotiable</span>
-                              @endif
-                           </p>
-                        </div>
+                            @endif
+                        </p>
                      </div>
                   </div>
-               </li>
-               @endforeach
-            </ul>
-         </div>
+               </div>
+            </li>
+            @endforeach
+         </ul>
+      </div> 
       </div> 
    </section>
  
@@ -1434,9 +1434,10 @@ button svg{
     </div>
 </section>
 
+@if($featuredCandidates && $featuredCandidates->count() > 0)
 <!-- Featured Candidates Section -->
 <section class="featured-candidates-section mt-5 mb-5">
-    <div class="container">
+<div class="container">
         <div class="featured-candidates-header">
             <h2 class="featured-candidates-title">FEATURED CANDIDATES</h2>
             <p class="featured-candidates-subtitle">The most comprehensive search engine for jobs.</p>
@@ -1445,18 +1446,18 @@ button svg{
         
         <div class="featured-candidates-carousel-wrapper">
             <ul class="owl-carousel jobs_list featured-candidates-carousel">
-                @forelse($featuredCandidates as $candidate)
+                @foreach($featuredCandidates as $candidate)
                 <li class="item wow fadeInUp">
                     <div class="featured-candidate-card">
                         <!-- Featured Badge -->
                         <div class="featured-badge">
                             <i class="fas fa-star"></i>
-                        </div>
+        </div>
                         
                         <!-- Favorite Icon -->
                         <div class="favorite-icon">
                             <i class="far fa-heart"></i>
-                        </div>
+    </div>
                         
                         <!-- Profile Picture -->
                         <div class="candidate-profile-picture">
@@ -1467,8 +1468,8 @@ button svg{
                                     {{ strtoupper(substr($candidate->seekerProfile->full_name ?? $candidate->name ?? 'U', 0, 1)) }}
                                 </div>
                             @endif
-                        </div>
-                        
+</div>
+
                         <!-- Candidate Info -->
                         <div class="candidate-card-body">
                             <h5 class="candidate-name">{{ $candidate->seekerProfile->full_name ?? $candidate->name }}</h5>
@@ -1532,17 +1533,12 @@ button svg{
                         </div>
                     </div>
                 </li>
-                @empty
-                <li class="item">
-                    <div class="text-center py-5">
-                        <p class="text-muted">No featured candidates available at the moment.</p>
-                    </div>
-                </li>
-                @endforelse
+                @endforeach
             </ul>
         </div>
     </div>
 </section>
+@endif
 
 @if($recommendedJobs && $recommendedJobs->count() > 0)
 <div class="jobs-wrap">
@@ -1592,8 +1588,8 @@ button svg{
 
 </div>
 
-   </div>
-</div>
+                        </div>
+                        </div>
 @endif
 
    <!-- <section class="category-wrap seekerwrp popular-items mt-5">
@@ -1634,12 +1630,12 @@ button svg{
             @endforeach
 
          </ul>
-      </div>
+      </div> 
       <div class="text-center mt-4 mb-4">
          <a href="{{ route('candidates.index') }}" class="btn-browse-seekers">
             <i class="fas fa-users"></i> Browse All Job Seekers
          </a>
-      </div>
+      </div> 
       </div> 
    </section> -->
  

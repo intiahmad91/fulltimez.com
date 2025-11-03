@@ -177,6 +177,28 @@
                             </span>
                         @endif
                         
+                        @if($user->isSeeker() && $user->seekerProfile)
+                            @if($user->seekerProfile->approval_status == 'approved')
+                                <span class="status-badge status-approved">
+                                    <i class="fas fa-file-check"></i> Resume Approved
+                                </span>
+                            @elseif($user->seekerProfile->approval_status == 'pending')
+                                <span class="status-badge status-pending">
+                                    <i class="fas fa-file-clock"></i> Resume Pending
+                                </span>
+                            @elseif($user->seekerProfile->approval_status == 'rejected')
+                                <span class="status-badge status-banned">
+                                    <i class="fas fa-file-times"></i> Resume Rejected
+                                </span>
+                            @endif
+                            
+                            @if($user->seekerProfile->isFeatured() && $user->seekerProfile->featured_expires_at && $user->seekerProfile->featured_expires_at->isFuture())
+                                <span class="status-badge" style="background: #fbbf24; color: #92400e;">
+                                    <i class="fas fa-star"></i> Featured
+                                </span>
+                            @endif
+                        @endif
+                        
                         @if($user->hasVerifiedEmail())
                             <span class="status-badge status-verified">
                                 <i class="fas fa-envelope-check"></i> Verified
