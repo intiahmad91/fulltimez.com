@@ -3,62 +3,233 @@
 @section('title', 'Candidates')
 
 @section('content')
+<section class="breadcrumb-section">
+    <div class="container-auto">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-12">
+                <div class="page-title">
+                    <h1>Candidates</h1>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-12">
+                <nav aria-label="breadcrumb" class="theme-breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Candidates</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="category-wrap innerseeker popular-items mt-5">
+    <div class="container">
+        <div class="main_title">Browse Candidates</div>
+        <div class="row">
+            <!-- Sidebar Filters -->
+            <div class="col-lg-3 fadeInLeft">
+                <div class="filters">
+                    <h3>Filters</h3>
+                    
+                    <form action="{{ route('candidates.index') }}" method="GET">
+                        <!-- Search -->
+                        <div class="input-group">
+                            <label>Search</label>
+                            <input type="text" class="form-control" name="search" value="{{ request('search') }}" placeholder="Name or Position">
+                        </div>
+
+                        <!-- Experience -->
+                        <div class="input-group">
+                            <label>Experience</label>
+                            <select class="form-control" name="experience">
+                                <option value="">All Experience Levels</option>
+                                <option value="0-1" {{ request('experience') == '0-1' ? 'selected' : '' }}>0 - 1 years</option>
+                                <option value="2-3" {{ request('experience') == '2-3' ? 'selected' : '' }}>2 - 3 years</option>
+                                <option value="3-5" {{ request('experience') == '3-5' ? 'selected' : '' }}>3 - 5 years</option>
+                                <option value="5-7" {{ request('experience') == '5-7' ? 'selected' : '' }}>5 - 7 years</option>
+                                <option value="7-10" {{ request('experience') == '7-10' ? 'selected' : '' }}>7 - 10 years</option>
+                                <option value="10+" {{ request('experience') == '10+' ? 'selected' : '' }}>10+ years</option>
+                            </select>
+                        </div>
+
+                        <!-- Expected Salary -->
+                        <div class="input-group">
+                            <label>Expected Salary</label>
+                            <select class="form-control" name="salary">
+                                <option value="">All Salary Ranges</option>
+                                <option value="0-1999" {{ request('salary') == '0-1999' ? 'selected' : '' }}>0 - 1,999</option>
+                                <option value="2000-3999" {{ request('salary') == '2000-3999' ? 'selected' : '' }}>2,000 - 3,999</option>
+                                <option value="4000-5999" {{ request('salary') == '4000-5999' ? 'selected' : '' }}>4,000 - 5,999</option>
+                                <option value="6000-9999" {{ request('salary') == '6000-9999' ? 'selected' : '' }}>6,000 - 9,999</option>
+                                <option value="10000-14999" {{ request('salary') == '10000-14999' ? 'selected' : '' }}>10,000 - 14,999</option>
+                                <option value="15000+" {{ request('salary') == '15000+' ? 'selected' : '' }}>15,000+</option>
+                            </select>
+                        </div>
+
+                        <!-- Country -->
+                        <div class="input-group">
+                            <label>Country</label>
+                            <select class="form-control" name="country" id="countrySelect">
+                                <option value="">All Countries</option>
+                                @foreach($countries as $country)
+                                    <option value="{{ $country->name }}" {{ request('country') == $country->name ? 'selected' : '' }}>
+                                        {{ $country->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <!-- City -->
+                        <div class="input-group">
+                            <label>City</label>
+                            <select class="form-control" name="city" id="citySelect">
+                                <option value="">All Cities</option>
+                                @foreach($cities as $city)
+                                    <option value="{{ $city->name }}" {{ request('city') == $city->name ? 'selected' : '' }}>
+                                        {{ $city->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <!-- Nationality -->
+                        <div class="input-group">
+                            <label>Nationality</label>
+                            <select class="form-control" name="nationality">
+                                <option value="">All Nationalities</option>
+                                <option value="UAE" {{ request('nationality') == 'UAE' ? 'selected' : '' }}>UAE</option>
+                                <option value="India" {{ request('nationality') == 'India' ? 'selected' : '' }}>India</option>
+                                <option value="Pakistan" {{ request('nationality') == 'Pakistan' ? 'selected' : '' }}>Pakistan</option>
+                                <option value="Egypt" {{ request('nationality') == 'Egypt' ? 'selected' : '' }}>Egypt</option>
+                                <option value="USA" {{ request('nationality') == 'USA' ? 'selected' : '' }}>USA</option>
+                                <option value="UK" {{ request('nationality') == 'UK' ? 'selected' : '' }}>UK</option>
+                                <option value="Bangladesh" {{ request('nationality') == 'Bangladesh' ? 'selected' : '' }}>Bangladesh</option>
+                                <option value="Philippines" {{ request('nationality') == 'Philippines' ? 'selected' : '' }}>Philippines</option>
+                                <option value="Sri Lanka" {{ request('nationality') == 'Sri Lanka' ? 'selected' : '' }}>Sri Lanka</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group justify-content-center">
+                            <input type="submit" value="Apply Filter" class="apply_btn">
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Candidates Grid -->
+            <div class="col-lg-9 fadeInLeft">
+                <div class="candidates-grid-wrapper">
+                    <div class="mb-3">
+                        <strong>{{ $candidates->total() }} candidates found</strong>
+                    </div>
+                    
+                    <div class="candidates-grid">
+                        @forelse($candidates as $candidate)
+                        <div class="featured-candidate-card">
+                            <!-- Featured Badge -->
+                            <div class="featured-badge">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            
+                            <!-- Favorite Icon -->
+                            <div class="favorite-icon">
+                                <i class="far fa-heart"></i>
+                            </div>
+                            
+                            <!-- Profile Picture -->
+                            <div class="candidate-profile-picture">
+                                @if($candidate->seekerProfile && $candidate->seekerProfile->profile_picture)
+                                    <img src="{{ asset($candidate->seekerProfile->profile_picture) }}" alt="{{ $candidate->seekerProfile->full_name ?? $candidate->name }}">
+                                @else
+                                    <div class="candidate-avatar-default">
+                                        {{ strtoupper(substr($candidate->seekerProfile->full_name ?? $candidate->name ?? 'U', 0, 1)) }}
+                                    </div>
+                                @endif
+                            </div>
+                            
+                            <!-- Candidate Info -->
+                            <div class="candidate-card-body">
+                                <h5 class="candidate-name">{{ $candidate->seekerProfile->full_name ?? $candidate->name }}</h5>
+                                
+                                <!-- Rate -->
+                                <div class="candidate-rate">
+                                    @php
+                                        $salary = $candidate->seekerProfile->expected_salary ?? 'Negotiable';
+                                        // Try to extract number from salary string
+                                        if (preg_match('/(\d+[\d,]+)/', $salary, $matches)) {
+                                            $amount = str_replace(',', '', $matches[1]);
+                                            // Format as currency
+                                            echo 'AED ' . number_format((float)$amount);
+                                            // Check if it's hourly, weekly, or monthly
+                                            if (strpos(strtolower($salary), 'hr') !== false || $amount < 1000) {
+                                                echo '/Hr';
+                                            } elseif (strpos(strtolower($salary), 'we') !== false || ($amount >= 1000 && $amount < 10000)) {
+                                                echo '/We';
+                                            } else {
+                                                echo '/Mo';
+                                            }
+                                        } else {
+                                            echo $salary;
+                                        }
+                                    @endphp
+                                </div>
+                                
+                                <!-- Profession -->
+                                <p class="candidate-profession">{{ $candidate->seekerProfile->current_position ?? 'Job Seeker' }}</p>
+                                
+                                <!-- Location -->
+                                <div class="candidate-location">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>{{ $candidate->seekerProfile->city ?? 'UAE' }}, {{ $candidate->seekerProfile->country ?? 'UAE' }}</span>
+                                </div>
+                                
+                                <!-- Rating -->
+                                <div class="candidate-rating">
+                                    @php
+                                        $rating = 4.5; // Default rating, you can calculate this based on reviews if you have them
+                                    @endphp
+                                    <div class="rating-stars">
+                                        @for($i = 1; $i <= 5; $i++)
+                                            @if($i <= floor($rating))
+                                                <i class="fas fa-star"></i>
+                                            @elseif($i - 0.5 <= $rating)
+                                                <i class="fas fa-star-half-alt"></i>
+                                            @else
+                                                <i class="far fa-star"></i>
+                                            @endif
+                                        @endfor
+                                    </div>
+                                    <span class="rating-number">{{ number_format($rating, 1) }}</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Action Buttons -->
+                            <div class="candidate-card-footer">
+                                <a href="{{ route('candidates.show', $candidate->id) }}" class="btn-view-profile">Profile</a>
+                                <a href="#" class="btn-hire-me">Hire Me</a>
+                            </div>
+                        </div>
+                        @empty
+                        <div class="no-candidates">
+                            <h4>No candidates found</h4>
+                            <p>No candidates match your search criteria. Try adjusting your filters.</p>
+                        </div>
+                        @endforelse
+                    </div>
+
+                    @if($candidates->hasPages())
+                    <div class="simple-pagination">
+                        {{ $candidates->links() }}
+                    </div>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <style>
-.page-header {
-    background: #f8f9fa;
-    padding: 40px 0;
-    border-bottom: 1px solid #e9ecef;
-}
-
-.page-title {
-    font-size: 2rem;
-    font-weight: 600;
-    color: #2c3e50;
-    margin-bottom: 0;
-}
-
-.candidates-count {
-    color: #6c757d;
-    font-size: 1rem;
-}
-
-.filter-section {
-    background: white;
-    border: 1px solid #e9ecef;
-    border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 30px;
-}
-
-.filter-title {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #2c3e50;
-    margin-bottom: 15px;
-}
-
-.search-form {
-    display: flex;
-    gap: 15px;
-    align-items: end;
-}
-
-.search-form .form-group {
-    flex: 1;
-    margin-bottom: 0;
-}
-
-.search-form .form-control {
-    border: 1px solid #ced4da;
-    border-radius: 4px;
-    padding: 8px 12px;
-}
-
-.search-form .btn {
-    padding: 8px 20px;
-    border-radius: 4px;
-}
-
 /* Featured Candidate Card Styles */
 .candidates-grid {
     display: grid;
@@ -344,11 +515,6 @@
 }
 
 @media (max-width: 768px) {
-    .search-form {
-        flex-direction: column;
-        gap: 10px;
-    }
-    
     .candidates-grid {
         grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
         gap: 16px;
@@ -373,138 +539,48 @@
 }
 </style>
 
-<div class="page-header">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-md-8">
-                <h1 class="page-title">Candidates</h1>
-                <p class="candidates-count">{{ $candidates->total() }} candidates found</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="container" style="padding: 30px 0;">
-    <div class="filter-section">
-        <h5 class="filter-title">Search Candidates</h5>
-        <form action="{{ route('candidates.index') }}" method="GET" class="search-form">
-            <div class="form-group">
-                <label class="form-label">Name or Position</label>
-                <input type="text" name="search" class="form-control" placeholder="Search by name or position" value="{{ request('search') }}">
-            </div>
-            <div class="form-group">
-                <label class="form-label">City</label>
-                <input type="text" name="city" class="form-control" placeholder="Enter city" value="{{ request('city') }}">
-            </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary">Search</button>
-            </div>
-            @if(request('search') || request('city'))
-            <div class="form-group">
-                <a href="{{ route('candidates.index') }}" class="btn btn-outline-secondary">Clear</a>
-            </div>
-            @endif
-        </form>
-    </div>
-
-    <div class="candidates-grid">
-        @forelse($candidates as $candidate)
-        <div class="featured-candidate-card">
-            <!-- Featured Badge -->
-            <div class="featured-badge">
-                <i class="fas fa-star"></i>
-            </div>
+<script>
+// Dynamic city loading based on country selection
+document.addEventListener('DOMContentLoaded', function() {
+    const countrySelect = document.getElementById('countrySelect');
+    const citySelect = document.getElementById('citySelect');
+    
+    if (countrySelect && citySelect) {
+        countrySelect.addEventListener('change', function() {
+            const country = this.value;
+            citySelect.innerHTML = '<option value="">Loading...</option>';
+            citySelect.disabled = true;
             
-            <!-- Favorite Icon -->
-            <div class="favorite-icon">
-                <i class="far fa-heart"></i>
-            </div>
-            
-            <!-- Profile Picture -->
-            <div class="candidate-profile-picture">
-                @if($candidate->seekerProfile && $candidate->seekerProfile->profile_picture)
-                    <img src="{{ asset($candidate->seekerProfile->profile_picture) }}" alt="{{ $candidate->seekerProfile->full_name ?? $candidate->name }}">
-                @else
-                    <div class="candidate-avatar-default">
-                        {{ strtoupper(substr($candidate->seekerProfile->full_name ?? $candidate->name ?? 'U', 0, 1)) }}
-                    </div>
-                @endif
-            </div>
-            
-            <!-- Candidate Info -->
-            <div class="candidate-card-body">
-                <h5 class="candidate-name">{{ $candidate->seekerProfile->full_name ?? $candidate->name }}</h5>
-                
-                <!-- Rate -->
-                <div class="candidate-rate">
-                    @php
-                        $salary = $candidate->seekerProfile->expected_salary ?? 'Negotiable';
-                        // Try to extract number from salary string
-                        if (preg_match('/(\d+[\d,]+)/', $salary, $matches)) {
-                            $amount = str_replace(',', '', $matches[1]);
-                            // Format as currency
-                            echo 'AED ' . number_format((float)$amount);
-                            // Check if it's hourly, weekly, or monthly
-                            if (strpos(strtolower($salary), 'hr') !== false || $amount < 1000) {
-                                echo '/Hr';
-                            } elseif (strpos(strtolower($salary), 'we') !== false || ($amount >= 1000 && $amount < 10000)) {
-                                echo '/We';
-                            } else {
-                                echo '/Mo';
-                            }
-                        } else {
-                            echo $salary;
+            if (country) {
+                fetch(`{{ url('/api/cities') }}/${encodeURIComponent(country)}`)
+                    .then(response => {
+                        if (!response.ok) throw new Error('Network response was not ok');
+                        return response.json();
+                    })
+                    .then(data => {
+                        citySelect.innerHTML = '<option value="">All Cities</option>';
+                        if (data.success && data.cities && Array.isArray(data.cities)) {
+                            data.cities.forEach(city => {
+                                const option = document.createElement('option');
+                                option.value = city.name;
+                                option.textContent = city.name;
+                                citySelect.appendChild(option);
+                            });
                         }
-                    @endphp
-                </div>
-                
-                <!-- Profession -->
-                <p class="candidate-profession">{{ $candidate->seekerProfile->current_position ?? 'Job Seeker' }}</p>
-                
-                <!-- Location -->
-                <div class="candidate-location">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <span>{{ $candidate->seekerProfile->city ?? 'UAE' }}, {{ $candidate->seekerProfile->country ?? 'UAE' }}</span>
-                </div>
-                
-                <!-- Rating -->
-                <div class="candidate-rating">
-                    @php
-                        $rating = 4.5; // Default rating, you can calculate this based on reviews if you have them
-                    @endphp
-                    <div class="rating-stars">
-                        @for($i = 1; $i <= 5; $i++)
-                            @if($i <= floor($rating))
-                                <i class="fas fa-star"></i>
-                            @elseif($i - 0.5 <= $rating)
-                                <i class="fas fa-star-half-alt"></i>
-                            @else
-                                <i class="far fa-star"></i>
-                            @endif
-                        @endfor
-                    </div>
-                    <span class="rating-number">{{ number_format($rating, 1) }}</span>
-                </div>
-            </div>
-            
-            <!-- Action Buttons -->
-            <div class="candidate-card-footer">
-                <a href="{{ route('candidates.show', $candidate->id) }}" class="btn-view-profile">Profile</a>
-                <a href="#" class="btn-hire-me">Hire Me</a>
-            </div>
-        </div>
-        @empty
-        <div class="no-candidates">
-            <h4>No candidates found</h4>
-            <p>No candidates match your search criteria. Try adjusting your filters.</p>
-        </div>
-        @endforelse
-    </div>
-
-    @if($candidates->hasPages())
-    <div class="simple-pagination">
-        {{ $candidates->links() }}
-    </div>
-    @endif
-</div>
+                        citySelect.disabled = false;
+                    })
+                    .catch(error => {
+                        console.error('Error loading cities:', error);
+                        citySelect.innerHTML = '<option value="">All Cities</option>';
+                        citySelect.disabled = false;
+                    });
+            } else {
+                // Clear cities when no country selected
+                citySelect.innerHTML = '<option value="">All Cities</option>';
+                citySelect.disabled = false;
+            }
+        });
+    }
+});
+</script>
 @endsection
