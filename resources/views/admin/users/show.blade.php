@@ -120,6 +120,22 @@
                                 {{ ucfirst($user->seekerProfile->verification_status) }}
                             </span>
                         </p>
+                        @php
+                            $approvalStatus = $user->seekerProfile->approval_status ?? 'pending';
+                            $isFeatured = method_exists($user->seekerProfile, 'isFeatured') ? $user->seekerProfile->isFeatured() : false;
+                        @endphp
+                        <p><strong>Resume Approval Status:</strong>
+                            <span class="admin-badge {{ $approvalStatus === 'approved' ? 'badge-success' : ($approvalStatus === 'rejected' ? 'badge-danger' : 'badge-warning') }}">
+                                {{ ucfirst($approvalStatus) }}
+                            </span>
+                        </p>
+                        @if($isFeatured && $user->seekerProfile->featured_expires_at)
+                        <p><strong>Featured:</strong>
+                            <span class="admin-badge badge-warning">
+                                <i class="fas fa-star"></i> Featured until {{ $user->seekerProfile->featured_expires_at->format('M d, Y') }}
+                            </span>
+                        </p>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -153,13 +169,82 @@
         </div>
         @endif
 
-        @if($user->isSeeker() && $user->seekerProfile && $user->seekerProfile->verification_status === 'pending')
-        <div class="mt-3 d-flex gap-2">
-            <form action="{{ route('admin.users.approve-seeker', $user) }}" method="POST" onsubmit="return confirm('Approve this jobseeker?');">
-                @csrf
-                <button type="submit" class="btn btn-success"><i class="fas fa-check"></i> Approve Jobseeker</button>
-            </form>
-        </div>
+        @if($user->isSeeker() && $user->seekerProfile)
+            @if($user->seekerProfile->verification_status === 'pending')
+            <div class="mt-3 d-flex gap-2">
+                <form action="{{ route('admin.users.approve-seeker', $user) }}" method="POST" onsubmit="return confirm('Approve this jobseeker account?');">
+                    @csrf
+                    <button type="submit" class="btn btn-success"><i class="fas fa-check"></i> Approve Account</button>
+                </form>
+            </div>
+            @endif
+            
+            <div class="mt-3">
+                <h6><i class="fas fa-file-alt"></i> Resume Management</h6>
+                <div class="d-flex gap-2 flex-wrap">
+                    @if($approvalStatus !== 'approved')
+                    <form action="{{ route('admin.users.approve-resume', $user) }}" method="POST" onsubmit="return confirm('Approve this resume for Browse Resume page?');">
+                        @csrf
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-file-check"></i> Approve Resume
+                        </button>
+                    </form>
+                    @endif
+                    
+                    @if($approvalStatus !== 'rejected')
+                    <form action="{{ route('admin.users.reject-resume', $user) }}" method="POST" onsubmit="return confirm('Reject this resume?');">
+                        @csrf
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fas fa-file-times"></i> Reject Resume
+                        </button>
+                    </form>
+                    @endif
+                    
+                    @if(!$isFeatured)
+                    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#featureResumeModal">
+                        <i class="fas fa-star"></i> Feature Resume
+                    </button>
+                    @else
+                    <form action="{{ route('admin.users.unfeature-resume', $user) }}" method="POST" onsubmit="return confirm('Unfeature this resume?');">
+                        @csrf
+                        <button type="submit" class="btn btn-secondary">
+                            <i class="fas fa-star-half-alt"></i> Unfeature Resume
+                        </button>
+                    </form>
+                    @endif
+                </div>
+            </div>
+            
+            <!-- Feature Resume Modal -->
+            <div class="modal fade" id="featureResumeModal" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Feature Resume</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <form action="{{ route('admin.users.feature-resume', $user) }}" method="POST">
+                            @csrf
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label for="featured_duration" class="form-label">Featured Duration (Days)</label>
+                                    <input type="number" class="form-control" id="featured_duration" name="featured_duration" min="1" max="365" value="30" required>
+                                    <small class="form-text text-muted">Resume will be featured on homepage for the specified number of days.</small>
+                                </div>
+                                <div class="alert alert-info">
+                                    <i class="fas fa-info-circle"></i> This resume will appear on the homepage featured candidates section.
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-warning">
+                                    <i class="fas fa-star"></i> Feature Resume
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         @endif
     </div>
 </div>

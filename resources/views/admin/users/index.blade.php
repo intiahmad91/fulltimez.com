@@ -178,21 +178,25 @@
                         @endif
                         
                         @if($user->isSeeker() && $user->seekerProfile)
-                            @if($user->seekerProfile->approval_status == 'approved')
+                            @php
+                                $approvalStatus = $user->seekerProfile->approval_status ?? 'pending';
+                                $isFeatured = method_exists($user->seekerProfile, 'isFeatured') ? $user->seekerProfile->isFeatured() : false;
+                            @endphp
+                            @if($approvalStatus == 'approved')
                                 <span class="status-badge status-approved">
                                     <i class="fas fa-file-check"></i> Resume Approved
                                 </span>
-                            @elseif($user->seekerProfile->approval_status == 'pending')
+                            @elseif($approvalStatus == 'pending')
                                 <span class="status-badge status-pending">
                                     <i class="fas fa-file-clock"></i> Resume Pending
                                 </span>
-                            @elseif($user->seekerProfile->approval_status == 'rejected')
+                            @elseif($approvalStatus == 'rejected')
                                 <span class="status-badge status-banned">
                                     <i class="fas fa-file-times"></i> Resume Rejected
                                 </span>
                             @endif
                             
-                            @if($user->seekerProfile->isFeatured() && $user->seekerProfile->featured_expires_at && $user->seekerProfile->featured_expires_at->isFuture())
+                            @if($isFeatured)
                                 <span class="status-badge" style="background: #fbbf24; color: #92400e;">
                                     <i class="fas fa-star"></i> Featured
                                 </span>
@@ -253,7 +257,11 @@
                                                     @endif
                                                     
                                                     @if($user->isSeeker() && $user->seekerProfile)
-                                                        @if($user->seekerProfile->approval_status !== 'approved')
+                                                        @php
+                                                            $approvalStatus = $user->seekerProfile->approval_status ?? 'pending';
+                                                            $isFeatured = method_exists($user->seekerProfile, 'isFeatured') ? $user->seekerProfile->isFeatured() : false;
+                                                        @endphp
+                                                        @if($approvalStatus !== 'approved')
                                                         <li>
                                                             <form action="{{ route('admin.users.approve-resume', $user) }}" method="POST" onsubmit="return confirm('Approve this resume for Browse Resume page?');">
                                                                 @csrf
@@ -264,7 +272,7 @@
                                                         </li>
                                                         @endif
                                                         
-                                                        @if($user->seekerProfile->approval_status !== 'rejected')
+                                                        @if($approvalStatus !== 'rejected')
                                                         <li>
                                                             <form action="{{ route('admin.users.reject-resume', $user) }}" method="POST" onsubmit="return confirm('Reject this resume?');">
                                                                 @csrf
@@ -275,7 +283,7 @@
                                                         </li>
                                                         @endif
                                                         
-                                                        @if(!$user->seekerProfile->isFeatured() || !$user->seekerProfile->featured_expires_at || $user->seekerProfile->featured_expires_at->isPast())
+                                                        @if(!$isFeatured)
                                                         <li>
                                                             <button type="button" class="dropdown-item text-warning" data-bs-toggle="modal" data-bs-target="#featureResumeModal{{ $user->id }}">
                                                                 <i class="fas fa-star"></i> Feature Resume
@@ -373,6 +381,41 @@
         </div>
     </div>
 </div>
+
+<!-- Feature Resume Modals -->
+@foreach($users as $user)
+    @if($user->isSeeker() && $user->seekerProfile)
+    <div class="modal fade" id="featureResumeModal{{ $user->id }}" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                    <h5 class="modal-title">Feature Resume</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+                <form action="{{ route('admin.users.feature-resume', $user) }}" method="POST">
+                @csrf
+                <div class="modal-body">
+                    <div class="mb-3">
+                            <label for="featured_duration{{ $user->id }}" class="form-label">Featured Duration (Days)</label>
+                            <input type="number" class="form-control" id="featured_duration{{ $user->id }}" name="featured_duration" min="1" max="365" value="30" required>
+                            <small class="form-text text-muted">Resume will be featured on homepage for the specified number of days.</small>
+                    </div>
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle"></i> This resume will appear on the homepage featured candidates section.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-warning">
+                            <i class="fas fa-star"></i> Feature Resume
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+    @endif
+@endforeach
 
 <style>
 /* Statistics Cards */
