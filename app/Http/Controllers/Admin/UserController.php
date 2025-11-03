@@ -169,8 +169,8 @@ class UserController extends Controller
             $user->seekerProfile->update(['approval_status' => 'approved']);
         }
 
-        // Set featured
-        $featuredExpiresAt = now()->addDays($request->featured_duration);
+        // Set featured - cast to int to ensure it's not a string
+        $featuredExpiresAt = now()->addDays((int)$request->featured_duration);
         $user->seekerProfile->update([
             'is_featured' => true,
             'featured_expires_at' => $featuredExpiresAt,
