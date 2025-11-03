@@ -243,13 +243,54 @@
                                                     
                                                     @if($user->isSeeker() && $user->seekerProfile && $user->seekerProfile->verification_status !== 'verified')
                                                     <li>
-                                    <form action="{{ route('admin.users.approve-seeker', $user) }}" method="POST" onsubmit="return confirm('Approve this jobseeker?');">
+                                    <form action="{{ route('admin.users.approve-seeker', $user) }}" method="POST" onsubmit="return confirm('Approve this jobseeker account?');">
                                                             @csrf
                                                             <button type="submit" class="dropdown-item text-success">
-                                                                <i class="fas fa-check-circle"></i> Approve Jobseeker
+                                                                <i class="fas fa-check-circle"></i> Approve Account
                                                             </button>
                                                         </form>
                                                     </li>
+                                                    @endif
+                                                    
+                                                    @if($user->isSeeker() && $user->seekerProfile)
+                                                        @if($user->seekerProfile->approval_status !== 'approved')
+                                                        <li>
+                                                            <form action="{{ route('admin.users.approve-resume', $user) }}" method="POST" onsubmit="return confirm('Approve this resume for Browse Resume page?');">
+                                                                @csrf
+                                                                <button type="submit" class="dropdown-item text-success">
+                                                                    <i class="fas fa-file-check"></i> Approve Resume
+                                                                </button>
+                                                            </form>
+                                                        </li>
+                                                        @endif
+                                                        
+                                                        @if($user->seekerProfile->approval_status !== 'rejected')
+                                                        <li>
+                                                            <form action="{{ route('admin.users.reject-resume', $user) }}" method="POST" onsubmit="return confirm('Reject this resume?');">
+                                                                @csrf
+                                                                <button type="submit" class="dropdown-item text-danger">
+                                                                    <i class="fas fa-file-times"></i> Reject Resume
+                                                                </button>
+                                                            </form>
+                                                        </li>
+                                                        @endif
+                                                        
+                                                        @if(!$user->seekerProfile->isFeatured() || !$user->seekerProfile->featured_expires_at || $user->seekerProfile->featured_expires_at->isPast())
+                                                        <li>
+                                                            <button type="button" class="dropdown-item text-warning" data-bs-toggle="modal" data-bs-target="#featureResumeModal{{ $user->id }}">
+                                                                <i class="fas fa-star"></i> Feature Resume
+                                                            </button>
+                                                        </li>
+                                                        @else
+                                                        <li>
+                                                            <form action="{{ route('admin.users.unfeature-resume', $user) }}" method="POST" onsubmit="return confirm('Unfeature this resume?');">
+                                                                @csrf
+                                                                <button type="submit" class="dropdown-item text-secondary">
+                                                                    <i class="fas fa-star-half-alt"></i> Unfeature Resume
+                                                                </button>
+                                                            </form>
+                                                        </li>
+                                                        @endif
                                                     @endif
                                                     
                                 @if($user->status != 'active')
