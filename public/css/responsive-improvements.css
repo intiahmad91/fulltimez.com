@@ -1040,57 +1040,7 @@ body {
 /* ========================================
    OWL CAROUSEL MOBILE OVERRIDES
    ======================================== */
-
-@media (max-width: 768px) {
-    /* Disable owl carousel on mobile */
-    .owl-carousel {
-        display: block !important;
-        width: 100% !important;
-    }
-    
-    .owl-carousel .owl-stage {
-        display: block !important;
-        transform: none !important;
-        width: 100% !important;
-    }
-    
-    .owl-carousel .owl-stage-outer {
-        overflow: visible !important;
-        width: 100% !important;
-    }
-    
-    .owl-carousel .owl-item {
-        display: block !important;
-        width: 100% !important;
-        float: none !important;
-        clear: both !important;
-        margin-bottom: 20px !important;
-    }
-    
-    .owl-carousel .owl-nav,
-    .owl-carousel .owl-dots {
-        display: none !important;
-    }
-    
-    /* Ensure proper spacing */
-    .owl-carousel .item {
-        margin-bottom: 20px !important;
-        width: 100% !important;
-        display: block !important;
-        float: none !important;
-        clear: both !important;
-    }
-    
-    /* Force all job cards to stack vertically */
-    .owl-carousel .jobs-ad-card,
-    .owl-carousel .category-job {
-        width: 100% !important;
-        display: block !important;
-        float: none !important;
-        clear: both !important;
-        margin-bottom: 20px !important;
-    }
-}
+ 
 
 /* ========================================
    FORM RESPONSIVE IMPROVEMENTS

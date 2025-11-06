@@ -217,7 +217,7 @@
 }
 
 .contact-form .form-label i {
-    color: #667eea;
+    color: #6c6c6c;
     font-size: 14px;
 }
 
@@ -242,7 +242,7 @@
 }
 
 .btn-submit-contact {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #0061da;
     color: #ffffff;
     border: none;
     padding: 14px 40px;
@@ -312,7 +312,7 @@
 .info-icon {
     width: 50px;
     height: 50px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background:#007bff;
     border-radius: 12px;
     display: flex;
     align-items: center;
@@ -367,8 +367,7 @@
 .social-icon {
     width: 42px;
     height: 42px;
-    background: #f7fafc;
-    border: 2px solid #e9ecef;
+    background: #242628; 
     border-radius: 10px;
     display: flex;
     align-items: center;
@@ -379,11 +378,9 @@
 }
 
 .social-icon:hover {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #007bff;
     border-color: #667eea;
-    color: #ffffff;
-    transform: translateY(-3px);
-    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    color: #ffffff; 
 }
 
 /* Alerts */

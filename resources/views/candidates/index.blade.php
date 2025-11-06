@@ -363,7 +363,7 @@
 
 .candidate-location {
     font-size: 14px;
-    color: #22c55e;
+    color: #000;
     margin: 0 0 16px 0;
     display: flex;
     align-items: center;

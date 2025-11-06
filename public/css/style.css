@@ -633,7 +633,7 @@ ul.tick li:before{
 
 }
 .price-ad p {
-    color: #008556;
+    color: #1a73e8;
 }
 .price-ad p span {
     margin-left: 5px;
@@ -2691,7 +2691,7 @@ footer ul.footer-nav li a{font-size: 14px;}
 .filters .input-group label{display: block; margin-bottom: 3px; margin-top: 15px;}
 .filters .input-group .form-control{width: 100%; font-size: 14px; height: 44px;}
 .apply_btn{text-decoration: none;
-    background-color: #008556;
+    background-color: #1a73e8;
     color: #fff;
     transition: all ease 0.5s;
     display: inline-block; 
@@ -3853,6 +3853,7 @@ footer ul.footer-nav li a{font-size: 14px;}
 
 
 @media (max-width: 768px) {
+    
   .contact-wrapper {
     flex-direction: column;
   }
@@ -5137,7 +5138,16 @@ footer .footer-bottom a {
 }
 
 
-
+@media screen and (max-width:768px){
+    .download{padding:0 !important;}
+    .social-icons{display:none !important;}
+    footer { padding: 40px 0 30px !important;
+}
+    
+    
+    
+    
+}
 
 .offcanvas-menu {
       position: fixed;

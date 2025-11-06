@@ -51,7 +51,7 @@ body {
 
 .job-card-header {
     padding: 20px 20px 18px !important;
-    background: #2773e8 !important;
+    background: #2d3748 !important;
     position: relative !important;
     border-radius: 16px 16px 0 0 !important;
 }
@@ -222,7 +222,7 @@ button svg{
 
 .price-ad p span.price-amount {
     font-size: 16px !important;
-    color: #059669 !important;
+    color: #007bff !important;
     white-space: nowrap !important;
 }
 
@@ -235,7 +235,7 @@ button svg{
 
 .price-ad p span.price-negotiable {
     font-size: 16px !important;
-    color: #059669 !important;
+    color: #007bff !important;
     white-space: nowrap !important;
 }
 
@@ -588,7 +588,7 @@ button svg{
 .featured-candidates-separator {
     width: 80px;
     height: 3px;
-    background: #22c55e;
+    background: #0077f6;
     margin: 0 auto;
     border-radius: 2px;
 }
@@ -716,7 +716,7 @@ button svg{
 
 .candidate-rate {
     font-size: 16px;
-    color: #22c55e;
+    color: #0077f6;
     margin: 0 0 8px 0;
 }
 
@@ -728,7 +728,7 @@ button svg{
 
 .candidate-location {
     font-size: 14px;
-    color: #22c55e;
+    color: #2d3748;
     margin: 0 0 16px 0;
     display: flex;
     align-items: center;
@@ -759,7 +759,7 @@ button svg{
 }
 
 .rating-number {
-    background: #22c55e;
+    background: #0077f6;
     color: #ffffff;
     padding: 4px 10px;
     border-radius: 12px;
@@ -871,7 +871,7 @@ button svg{
 }
 
 .split-banner-employer .split-banner-overlay {
-    background: rgba(40, 167, 69, 0.85);
+    background:rgb(13 102 197);
 }
 
 .split-banner-content {
@@ -1160,6 +1160,11 @@ button svg{
     }
 }
 
+.split-banner-jobseeker{
+    border-radius: 35px 0 0 35px;}
+   .split-banner-employer{
+    border-radius:0 35px 35px 0;}
+    
 /* Home Page Responsive Improvements */
 @media (max-width: 768px) {
     .main_title {
@@ -1167,7 +1172,10 @@ button svg{
         text-align: center;
         margin-bottom: 30px;
     }
-    
+    .split-banner-jobseeker{
+    border-radius: 35px 35px 0 0;}
+   .split-banner-employer{
+    border-radius:0 0 35px 35px;}
     .jobs_list {
         padding: 0 15px !important;
         display: block !important;
@@ -1340,6 +1348,8 @@ button svg{
         font-size: 14px !important;
     }
 }
+
+    
 </style>
 @endpush
 
@@ -1408,8 +1418,9 @@ button svg{
  
 
 <!-- Split Banner Section: Jobseeker & Employer -->
-<section class="split-banner-section">
-    <div class="container-fluid p-0">
+<section class="split-banner-section-wrap">
+    <div class="container">
+        <div class="split-banner-section mt-0">
         <div class="row g-0">
             <!-- Jobseeker Section -->
             <div class="col-lg-6 col-md-6 split-banner-jobseeker" style="background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);{{ file_exists(public_path('images/jobseeker-bg.jpg')) ? ' background-image: url(' . asset('images/jobseeker-bg.jpg') . '); background-size: cover; background-position: center; background-blend-mode: overlay;' : '' }}">
@@ -1431,7 +1442,7 @@ button svg{
                 <div class="split-banner-overlay"></div>
             </div>
         </div>
-    </div>
+    </div></div>
 </section>
 
 @if($featuredCandidates && $featuredCandidates->count() > 0)
