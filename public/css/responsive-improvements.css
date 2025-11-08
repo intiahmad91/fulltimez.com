@@ -1,0 +1,1439 @@
+/* ========================================
+   RESPONSIVE IMPROVEMENTS FOR FULLTIMEZ
+   ======================================== */
+
+/* ========================================
+   GLOBAL RESPONSIVE IMPROVEMENTS
+   ======================================== */
+
+/* Ensure all images are responsive */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Improve text readability on mobile */
+body {
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+}
+
+/* ========================================
+   HEADER RESPONSIVE IMPROVEMENTS
+   ======================================== */
+
+/* Modern Auth Button Styling */
+.auth-buttons {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.auth-btn {
+    display: inline-block;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    text-decoration: none;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    min-width: 100px;
+}
+
+.login-btn {
+    background: #007bff;
+    color: #ffffff;
+}
+
+.login-btn:hover {
+    background: #0056b3;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0,123,255,0.3);
+    color: #ffffff;
+}
+
+.register-btn {
+    background: #007bff;
+    color: #ffffff;
+}
+
+.register-btn:hover {
+    background: #0056b3;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0,123,255,0.3);
+    color: #ffffff;
+}
+
+.dashboard-btn {
+    background: #6c757d;
+    color: #ffffff;
+}
+
+.dashboard-btn:hover {
+    background: #545b62;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(108,117,125,0.3);
+    color: #ffffff;
+}
+
+.logout-btn {
+    background: #dc3545;
+    color: #ffffff;
+}
+
+.logout-btn:hover {
+    background: #c82333;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(220,53,69,0.3);
+    color: #ffffff;
+}
+
+/* Mobile Auth Button Styling */
+.mobile-auth-btn {
+    display: block;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    text-decoration: none;
+    text-align: center;
+    transition: all 0.3s ease;
+    margin: 8px 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.mobile-auth-btn.login-btn {
+    background: #007bff;
+    color: #ffffff;
+}
+
+.mobile-auth-btn.login-btn:hover {
+    background: #0056b3;
+    color: #ffffff;
+}
+
+.mobile-auth-btn.register-btn {
+    background: #007bff;
+    color: #ffffff;
+}
+
+.mobile-auth-btn.register-btn:hover {
+    background: #0056b3;
+    color: #ffffff;
+}
+
+.mobile-auth-btn.dashboard-btn {
+    background: #6c757d;
+    color: #ffffff;
+}
+
+.mobile-auth-btn.dashboard-btn:hover {
+    background: #545b62;
+    color: #ffffff;
+}
+
+.mobile-auth-btn.logout-btn {
+    background: #dc3545;
+    color: #ffffff;
+}
+
+.mobile-auth-btn.logout-btn:hover {
+    background: #c82333;
+    color: #ffffff;
+}
+
+/* Mobile-first header improvements */
+@media (max-width: 991.98px) {
+    .top-nav {
+        display: none;
+    }
+    
+    .fulltimez-logo {
+        text-align: center;
+        margin-bottom: 15px;
+    }
+    
+    .fulltimez-logo img {
+        max-width: 200px;
+        height: auto;
+    }
+    
+    .auth-buttons {
+        gap: 8px;
+    }
+    
+    .auth-btn {
+        padding: 10px 16px;
+        font-size: 13px;
+        min-width: 80px;
+    }
+}
+
+@media (max-width: 480px) {
+    .auth-buttons {
+        gap: 6px;
+    }
+    
+    .auth-btn {
+        padding: 8px 12px;
+        font-size: 12px;
+        min-width: 70px;
+    }
+}
+
+/* Mobile navigation */
+@media (max-width: 768px) {
+    .mobile-nav {
+        display: none;
+        background: #fff;
+        border-top: 1px solid #eee;
+        padding: 15px 0;
+    }
+    
+    .mobile-nav.active {
+        display: block;
+    }
+    
+    .mobile-nav ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .mobile-nav li {
+        margin-bottom: 10px;
+    }
+    
+    .mobile-nav a {
+        display: block;
+        padding: 10px 20px;
+        color: #333;
+        text-decoration: none;
+        border-bottom: 1px solid #f0f0f0;
+    }
+    
+    .mobile-nav a:hover {
+        background: #f8f9fa;
+    }
+}
+
+/* ========================================
+   GLOBAL MOBILE CONTAINER CONSTRAINTS
+   ======================================== */
+
+@media (max-width: 768px) {
+    body {
+        overflow-x: hidden !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    .container,
+    .container-fluid {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+        box-sizing: border-box !important;
+        overflow-x: hidden !important;
+    }
+    
+    .row {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    [class*="col-"] {
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+}
+
+/* ========================================
+   SEARCH BAR RESPONSIVE IMPROVEMENTS
+   ======================================== */
+
+@media (max-width: 768px) {
+    .search-wrap {
+        padding: 15px 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+        box-sizing: border-box !important;
+    }
+    
+    .search-barwrp {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 15px !important;
+        padding: 0 15px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        overflow-x: hidden !important;
+    }
+    
+    .search-barwrp .field {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-bottom: 15px !important;
+        display: block !important;
+        float: none !important;
+        box-sizing: border-box !important;
+        overflow-x: hidden !important;
+    }
+    
+    .search-barwrp .field .label {
+        display: block !important;
+        margin-bottom: 5px !important;
+        font-weight: 600 !important;
+        color: #333 !important;
+        font-size: 14px !important;
+        word-wrap: break-word !important;
+    }
+    
+    .search-barwrp .field select,
+    .search-barwrp .field input {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 12px !important;
+        border: 1px solid #ddd !important;
+        border-radius: 4px !important;
+        font-size: 16px !important;
+        box-sizing: border-box !important;
+        display: block !important;
+        overflow-x: hidden !important;
+    }
+    
+    .search-barwrp .actions {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 10px !important;
+        margin-top: 15px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        overflow-x: hidden !important;
+    }
+    
+    .search-barwrp .btn {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 12px 20px !important;
+        font-size: 16px !important;
+        border-radius: 4px !important;
+        margin: 0 !important;
+        display: block !important;
+        box-sizing: border-box !important;
+        overflow-x: hidden !important;
+        white-space: nowrap !important;
+        text-overflow: ellipsis !important;
+    }
+    
+    .search-barwrp .btn.ghost {
+        order: 2 !important;
+    }
+    
+    .search-barwrp .btn.primary {
+        order: 1 !important;
+    }
+    
+    /* Additional mobile search form fixes */
+    .search-wrap form {
+        width: 100% !important;
+    }
+    
+    .search-wrap .search-barwrp {
+        display: block !important;
+        width: 100% !important;
+    }
+    
+    .search-wrap .field {
+        display: block !important;
+        width: 100% !important;
+        margin-bottom: 15px !important;
+        float: none !important;
+    }
+    
+    .search-wrap .field select,
+    .search-wrap .field input {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    
+    .search-wrap .actions {
+        display: block !important;
+        width: 100% !important;
+    }
+    
+    .search-wrap .btn {
+        width: 100% !important;
+        margin-bottom: 10px !important;
+        display: block !important;
+    }
+    
+    /* Additional mobile form constraints */
+    .search-wrap form {
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+        box-sizing: border-box !important;
+    }
+    
+    .search-wrap .search-barwrp {
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+        box-sizing: border-box !important;
+    }
+    
+    .search-wrap .field {
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+        box-sizing: border-box !important;
+    }
+    
+    .search-wrap .field select,
+    .search-wrap .field input {
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+        box-sizing: border-box !important;
+    }
+}
+
+/* ========================================
+   JOB CARDS RESPONSIVE IMPROVEMENTS
+   ======================================== */
+
+@media (max-width: 768px) {
+    .jobs_list {
+        padding: 0 15px !important;
+        display: block !important;
+        flex-direction: column !important;
+    }
+    
+    .jobs_list .item {
+        width: 100% !important;
+        margin-bottom: 20px !important;
+        padding: 0 10px !important;
+        display: block !important;
+        float: none !important;
+        clear: both !important;
+    }
+    
+    .jobs-ad-card {
+        margin-bottom: 20px !important;
+        padding: 15px !important;
+        border-radius: 8px !important;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+        background: #fff !important;
+        width: 100% !important;
+        display: block !important;
+        float: none !important;
+        clear: both !important;
+    }
+    
+    .category-job {
+        flex-direction: column !important;
+        text-align: center !important;
+        margin-bottom: 15px !important;
+        width: 100% !important;
+        display: block !important;
+        float: none !important;
+        clear: both !important;
+    }
+    
+    .job-icons {
+        margin-bottom: 10px;
+    }
+    
+    .job-icons img {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .categery-name h3 {
+        font-size: 18px;
+        margin: 5px 0;
+    }
+    
+    .add-title {
+        font-size: 20px !important;
+        line-height: 1.4 !important;
+        margin-bottom: 15px !important;
+        word-wrap: break-word !important;
+        white-space: normal !important;
+        overflow: visible !important;
+        text-overflow: unset !important;
+    }
+    
+    .add-title a {
+        color: #333 !important;
+        text-decoration: none !important;
+        word-wrap: break-word !important;
+        white-space: normal !important;
+    }
+    
+    .add-title a:hover {
+        color: #007bff !important;
+    }
+    
+    .meta-ad {
+        margin-bottom: 15px !important;
+        word-wrap: break-word !important;
+        white-space: normal !important;
+        overflow: visible !important;
+    }
+    
+    .owner-ad-list {
+        justify-content: center;
+        margin-bottom: 10px;
+    }
+    
+    .owner-ad-list img {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        margin-right: 8px;
+    }
+    
+    .carinfo {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 15px;
+    }
+    
+    .carinfo li {
+        background: #f8f9fa;
+        padding: 5px 10px;
+        border-radius: 4px;
+        font-size: 14px;
+    }
+    
+    .cartbx {
+        margin-bottom: 15px;
+    }
+    
+    .cartbx a {
+        display: flex;
+        align-items: center;
+        color: #666;
+        text-decoration: none;
+    }
+    
+    .cartbx img {
+        width: 16px;
+        height: 16px;
+        margin-right: 5px;
+    }
+    
+    .price-ad {
+        text-align: center;
+    }
+    
+    .price-ad p {
+        font-size: 16px;
+        font-weight: 600;
+        color: #007bff;
+    }
+}
+
+/* ========================================
+   LOGO RESPONSIVE IMPROVEMENTS
+   ======================================== */
+
+@media (max-width: 991.98px) {
+    .fulltimez-logo img {
+        max-width: 150px;
+        height: auto;
+    }
+}
+
+/* ========================================
+   MOBILE NAVIGATION DROPDOWN
+   ======================================== */
+
+.mobile-nav-dropdown {
+    position: relative;
+    display: none;
+}
+
+.mobile-nav-toggle {
+    background: #007bff !important;
+    color: white !important;
+    border: none !important;
+    padding: 8px 12px !important;
+    border-radius: 4px !important;
+    cursor: pointer !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+    min-width: 80px !important;
+    margin-left: auto !important;
+}
+
+.mobile-nav-toggle:hover {
+    background: #0056b3 !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15) !important;
+}
+
+.mobile-nav-toggle:focus {
+    outline: none !important;
+    box-shadow: 0 0 0 3px rgba(0,123,255,0.25) !important;
+}
+
+.mobile-nav-toggle i {
+    font-size: 14px !important;
+}
+
+.mobile-nav-menu {
+    position: absolute !important;
+    top: calc(100% + 15px) !important;
+    right: 0 !important;
+    z-index: 1000 !important;
+    min-width: 160px !important;
+    max-width: 180px !important;
+    padding: 6px 0 !important;
+    margin: 0 !important;
+    background-color: #fff !important;
+    border: 1px solid rgba(0,0,0,0.15) !important;
+    border-radius: 4px !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+    list-style: none !important;
+    display: none !important;
+    max-height: 300px !important;
+    overflow-y: auto !important;
+}
+
+.mobile-nav-menu.show {
+    display: block !important;
+    animation: dropdownFadeIn 0.2s ease-in-out !important;
+}
+
+@keyframes dropdownFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.mobile-nav-menu a {
+    display: block !important;
+    width: 100% !important;
+    padding: 8px 12px !important;
+    color: #333 !important;
+    text-decoration: none !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    transition: all 0.2s ease !important;
+    border: none !important;
+    background: none !important;
+    text-align: left !important;
+}
+
+.mobile-nav-menu a:hover {
+    background-color: #f8f9fa !important;
+    color: #007bff !important;
+    transform: translateX(5px) !important;
+}
+
+.mobile-nav-menu a:focus {
+    outline: none !important;
+    background-color: #e9ecef !important;
+    color: #007bff !important;
+}
+
+.mobile-nav-menu hr {
+    margin: 4px 0 !important;
+    border: none !important;
+    border-top: 1px solid #e9ecef !important;
+}
+
+.mobile-nav-menu .mobile-auth-btn {
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.3px !important;
+    font-size: 11px !important;
+    padding: 6px 8px !important;
+}
+
+.mobile-nav-menu .mobile-auth-btn.login-btn,
+.mobile-nav-menu .mobile-auth-btn.register-btn {
+    background: #007bff !important;
+    color: white !important;
+    margin: 2px 6px !important;
+    border-radius: 3px !important;
+    text-align: center !important;
+}
+
+.mobile-nav-menu .mobile-auth-btn.login-btn:hover,
+.mobile-nav-menu .mobile-auth-btn.register-btn:hover {
+    background: #0056b3 !important;
+    transform: none !important;
+}
+
+.mobile-nav-menu .mobile-auth-btn.dashboard-btn {
+    background: #28a745 !important;
+    color: white !important;
+    margin: 2px 6px !important;
+    border-radius: 3px !important;
+    text-align: center !important;
+}
+
+.mobile-nav-menu .mobile-auth-btn.dashboard-btn:hover {
+    background: #218838 !important;
+    transform: none !important;
+}
+
+.mobile-nav-menu .mobile-auth-btn.logout-btn {
+    background: #dc3545 !important;
+    color: white !important;
+    margin: 2px 6px !important;
+    border-radius: 3px !important;
+    text-align: center !important;
+}
+
+.mobile-nav-menu .mobile-auth-btn.logout-btn:hover {
+    background: #c82333 !important;
+    transform: none !important;
+}
+
+/* Show mobile dropdown only on mobile */
+@media (max-width: 768px) {
+    .mobile-nav-dropdown {
+        display: block !important;
+    }
+}
+
+@media (min-width: 769px) {
+    .mobile-nav-dropdown {
+        display: none !important;
+    }
+}
+
+/* ========================================
+   RECOMMENDED JOBS UNIFORM LAYOUT
+   ======================================== */
+
+/* Ensure all job cards have consistent dimensions */
+.jobs {
+    border: 1px solid #e7e7e7 !important;
+    padding: 10px !important;
+    border-radius: 30px !important;
+    margin: 15px 0 !important;
+    height: 280px !important; /* Fixed height for consistency */
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+.jobs:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15) !important;
+    transform: translateY(-2px) !important;
+}
+
+/* Job content area - takes up available space */
+.job-content {
+    background: #eceff8 !important;
+    padding: 15px !important;
+    border-radius: 30px !important;
+    flex: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+}
+
+/* Job date styling */
+.jobdate {
+    padding: 8px 20px !important;
+    background: #fff !important;
+    display: inline-block !important;
+    border-radius: 40px !important;
+    margin-bottom: 18px !important;
+}
+
+/* Company name */
+.job-content p {
+    font-size: 14px !important;
+    color: #666 !important;
+    margin-bottom: 10px !important;
+    font-weight: 500 !important;
+    margin: 0 0 10px 0 !important;
+}
+
+/* Job title */
+.job-content h3 {
+    margin-bottom: 15px !important;
+    flex: 1 !important;
+}
+
+.job-content h3 a {
+    text-decoration: none !important;
+    font-size: 20px !important;
+    color: #002768 !important;
+}
+
+.job-content h3 a:hover {
+    color: #000 !important;
+}
+
+/* Tags */
+.tags {
+    margin: 10px 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 5px !important;
+}
+
+.tags li {
+    margin: 0 !important;
+}
+
+.tags li a {
+    background: #f8f9fa !important;
+    color: #666 !important;
+    padding: 4px 8px !important;
+    border-radius: 4px !important;
+    font-size: 12px !important;
+    text-decoration: none !important;
+    display: inline-block !important;
+}
+
+.tags li a:hover {
+    background: #007bff !important;
+    color: white !important;
+}
+
+/* Bottom section with price and details */
+.d-flex.align-items-center.justify-content-between {
+    margin-top: auto !important;
+    padding-top: 15px !important;
+    border-top: 1px solid #f0f0f0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+}
+
+/* Job price */
+.job_price {
+    font-size: 18px !important;
+    font-weight: 600 !important;
+    margin: 0 !important;
+}
+
+.job_price span {
+    display: block !important;
+    font-size: 14px !important;
+    font-weight: normal !important;
+}
+
+/* Read more button */
+.jobs .readmore a {
+    padding: 14px 30px !important;
+    font-size: 14px !important;
+}
+
+.jobs .d-flex {
+    padding: 10px !important;
+}
+
+/* Mobile responsive for job cards */
+@media (max-width: 768px) {
+    .jobs {
+        height: auto !important; /* Allow natural height on mobile */
+        min-height: 250px !important;
+        padding: 15px !important;
+        margin-bottom: 15px !important;
+    }
+    
+    .jobs h3 {
+        font-size: 16px !important;
+    }
+    
+    .jobs h3 a {
+        font-size: 16px !important;
+    }
+    
+    .job-content p {
+        font-size: 13px !important;
+    }
+    
+    .jobdate {
+        font-size: 11px !important;
+    }
+    
+    .job_price {
+        font-size: 13px !important;
+    }
+    
+    .job_price span {
+        font-size: 11px !important;
+    }
+    
+    .readmore a {
+        padding: 6px 12px !important;
+        font-size: 12px !important;
+    }
+    
+    .d-flex.align-items-center.justify-content-between {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 10px !important;
+    }
+    
+    .readmore {
+        align-self: flex-end !important;
+    }
+}
+
+/* ========================================
+   MOBILE SPECIFIC IMPROVEMENTS
+   ======================================== */
+
+@media (max-width: 768px) {
+    /* Fix container padding */
+    .container {
+        padding: 0 15px;
+    }
+    
+    /* Fix main title */
+    .main_title {
+        font-size: 24px !important;
+        text-align: center;
+        margin: 20px 0;
+        padding: 0 15px;
+    }
+    
+    /* Fix category wrap */
+    .category-wrap {
+        padding: 20px 0;
+    }
+    
+    /* Fix job cards container */
+    .cate_list {
+        padding: 0 15px;
+    }
+    
+    /* Fix zoom ad responsiveness */
+    .download {
+        padding: 20px 15px;
+    }
+    
+    .download .container {
+        padding: 0;
+    }
+    
+    .download .row {
+        margin: 0;
+    }
+    
+    .download .col-md-6 {
+        padding: 0 15px;
+        margin-bottom: 20px;
+    }
+    
+    .download .section__header {
+        text-align: center;
+    }
+    
+    .download .section__title {
+        font-size: 24px;
+        line-height: 1.3;
+        margin-bottom: 15px;
+    }
+    
+    .download .section__desc {
+        font-size: 14px;
+        line-height: 1.5;
+        margin-bottom: 20px;
+    }
+    
+    .download__actions {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+    }
+    
+    .download__actions a {
+        display: block;
+        width: 100%;
+        max-width: 200px;
+    }
+    
+    .download__actions img {
+        width: 100%;
+        height: auto;
+        max-width: 180px;
+    }
+    
+    /* Fix section image */
+    .section-image img {
+        width: 100%;
+        height: auto;
+        max-width: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    .main_title {
+        font-size: 20px !important;
+    }
+    
+    .jobs_list {
+        padding: 0 10px;
+    }
+    
+    .jobs_list .item {
+        padding: 0 5px;
+    }
+    
+    .jobs-ad-card {
+        padding: 12px;
+    }
+    
+    .add-title {
+        font-size: 18px;
+    }
+    
+    .carinfo li {
+        font-size: 12px;
+        padding: 4px 8px;
+    }
+    
+    .download .section__title {
+        font-size: 20px;
+    }
+    
+    .download .section__desc {
+        font-size: 13px;
+    }
+}
+
+/* ========================================
+   OWL CAROUSEL MOBILE OVERRIDES
+   ======================================== */
+ 
+
+/* ========================================
+   FORM RESPONSIVE IMPROVEMENTS
+   ======================================== */
+
+@media (max-width: 768px) {
+    .form-container {
+        padding: 20px 15px;
+        margin: 0;
+    }
+    
+    .form-container h2 {
+        font-size: 24px;
+        text-align: center;
+        margin-bottom: 25px;
+    }
+    
+    .register-form label {
+        font-size: 16px;
+        margin-bottom: 8px;
+        display: block;
+    }
+    
+    .register-form input,
+    .register-form select,
+    .register-form textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 16px;
+        margin-bottom: 15px;
+    }
+    
+    .phone-input-group {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .country-code-selector {
+        flex: none;
+        width: 100%;
+    }
+    
+    .phone-number-input {
+        flex: none;
+        width: 100%;
+    }
+    
+    .submit-btn {
+        width: 100%;
+        padding: 15px;
+        font-size: 18px;
+        margin-top: 20px;
+    }
+    
+    .extra-links {
+        text-align: center;
+        margin-top: 20px;
+    }
+    
+    .extra-links p {
+        margin-bottom: 10px;
+    }
+}
+
+/* ========================================
+   ADMIN PANEL RESPONSIVE IMPROVEMENTS
+   ======================================== */
+
+@media (max-width: 768px) {
+    .admin-sidebar {
+        transform: translateX(-100%);
+        width: 280px;
+        z-index: 1000;
+    }
+    
+    .admin-sidebar.mobile-open {
+        transform: translateX(0);
+    }
+    
+    .admin-main {
+        margin-left: 0;
+        width: 100%;
+    }
+    
+    .admin-header {
+        padding: 15px 20px;
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .admin-header-left {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    
+    .admin-header-right {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .page-title {
+        font-size: 20px;
+        margin: 0;
+    }
+    
+    .admin-content {
+        padding: 20px 15px;
+    }
+    
+    .admin-card {
+        margin-bottom: 20px;
+        border-radius: 8px;
+    }
+    
+    .admin-card-header {
+        padding: 15px 20px;
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+    }
+    
+    .admin-card-body {
+        padding: 20px;
+    }
+    
+    /* Admin tables responsive */
+    .table-responsive {
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .admin-table {
+        min-width: 600px;
+        font-size: 14px;
+    }
+    
+    .admin-table th,
+    .admin-table td {
+        padding: 8px 6px;
+        white-space: nowrap;
+    }
+    
+    .admin-table .btn {
+        padding: 4px 8px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 576px) {
+    .admin-table {
+        min-width: 500px;
+        font-size: 12px;
+    }
+    
+    .admin-table th,
+    .admin-table td {
+        padding: 6px 4px;
+    }
+    
+    .admin-table .btn {
+        padding: 3px 6px;
+        font-size: 11px;
+    }
+    
+    .admin-card-header h5 {
+        font-size: 18px;
+    }
+    
+    .admin-btn {
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+}
+
+/* ========================================
+   DASHBOARD RESPONSIVE IMPROVEMENTS
+   ======================================== */
+
+@media (max-width: 768px) {
+    .dashboard-stats {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .stat-card {
+        padding: 20px 15px;
+    }
+    
+    .stat-card h3 {
+        font-size: 24px;
+    }
+    
+    .stat-card p {
+        font-size: 14px;
+    }
+    
+    .recent-activities {
+        margin-top: 20px;
+    }
+    
+    .activity-item {
+        padding: 15px;
+        margin-bottom: 10px;
+    }
+}
+
+/* ========================================
+   FOOTER RESPONSIVE IMPROVEMENTS
+   ======================================== */
+
+@media (max-width: 768px) {
+    .desktop-footer {
+        padding: 40px 0 20px;
+    }
+    
+    .footer__item {
+        margin-bottom: 30px;
+        text-align: center;
+    }
+    
+    .footer__item .special_p {
+        font-size: 18px;
+        margin-bottom: 15px;
+    }
+    
+    .footer__item p {
+        font-size: 14px;
+        line-height: 1.6;
+    }
+    
+    .footer__item a {
+        display: block;
+        margin-bottom: 8px;
+        color: #666;
+        text-decoration: none;
+    }
+    
+    .footer__item a:hover {
+        color: #333;
+    }
+    
+    .footer-bottom {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+        padding-top: 20px;
+        border-top: 1px solid #eee;
+    }
+    
+    .download__actions {
+        justify-content: center;
+        gap: 10px;
+    }
+    
+    .download__actions img {
+        max-width: 120px;
+        height: auto;
+    }
+}
+
+/* ========================================
+   UTILITY CLASSES
+   ======================================== */
+
+/* Hide on mobile */
+.d-mobile-none {
+    display: none !important;
+}
+
+@media (min-width: 769px) {
+    .d-mobile-none {
+        display: block !important;
+    }
+}
+
+/* Show only on mobile */
+.d-mobile-only {
+    display: block !important;
+}
+
+@media (min-width: 769px) {
+    .d-mobile-only {
+        display: none !important;
+    }
+}
+
+/* Text alignment utilities */
+@media (max-width: 768px) {
+    .text-mobile-center {
+        text-align: center !important;
+    }
+    
+    .text-mobile-left {
+        text-align: left !important;
+    }
+}
+
+/* Spacing utilities for mobile */
+@media (max-width: 768px) {
+    .mb-mobile-3 {
+        margin-bottom: 1rem !important;
+    }
+    
+    .mt-mobile-3 {
+        margin-top: 1rem !important;
+    }
+    
+    .p-mobile-3 {
+        padding: 1rem !important;
+    }
+}
+
+/* ========================================
+   ACCESSIBILITY IMPROVEMENTS
+   ======================================== */
+
+/* Focus states for better accessibility */
+button:focus,
+input:focus,
+select:focus,
+textarea:focus,
+a:focus {
+    outline: 2px solid #007bff;
+    outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .btn-primary {
+        background-color: #000;
+        border-color: #000;
+        color: #fff;
+    }
+    
+    .btn-secondary {
+        background-color: #fff;
+        border-color: #000;
+        color: #000;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* ========================================
+   PRINT STYLES
+   ======================================== */
+
+@media print {
+    .admin-sidebar,
+    .mobile-menu-toggle,
+    .search-wrap,
+    .desktop-footer,
+    .btn,
+    .admin-header {
+        display: none !important;
+    }
+    
+    .admin-main {
+        margin-left: 0 !important;
+        width: 100% !important;
+    }
+    
+    .admin-content {
+        padding: 0 !important;
+    }
+    
+    .admin-card {
+        box-shadow: none !important;
+        border: 1px solid #000 !important;
+    }
+    
+    .admin-table {
+        font-size: 12px !important;
+    }
+    
+    .admin-table th,
+    .admin-table td {
+        border: 1px solid #000 !important;
+        padding: 4px !important;
+    }
+}
