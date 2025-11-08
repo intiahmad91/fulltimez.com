@@ -56,10 +56,31 @@ class FailedLoginAttempt extends Notification
             ->line('1. Change your password immediately')
             ->line('2. Check your account for any unauthorized activity')
             ->line('3. Contact our support team if you notice any suspicious activity')
-            ->action('Reset Password', route('password.request'))
+            ->action('Reset Password', $this->getResetPasswordUrl($notifiable))
             ->line('For your security, we recommend using a strong, unique password.')
             ->line('Thank you for using FullTimez!')
             ->salutation('Best regards, FullTimez Security Team');
+    }
+
+    protected function getResetPasswordUrl($notifiable): string
+    {
+        if (method_exists($notifiable, 'isEmployer') && $notifiable->isEmployer() && \Route::has('employer.forgot-password')) {
+            return route('employer.forgot-password');
+        }
+
+        if (method_exists($notifiable, 'isSeeker') && $notifiable->isSeeker() && \Route::has('jobseeker.forgot-password')) {
+            return route('jobseeker.forgot-password');
+        }
+
+        if (method_exists($notifiable, 'isAdmin') && $notifiable->isAdmin() && \Route::has('admin.password.request')) {
+            return route('admin.password.request');
+        }
+
+        if (\Route::has('password.request')) {
+            return route('password.request');
+        }
+
+        return url('/forgot-password');
     }
 
     /**
